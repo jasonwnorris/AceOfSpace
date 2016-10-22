@@ -2,7 +2,7 @@
 #ifndef TARGET_SHOOTER_H
 #define TARGET_SHOOTER_H
 
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class TargetShooter : public Enemy
 {

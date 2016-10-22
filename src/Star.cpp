@@ -1,5 +1,5 @@
 // Star.cpp //
-#include "Star.h"
+#include "Star.hpp"
 
 Star::Star(string keyname) : Object(keyname)
 {

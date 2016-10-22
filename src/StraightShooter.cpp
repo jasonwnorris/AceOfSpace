@@ -1,8 +1,8 @@
 // StraightShooter.cpp //
-#include "StraightShooter.h"
+#include "StraightShooter.hpp"
 
-#include "Player.h"
-#include "Bullet.h"
+#include "Player.hpp"
+#include "Bullet.hpp"
 
 StraightShooter::StraightShooter(string keyname) : Enemy(keyname)
 {

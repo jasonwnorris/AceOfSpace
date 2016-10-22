@@ -2,7 +2,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include "GameObject.h"
+#include "GameObject.hpp"
 
 class Item : public GameObject
 {

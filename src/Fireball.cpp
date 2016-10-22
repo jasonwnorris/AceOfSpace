@@ -1,5 +1,5 @@
 // Fireball.cpp //
-#include "Fireball.h"
+#include "Fireball.hpp"
 
 Fireball::Fireball(string keyname) : Projectile(keyname)
 {

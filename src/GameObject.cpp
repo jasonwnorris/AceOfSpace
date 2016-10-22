@@ -1,7 +1,7 @@
 // GameObject.cpp //
-#include "GameObject.h"
+#include "GameObject.hpp"
 
-#include "Particle.h"
+#include "Particle.hpp"
 
 GameObject::GameObject(string keyname) : Object(keyname)
 {

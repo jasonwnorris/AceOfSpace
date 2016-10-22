@@ -1,9 +1,10 @@
 // Miniboss.cpp //
-#include "Miniboss.h"
+#include "Miniboss.hpp"
 
-#include "math.h"
-#include "Bullet.h"
-#include "Player.h"
+#include <math.h>
+
+#include "Bullet.hpp"
+#include "Player.hpp"
 
 Miniboss::Miniboss(string keyname) : Enemy(keyname)
 {
@@ -17,7 +18,7 @@ Miniboss::Miniboss(string keyname) : Enemy(keyname)
 void Miniboss::Update(float deltaTime)
 {
   Enemy::Update(deltaTime);
-  
+
   lastFired += deltaTime;
   if(lastFired > MinibossFireDelay)
       FireBullet();

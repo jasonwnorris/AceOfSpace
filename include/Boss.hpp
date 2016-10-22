@@ -2,8 +2,8 @@
 #ifndef BOSS_H
 #define BOSS_H
 
-#include "Enemy.h"
-#include "Miniboss.h"
+#include "Enemy.hpp"
+#include "Miniboss.hpp"
 
 class BossEnemy : public Enemy
 {

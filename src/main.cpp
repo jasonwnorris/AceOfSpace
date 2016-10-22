@@ -13,7 +13,7 @@ I hope you can learn from this! I sure learned a lot!
 */
 
 // main.cpp //
-#include "Game.h"
+#include "Game.hpp"
 
 int main(int argc, char* args[])
 {

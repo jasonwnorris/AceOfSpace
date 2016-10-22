@@ -2,7 +2,7 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
-#include "GameObject.h"
+#include "GameObject.hpp"
 
 enum WeaponType
 {

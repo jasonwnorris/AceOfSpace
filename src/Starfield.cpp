@@ -1,5 +1,5 @@
 // Starfield.cpp //
-#include "Starfield.h"
+#include "Starfield.hpp"
 
 Starfield::Starfield()
 {

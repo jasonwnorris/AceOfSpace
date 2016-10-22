@@ -1,8 +1,8 @@
 // Object.cpp //
-#include "Object.h"
+#include "Object.hpp"
 
-#include "Player.h"
-#include "Enemy.h"
+#include "Player.hpp"
+#include "Enemy.hpp"
 
 vector<Object*> Object::ObjectList;
 vector<Object*> Object::ObjectAddList;

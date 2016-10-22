@@ -1,5 +1,5 @@
 // Sprite.cpp //
-#include "sprite.h"
+#include "Sprite.hpp"
 
 Sprite::Sprite(string keyname)
 {
@@ -25,13 +25,13 @@ void Sprite::Update(float deltaTime)
 void Sprite::Render(SDL_Surface* screen, Vector position)
 {
   SDL_Surface* surface = texture->textures[textureIndex];
-  
+
   SDL_Rect location;
   location.x = (Sint16)(position.X - origin.X);
   location.y = (Sint16)(position.Y - origin.Y);
 
   SDL_Rect clip = GetFrameBounds();
-  
+
     SDL_BlitSurface(surface, &clip, screen, &location);
 }
 
@@ -43,7 +43,7 @@ SDL_Rect Sprite::GetFrameBounds()
   frameBounds.y = frame / texture->tilesX * texture->tileHeight;
   frameBounds.w = texture->tileWidth;
   frameBounds.h = texture->tileHeight;
-  
+
   return frameBounds;
 }
 

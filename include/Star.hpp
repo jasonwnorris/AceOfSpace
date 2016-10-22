@@ -2,7 +2,7 @@
 #ifndef STAR_H
 #define STAR_H
 
-#include "Object.h"
+#include "Object.hpp"
 
 class Star : public Object
 {

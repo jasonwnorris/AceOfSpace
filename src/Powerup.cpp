@@ -1,7 +1,7 @@
 // Powerup.cpp //
-#include "Powerup.h"
+#include "Powerup.hpp"
 
-#include "Projectile.h"
+#include "Projectile.hpp"
 
 Powerup::Powerup(string keyname) : Item(keyname)
 {

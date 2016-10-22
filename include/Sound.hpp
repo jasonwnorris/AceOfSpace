@@ -20,9 +20,9 @@ class Sound
 
     static void LoadSounds();
     static void UnloadSounds();
-    
+
     static void PlaySound(string keyname);
-    
+
     Mix_Music* mixMusic;
         bool loop;
 };

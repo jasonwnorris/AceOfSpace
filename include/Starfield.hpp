@@ -2,7 +2,7 @@
 #ifndef STARFIELD_H
 #define STARFIELD_H
 
-#include "Star.h"
+#include "Star.hpp"
 
 class Starfield
 {

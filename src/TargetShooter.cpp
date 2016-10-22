@@ -1,8 +1,8 @@
 // TargetShooter.cpp //
-#include "TargetShooter.h"
+#include "TargetShooter.hpp"
 
-#include "Player.h"
-#include "Bullet.h"
+#include "Player.hpp"
+#include "Bullet.hpp"
 
 TargetShooter::TargetShooter(string keyname) : Enemy(keyname)
 {

@@ -2,7 +2,7 @@
 #ifndef ASTEROID_H
 #define ASTEROID_H
 
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class Asteroid : public Enemy
 {

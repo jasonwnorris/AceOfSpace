@@ -1,7 +1,7 @@
 // Kamikaze.cpp //
-#include "Kamikaze.h"
+#include "Kamikaze.hpp"
 
-#include "Player.h"
+#include "Player.hpp"
 
 Kamikaze::Kamikaze(string keyname) : Enemy(keyname)
 {

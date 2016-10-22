@@ -2,7 +2,7 @@
 #ifndef KAMIKAZE_H
 #define KAMIKAZE_H
 
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class Kamikaze : public Enemy
 {

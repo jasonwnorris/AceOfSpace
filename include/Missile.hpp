@@ -2,7 +2,7 @@
 #ifndef MISSILE_H
 #define MISSILE_H
 
-#include "Projectile.h"
+#include "Projectile.hpp"
 
 class Missile : public Projectile
 {

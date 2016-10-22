@@ -1,5 +1,5 @@
 // Asteroid.cpp //
-#include "Asteroid.h"
+#include "Asteroid.hpp"
 
 Asteroid::Asteroid(string keyname) : Enemy(keyname)
 {

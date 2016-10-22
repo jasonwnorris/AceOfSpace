@@ -2,7 +2,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "GameObject.h"
+#include "GameObject.hpp"
 
 class Enemy : public GameObject
 {

@@ -1,5 +1,5 @@
 // Level.cpp //
-#include "level.h"
+#include "Level.hpp"
 
 Level Level::LevelOne;
 
@@ -13,7 +13,7 @@ Level::Level()
 void Level::BuildLevel()
 {
   Reset();
-  
+
   ifstream file;
 
     file.open("resources/level.txt");
@@ -21,7 +21,7 @@ void Level::BuildLevel()
     string type = "";
     int positionX = 0;
   float time = 0.0f;
-  
+
   float finalTime = 0.0f;
 
   getline(file, type);
@@ -31,16 +31,16 @@ void Level::BuildLevel()
     file >> type;
     file >> positionX;
     file >> time;
-    
+
     AddObject(type, positionX, time);
 
     finalTime = time;
   }
 
     file.close();
-    
+
     finalTime += 5.0f;
-  
+
   AddObject("Boss", ScreenWidth / 2, finalTime);
 }
 
@@ -51,7 +51,7 @@ void Level::AddObject(string type, float positionX, float spawnTime)
   object.type = type;
   object.positionX = positionX;
   object.time = spawnTime;
-  
+
   LevelObjects.push_back(object);
 }
 
@@ -84,7 +84,7 @@ void Level::Reset()
 {
   timeElapsed = 0.0f;
   objectIndex = 0;
-  
+
   LevelObjects.clear();
 }
 
@@ -94,14 +94,13 @@ void Level::Reset()
 void Level::Update(float deltaTime)
 {
   timeElapsed += deltaTime;
-  
+
   for(int i = objectIndex; i < LevelObjects.size(); ++i)
   {
     if(LevelObjects[i].time > timeElapsed)
         break;
-        
+
     SpawnObject(LevelObjects[i]);
     objectIndex++;
   }
 }
-

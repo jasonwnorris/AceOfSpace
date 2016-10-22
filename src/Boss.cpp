@@ -1,7 +1,7 @@
 // Boss.cpp //
-#include "Boss.h"
+#include "Boss.hpp"
 
-#include "Sound.h"
+#include "Sound.hpp"
 
 Boss Boss::FinalBoss;
 
@@ -34,8 +34,8 @@ void Boss::DestroyBoss()
 
 // BossEnemy.cpp //
 
-#include "Bullet.h"
-#include "Player.h"
+#include "Bullet.hpp"
+#include "Player.hpp"
 
 BossEnemy::BossEnemy(string keyname) : Enemy(keyname)
 {

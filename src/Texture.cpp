@@ -1,5 +1,5 @@
 // Texture.cpp //
-#include "Texture.h"
+#include "Texture.hpp"
 
 #define COLOR_OFFSET  100
 

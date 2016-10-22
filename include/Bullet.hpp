@@ -2,7 +2,7 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-#include "Projectile.h"
+#include "Projectile.hpp"
 
 class Bullet : public Projectile
 {

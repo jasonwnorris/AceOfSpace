@@ -2,7 +2,7 @@
 #ifndef POWERUP_H
 #define POWERUP_H
 
-#include "Item.h"
+#include "Item.hpp"
 
 class Powerup : public Item
 {

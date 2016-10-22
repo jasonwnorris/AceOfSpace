@@ -1,5 +1,5 @@
 // Bullet.cpp //
-#include "Bullet.h"
+#include "Bullet.hpp"
 
 Bullet::Bullet(string keyname) : Projectile(keyname)
 {

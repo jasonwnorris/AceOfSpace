@@ -4,8 +4,8 @@
 
 #include "SDL.h"
 
-#include "Timer.h"
-#include "Starfield.h"
+#include "Timer.hpp"
+#include "Starfield.hpp"
 
 enum GameState
 {
@@ -23,16 +23,16 @@ class Game
   public:
     Game();
     ~Game();
-    
+
     void OnExecute();
-    
+
     void OnStart();
     void OnEnd();
-    
+
     void OnThink();
     void OnUpdate();
     void OnRender();
-    
+
   private:
     void DrawHUD();
     void DrawTitle();
@@ -42,18 +42,18 @@ class Game
     void DrawGameOver();
     void DrawVictory();
     void DrawDebug();
-    
+
     SDL_Surface* screen;
     SDL_Event event;
-    
+
     bool done;
     int frame;
     int gamestate;
     bool singlePlayer;
     bool showDebug;
-    
+
     Timer timer;
-    
+
     Starfield starfield;
 };
 

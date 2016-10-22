@@ -1,5 +1,5 @@
 // Timer.cpp //
-#include "timer.h"
+#include "Timer.hpp"
 
 Timer::Timer()
 {

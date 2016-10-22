@@ -1,4 +1,4 @@
-#include "Missile.h"
+#include "Missile.hpp"
 
 Missile::Missile(string keyname) : Projectile(keyname)
 {

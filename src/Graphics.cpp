@@ -1,4 +1,4 @@
-#include "Graphics.h"
+#include "Graphics.hpp"
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
     Uint32 Rmask = 0xFF000000;

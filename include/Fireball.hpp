@@ -2,7 +2,7 @@
 #ifndef FIREBALL_H
 #define FIREBALL_H
 
-#include "Projectile.h"
+#include "Projectile.hpp"
 
 class Fireball : public Projectile
 {

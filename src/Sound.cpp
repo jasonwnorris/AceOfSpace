@@ -1,5 +1,5 @@
 // Sound.cpp //
-#include "Sound.h"
+#include "Sound.hpp"
 
 map<string,Sound*> Sound::SoundList;
 

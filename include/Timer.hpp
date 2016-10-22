@@ -12,7 +12,7 @@ class Timer
 
      float getStartTime();
      float getDeltaTime();
-     
+
   private:
      float previousTime;
 };

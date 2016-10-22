@@ -1,5 +1,5 @@
 // Projectile.cpp //
-#include "Projectile.h"
+#include "Projectile.hpp"
 
 Projectile::Projectile(string keyname) : GameObject(keyname)
 {

@@ -2,7 +2,7 @@
 #ifndef PLAYER_SHIP_H
 #define PLAYER_SHIP_H
 
-#include "GameObject.h"
+#include "GameObject.hpp"
 
 enum PlayerIndex
 {

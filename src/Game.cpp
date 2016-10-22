@@ -1,11 +1,11 @@
 // Game.cpp //
-#include "Game.h"
+#include "Game.hpp"
 
-#include "Config.h"
-#include "Sound.h"
-#include "Level.h"
-#include "Player.h"
-#include "Boss.h"
+#include "Config.hpp"
+#include "Sound.hpp"
+#include "Level.hpp"
+#include "Player.hpp"
+#include "Boss.hpp"
 
 Game::Game()
 {

@@ -1,7 +1,7 @@
 // Item.cpp //
-#include "Item.h"
+#include "Item.hpp"
 
-#include "Player.h"
+#include "Player.hpp"
 
 Item::Item(string keyname) : GameObject(keyname)
 {

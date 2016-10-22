@@ -2,7 +2,7 @@
 #ifndef MINIBOSS_H
 #define MINIBOSS_H
 
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class Miniboss : public Enemy
 {

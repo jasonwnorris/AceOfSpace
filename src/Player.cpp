@@ -1,11 +1,11 @@
 // Player.cpp //
-#include "Player.h"
+#include "Player.hpp"
 
-#include "Sound.h"
-#include "Enemy.h"
-#include "Bullet.h"
-#include "Missile.h"
-#include "Fireball.h"
+#include "Sound.hpp"
+#include "Enemy.hpp"
+#include "Bullet.hpp"
+#include "Missile.hpp"
+#include "Fireball.hpp"
 
 #define PLAYER_COUNT 2
 

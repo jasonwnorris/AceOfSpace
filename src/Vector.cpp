@@ -1,7 +1,7 @@
 // Vector.cpp //
-#include "vector.h"
+#include "Vector.hpp"
 
-#include "math.h"
+#include <math.h>
 
 Vector::Vector(float x, float y)
 {
@@ -58,10 +58,10 @@ float Vector::Length()
 Vector Vector::CalculateDirection(float angle)
 {
   Vector vector;
-  
+
   vector.X = sin(angle);
     vector.Y = cos(angle);
-      
+
   return vector;
 }
 

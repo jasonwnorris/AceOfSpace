@@ -6,12 +6,12 @@
 #include <string>
 using namespace std;
 
-#include "Vector.h"
-#include "Asteroid.h"
-#include "StraightShooter.h"
-#include "TargetShooter.h"
-#include "Kamikaze.h"
-#include "Boss.h"
+#include "Vector.hpp"
+#include "Asteroid.hpp"
+#include "StraightShooter.hpp"
+#include "TargetShooter.hpp"
+#include "Kamikaze.hpp"
+#include "Boss.hpp"
 
 struct LevelObject
 {

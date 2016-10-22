@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-#include "sprite.h"
+#include "Sprite.hpp"
 
 class Object
 {
@@ -15,10 +15,10 @@ class Object
 
     static vector<Object*> ObjectList;
     static vector<Object*> ObjectAddList;
-    
+
     static void UpdateObjects(float deltaTime);
     virtual void Update(float deltaTime);
-    
+
     static void RenderObjects(SDL_Surface* screen);
     virtual void Render(SDL_Surface* screen);
 

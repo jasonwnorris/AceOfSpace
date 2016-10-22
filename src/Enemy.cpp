@@ -1,8 +1,8 @@
 // Enemy.cpp //
-#include "Enemy.h"
+#include "Enemy.hpp"
 
-#include "Player.h"
-#include "Powerup.h"
+#include "Player.hpp"
+#include "Powerup.hpp"
 
 vector<GameObject*> Enemy::EnemyList;
 

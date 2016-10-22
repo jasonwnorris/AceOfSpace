@@ -2,7 +2,7 @@
 #ifndef STRAIGHT_SHOOTER_H
 #define STRAIGHT_SHOOTER_H
 
-#include "Enemy.h"
+#include "Enemy.hpp"
 
 class StraightShooter : public Enemy
 {

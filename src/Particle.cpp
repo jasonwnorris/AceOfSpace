@@ -1,5 +1,5 @@
 // Particle.cpp //
-#include "Particle.h"
+#include "Particle.hpp"
 
 Particle::Particle(string keyname, Vector location) : Object(keyname)
 {
