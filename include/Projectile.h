@@ -6,18 +6,18 @@
 
 enum WeaponType
 {
-	WEAPON_BULLET,
-	WEAPON_MISSILE,
-	WEAPON_FIREBALL,
-	WEAPON_PLASMA
+  WEAPON_BULLET,
+  WEAPON_MISSILE,
+  WEAPON_FIREBALL,
+  WEAPON_PLASMA
 };
 
 class Projectile : public GameObject
 {
-	public:
-		Projectile(string keyname);
+  public:
+    Projectile(string keyname);
 
-		void Collide(GameObject* object);
+    void Collide(GameObject* object);
 };
 
 #endif

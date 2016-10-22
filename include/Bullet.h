@@ -6,8 +6,8 @@
 
 class Bullet : public Projectile
 {
-	public:
-		Bullet(string keyname);
+  public:
+    Bullet(string keyname);
 };
 
 #endif

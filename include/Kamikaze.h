@@ -6,14 +6,14 @@
 
 class Kamikaze : public Enemy
 {
-	public:
-		Kamikaze(string keyname);
-		
-		void Update(float deltaTime);
-		
-	private:
-		float idleDelay;
-		bool foundTarget;
+  public:
+    Kamikaze(string keyname);
+    
+    void Update(float deltaTime);
+    
+  private:
+    float idleDelay;
+    bool foundTarget;
 };
 
 #endif

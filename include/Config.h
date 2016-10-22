@@ -2,8 +2,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define Maximum(a, b)	((a > b) ? a : b)
-#define Minimum(a, b)	((a < b) ? a : b)
+#define Maximum(a, b)  ((a > b) ? a : b)
+#define Minimum(a, b)  ((a < b) ? a : b)
 
 const int ScreenWidth = 800;
 const int ScreenHeight = 600;

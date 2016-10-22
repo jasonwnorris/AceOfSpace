@@ -6,10 +6,10 @@
 
 class Asteroid : public Enemy
 {
-	public:
-		Asteroid(string keyname);
-		
-		void Explode();
+  public:
+    Asteroid(string keyname);
+
+    void Explode();
 };
 
 #endif

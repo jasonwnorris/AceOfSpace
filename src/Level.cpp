@@ -5,87 +5,87 @@ Level Level::LevelOne;
 
 Level::Level()
 {
-	timeElapsed = 0.0f;
-	objectIndex = 0;
+  timeElapsed = 0.0f;
+  objectIndex = 0;
 }
 
 // open the text file and read in monster spawn information
 void Level::BuildLevel()
 {
-	Reset();
-	
-	ifstream file;
+  Reset();
+  
+  ifstream file;
 
     file.open("resources/level.txt");
 
     string type = "";
     int positionX = 0;
-	float time = 0.0f;
-	
-	float finalTime = 0.0f;
+  float time = 0.0f;
+  
+  float finalTime = 0.0f;
 
-	getline(file, type);
+  getline(file, type);
 
-	while(!file.eof())
+  while(!file.eof())
     {
-		file >> type;
-		file >> positionX;
-		file >> time;
-		
-		AddObject(type, positionX, time);
+    file >> type;
+    file >> positionX;
+    file >> time;
+    
+    AddObject(type, positionX, time);
 
-		finalTime = time;
-	}
+    finalTime = time;
+  }
 
     file.close();
     
     finalTime += 5.0f;
-	
-	AddObject("Boss", ScreenWidth / 2, finalTime);
+  
+  AddObject("Boss", ScreenWidth / 2, finalTime);
 }
 
 // push the information onto the list
 void Level::AddObject(string type, float positionX, float spawnTime)
 {
-	LevelObject object;
-	object.type = type;
-	object.positionX = positionX;
-	object.time = spawnTime;
-	
-	LevelObjects.push_back(object);
+  LevelObject object;
+  object.type = type;
+  object.positionX = positionX;
+  object.time = spawnTime;
+  
+  LevelObjects.push_back(object);
 }
 
 // create a new enemy object according to the information in
 // each LevelObject object
 void Level::SpawnObject(LevelObject object)
 {
-	if(object.type == "Boss")
-	{
-		Boss::SpawnBoss();
-	}
-	else
-	{
-		Enemy* enemy;
+  if(object.type == "Boss")
+  {
+    Boss::SpawnBoss();
+  }
+  else
+  {
+    Enemy* enemy;
 
-		if(object.type == "Asteroid")
-		    enemy = new Asteroid("Asteroid");
-		else if(object.type == "StraightShooter")
-		    enemy = new StraightShooter("StraightShooter");
-		else if(object.type == "TargetShooter")
-		    enemy = new TargetShooter("TargetShooter");
-		else if(object.type == "Kamikaze")
-		    enemy = new Kamikaze("Kamikaze");
+    if(object.type == "Asteroid")
+        enemy = new Asteroid("Asteroid");
+    else if(object.type == "StraightShooter")
+        enemy = new StraightShooter("StraightShooter");
+    else if(object.type == "TargetShooter")
+        enemy = new TargetShooter("TargetShooter");
+    else if(object.type == "Kamikaze")
+        enemy = new Kamikaze("Kamikaze");
 
-		enemy->position = Vector(object.positionX, -enemy->sprite->origin.Y);
-	}
+    enemy->position = Vector(object.positionX, -enemy->sprite->origin.Y);
+  }
 }
 
 void Level::Reset()
 {
-	timeElapsed = 0.0f;
-	objectIndex = 0;
-	
-	LevelObjects.clear();
+  timeElapsed = 0.0f;
+  objectIndex = 0;
+  
+  LevelObjects.clear();
 }
 
 // scan through the LevelObjects to see if its spawn time has passed
@@ -93,15 +93,15 @@ void Level::Reset()
 // spawn again
 void Level::Update(float deltaTime)
 {
-	timeElapsed += deltaTime;
-	
-	for(int i = objectIndex; i < LevelObjects.size(); ++i)
-	{
-		if(LevelObjects[i].time > timeElapsed)
-		    break;
-		    
-		SpawnObject(LevelObjects[i]);
-		objectIndex++;
-	}
+  timeElapsed += deltaTime;
+  
+  for(int i = objectIndex; i < LevelObjects.size(); ++i)
+  {
+    if(LevelObjects[i].time > timeElapsed)
+        break;
+        
+    SpawnObject(LevelObjects[i]);
+    objectIndex++;
+  }
 }
 

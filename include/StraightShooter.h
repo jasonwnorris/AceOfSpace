@@ -6,15 +6,15 @@
 
 class StraightShooter : public Enemy
 {
-	public:
-		StraightShooter(string keyname);
+  public:
+    StraightShooter(string keyname);
 
-		virtual void Update(float deltaTime);
+    virtual void Update(float deltaTime);
 
     private:
-		void FireBullet();
-		
-		float lastFired;
+    void FireBullet();
+    
+    float lastFired;
 };
 
 #endif

@@ -12,18 +12,18 @@ using namespace std;
 
 class Sound
 {
-	public:
-		Sound(string filename, bool loop);
-		~Sound();
+  public:
+    Sound(string filename, bool loop);
+    ~Sound();
 
-		static map<string,Sound*> SoundList;
+    static map<string,Sound*> SoundList;
 
-		static void LoadSounds();
-		static void UnloadSounds();
-		
-		static void PlaySound(string keyname);
-		
-		Mix_Music* mixMusic;
+    static void LoadSounds();
+    static void UnloadSounds();
+    
+    static void PlaySound(string keyname);
+    
+    Mix_Music* mixMusic;
         bool loop;
 };
 

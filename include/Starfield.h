@@ -6,13 +6,13 @@
 
 class Starfield
 {
-	public:
-		Starfield();
-		
-		void Update(float deltaTime);
-		
-	private:
-		float lastSpawn;
+  public:
+    Starfield();
+    
+    void Update(float deltaTime);
+    
+  private:
+    float lastSpawn;
 };
 
 #endif

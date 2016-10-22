@@ -6,54 +6,54 @@
 
 enum PlayerIndex
 {
-	PLAYER_ONE,
-	PLAYER_TWO,
+  PLAYER_ONE,
+  PLAYER_TWO,
 };
 
 class PlayerShip : public GameObject
 {
-	public:
-		PlayerShip(string keyname);
-		
-		static vector<GameObject*> PlayerShipList;
+  public:
+    PlayerShip(string keyname);
+    
+    static vector<GameObject*> PlayerShipList;
 
-		void Update(float deltaTime);
+    void Update(float deltaTime);
 
-		static void RemoveKilled();
-		static void RemoveAll();
-		void Remove();
+    static void RemoveKilled();
+    static void RemoveAll();
+    void Remove();
 
-		void Collide(GameObject* object);
+    void Collide(GameObject* object);
 
-		bool movingUp;
-		bool movingDown;
-		bool movingLeft;
-		bool movingRight;
-		bool shooting;
+    bool movingUp;
+    bool movingDown;
+    bool movingLeft;
+    bool movingRight;
+    bool shooting;
 
-	private:
-		void FireBullet();
-		
-		float lastFired;
+  private:
+    void FireBullet();
+    
+    float lastFired;
 };
 
 class Player
 {
-	public:
-		Player();
+  public:
+    Player();
 
-		static Player* Players;
+    static Player* Players;
 
-		static void AddPlayers();
-		static void RemovePlayers();
+    static void AddPlayers();
+    static void RemovePlayers();
 
-		static void SpawnPlayer(int index);
-		static void DestroyPlayer(PlayerShip* ship);
+    static void SpawnPlayer(int index);
+    static void DestroyPlayer(PlayerShip* ship);
 
-		static void ProcessInput(SDL_Event& event);
-		void ProcessInput(SDL_Event& event, int index);
+    static void ProcessInput(SDL_Event& event);
+    void ProcessInput(SDL_Event& event, int index);
 
-		static void AwardPoints(int amount);
+    static void AwardPoints(int amount);
 
         PlayerShip* ship;
         int lives;

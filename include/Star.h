@@ -6,10 +6,10 @@
 
 class Star : public Object
 {
-	public:
-		Star(string keyname);
-		
-		void Update(float deltaTime);
+  public:
+    Star(string keyname);
+    
+    void Update(float deltaTime);
 };
 
 #endif

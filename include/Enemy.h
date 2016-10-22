@@ -6,21 +6,21 @@
 
 class Enemy : public GameObject
 {
-	public:
-		Enemy(string keyname);
-		
-		static vector<GameObject*> EnemyList;
-		
-		static void RemoveKilled();
-		static void RemoveAll();
-		
-		void Explode();
-		
-	protected:
-		int pointValue;
-		
-	private:
-		void DropItem();
+  public:
+    Enemy(string keyname);
+    
+    static vector<GameObject*> EnemyList;
+    
+    static void RemoveKilled();
+    static void RemoveAll();
+    
+    void Explode();
+    
+  protected:
+    int pointValue;
+    
+  private:
+    void DropItem();
 };
 
 #endif

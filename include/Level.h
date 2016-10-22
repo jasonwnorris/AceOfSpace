@@ -15,29 +15,29 @@ using namespace std;
 
 struct LevelObject
 {
-	string type;
-	float positionX;
-	float time;
+  string type;
+  float positionX;
+  float time;
 };
 
 class Level
 {
-	public:
-		Level();
-		
-		static Level LevelOne;
+  public:
+    Level();
+    
+    static Level LevelOne;
 
-		vector<LevelObject> LevelObjects;
-		
-		void BuildLevel();
-		void AddObject(string type, float positionX, float spawnTime);
-		void SpawnObject(LevelObject object);
-		void Reset();
+    vector<LevelObject> LevelObjects;
+    
+    void BuildLevel();
+    void AddObject(string type, float positionX, float spawnTime);
+    void SpawnObject(LevelObject object);
+    void Reset();
 
-		void Update(float deltaTime);
-		
-		float timeElapsed;
-		int objectIndex;
+    void Update(float deltaTime);
+    
+    float timeElapsed;
+    int objectIndex;
 };
 
 #endif

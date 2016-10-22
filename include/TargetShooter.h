@@ -6,18 +6,18 @@
 
 class TargetShooter : public Enemy
 {
-	public:
-		TargetShooter(string keyname);
+  public:
+    TargetShooter(string keyname);
 
-		virtual void Update(float deltaTime);
+    virtual void Update(float deltaTime);
 
     private:
-		void FireBullet();
+    void FireBullet();
 
-		GameObject* target;
-		Vector targetDirection;
-		
-		float lastFired;
+    GameObject* target;
+    Vector targetDirection;
+    
+    float lastFired;
 };
 
 #endif

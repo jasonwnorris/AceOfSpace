@@ -5,46 +5,46 @@ map<string,Sound*> Sound::SoundList;
 
 Sound::Sound(string filename, bool loop)
 {
-	string filepath = "resources/" + filename;
-	
-	this->mixMusic = Mix_LoadMUS(filepath.c_str());
-	this->loop = loop;
+  string filepath = "resources/" + filename;
+  
+  this->mixMusic = Mix_LoadMUS(filepath.c_str());
+  this->loop = loop;
 }
 
 Sound::~Sound()
 {
-	Mix_FreeMusic(mixMusic);
+  Mix_FreeMusic(mixMusic);
 }
 
 // load in sound files from text document
 void Sound::LoadSounds()
 {
-	ifstream file;
+  ifstream file;
 
     file.open("resources/sounds.txt");
 
     string keyname = "";
     string filename = "";
-	string loops = "";
+  string loops = "";
 
-	getline(file, keyname);
+  getline(file, keyname);
 
-	while(!file.eof())
+  while(!file.eof())
     {
-		file >> keyname;
-		file >> filename;
-		file >> loops;
-		
-		Sound* sound;
+    file >> keyname;
+    file >> filename;
+    file >> loops;
+    
+    Sound* sound;
 
-		if(loops == "yes")
-		    sound = new Sound(filename, true);
-		else
-		    sound = new Sound(filename, false);
-		    
-		SoundList[keyname] = sound;
-		printf("Loaded sound: %s\n", keyname.c_str());
-	}
+    if(loops == "yes")
+        sound = new Sound(filename, true);
+    else
+        sound = new Sound(filename, false);
+        
+    SoundList[keyname] = sound;
+    printf("Loaded sound: %s\n", keyname.c_str());
+  }
 
     file.close();
 }
@@ -62,10 +62,10 @@ void Sound::UnloadSounds()
 
 void Sound::PlaySound(string keyname)
 {
-	Sound* sound = SoundList[keyname];
-	
-	if(sound->loop)
-		Mix_PlayMusic(sound->mixMusic, -1);
-	else
-		Mix_PlayMusic(sound->mixMusic, 0);
+  Sound* sound = SoundList[keyname];
+  
+  if(sound->loop)
+    Mix_PlayMusic(sound->mixMusic, -1);
+  else
+    Mix_PlayMusic(sound->mixMusic, 0);
 }

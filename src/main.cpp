@@ -17,8 +17,8 @@ I hope you can learn from this! I sure learned a lot!
 
 int main(int argc, char* args[])
 {
-	Game game;
-	game.OnExecute();
+  Game game;
+  game.OnExecute();
 
     return 0;
 }

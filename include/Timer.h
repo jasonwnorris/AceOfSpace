@@ -6,15 +6,15 @@
 
 class Timer
 {
-	public:
-	   Timer();
-	   ~Timer();
+  public:
+     Timer();
+     ~Timer();
 
-	   float getStartTime();
-	   float getDeltaTime();
-	   
-	private:
-	   float previousTime;
+     float getStartTime();
+     float getDeltaTime();
+     
+  private:
+     float previousTime;
 };
 
 #endif

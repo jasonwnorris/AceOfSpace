@@ -7,16 +7,16 @@
 class Miniboss : public Enemy
 {
     public:
-		Miniboss(string keyname);
+    Miniboss(string keyname);
 
-		void Update(float deltaTime);
+    void Update(float deltaTime);
 
-		void RemoveOffScreen();
+    void RemoveOffScreen();
 
-	private:
-		void FireBullet();
-		
-		float lastFired;
+  private:
+    void FireBullet();
+    
+    float lastFired;
 };
 
 #endif

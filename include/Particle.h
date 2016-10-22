@@ -6,13 +6,13 @@
 
 class Particle : public Object
 {
-	public:
-		Particle(string keyname, Vector location);
+  public:
+    Particle(string keyname, Vector location);
 
-		void Update(float deltaTime);
+    void Update(float deltaTime);
 
-	private:
-		float lifeInterval;
+  private:
+    float lifeInterval;
 };
 
 #endif

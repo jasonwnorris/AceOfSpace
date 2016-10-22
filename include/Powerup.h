@@ -6,13 +6,13 @@
 
 class Powerup : public Item
 {
-	public:
-		Powerup(string keyname);
-		
-		void InflictBonus(GameObject* object);
-		
-	private:
-		string type;
+  public:
+    Powerup(string keyname);
+    
+    void InflictBonus(GameObject* object);
+    
+  private:
+    string type;
 };
 
 #endif
