@@ -15,7 +15,7 @@ Object::Object(string keyname)
   speed = 0.0f;
   dead = false;
 
-    ObjectAddList.push_back(this);
+  ObjectAddList.push_back(this);
 }
 
 Object::~Object()
@@ -28,7 +28,7 @@ Object::~Object()
 void Object::UpdateObjects(float deltaTime)
 {
   for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
-     (*Iter)->Update(deltaTime);
+    (*Iter)->Update(deltaTime);
 
   AddNew();
   RemoveDead();
@@ -44,7 +44,7 @@ void Object::Update(float deltaTime)
 void Object::RenderObjects(SDL_Surface* screen)
 {
   for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
-     (*Iter)->Render(screen);
+    (*Iter)->Render(screen);
 }
 
 void Object::Render(SDL_Surface* screen)
@@ -57,8 +57,8 @@ void Object::Render(SDL_Surface* screen)
 // then push them on after we're done updating
 void Object::AddNew()
 {
-    for(vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
-     ObjectList.push_back((*Iter));
+  for(vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
+    ObjectList.push_back((*Iter));
 
   ObjectAddList.clear();
 }
@@ -67,28 +67,28 @@ void Object::RemoveDead()
 {
   PlayerShip::RemoveKilled();
   Enemy::RemoveKilled();
-  
-    for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
-        if((*Iter)->dead)
-        {
+
+  for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
+    if((*Iter)->dead)
+    {
       Object* temp = (*Iter);
-        ObjectList.erase(Iter);
-        delete temp;
+      ObjectList.erase(Iter);
+      delete temp;
     }
     else
-        ++Iter;
+      ++Iter;
 }
 
 void Object::RemoveAll()
 {
   PlayerShip::RemoveAll();
   Enemy::RemoveAll();
-  
-    for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
-    {
+
+  for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
+  {
     Object* temp = (*Iter);
-      ObjectList.erase(Iter);
-      delete temp;
+    ObjectList.erase(Iter);
+    delete temp;
   }
 
   ObjectList.clear();
@@ -138,10 +138,10 @@ SDL_Rect Object::Intersection(const SDL_Rect& boundsA, const SDL_Rect& boundsB)
   int y1 = Maximum(boundsA.y, boundsB.y);
   int x2 = Minimum(boundsA.x + boundsA.w, boundsB.x + boundsB.w);
   int y2 = Minimum(boundsA.y + boundsA.h, boundsB.y + boundsB.h);
-  
+
   int width = x2 - x1;
   int height = y2 - y1;
-  
+
   if(width > 0 && height > 0)
   {
     SDL_Rect intersect = {x1, y1, width, height};
@@ -161,18 +161,18 @@ SDL_Rect Object::Intersection(const SDL_Rect& boundsA, const SDL_Rect& boundsB)
 bool Object::CheckCollision(Object* objectA, Object* objectB)
 {
   SDL_Rect collisionRect = Intersection(objectA->GetBounds(), objectB->GetBounds());
-  
+
   if(collisionRect.w == 0 && collisionRect.h == 0)
-      return false;
-      
+    return false;
+
   SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
   SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
-  
+
   SDL_Surface* surfaceA = objectA->sprite->texture->textures[0];
   SDL_Surface* surfaceB = objectB->sprite->texture->textures[0];
-  
+
   for(int y = 0; y <= collisionRect.h; ++y)
-      for(int x = 0; x <= collisionRect.w; ++x)
+    for(int x = 0; x <= collisionRect.w; ++x)
       if(GetAlphaXY(surfaceA, normalA.x + x, normalA.y + y) && GetAlphaXY(surfaceB, normalB.x + x, normalB.y + y))
         return true;
 
@@ -210,4 +210,3 @@ bool Object::GetAlphaXY(SDL_Surface* surface, int x, int y)
 
   return alpha == 255;
 }
-

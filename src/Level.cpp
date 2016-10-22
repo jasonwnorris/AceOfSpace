@@ -16,10 +16,10 @@ void Level::BuildLevel()
 
   ifstream file;
 
-    file.open("resources/level.txt");
+  file.open("resources/level.txt");
 
-    string type = "";
-    int positionX = 0;
+  string type = "";
+  int positionX = 0;
   float time = 0.0f;
 
   float finalTime = 0.0f;
@@ -27,7 +27,7 @@ void Level::BuildLevel()
   getline(file, type);
 
   while(!file.eof())
-    {
+  {
     file >> type;
     file >> positionX;
     file >> time;
@@ -37,9 +37,9 @@ void Level::BuildLevel()
     finalTime = time;
   }
 
-    file.close();
+  file.close();
 
-    finalTime += 5.0f;
+  finalTime += 5.0f;
 
   AddObject("Boss", ScreenWidth / 2, finalTime);
 }
@@ -68,13 +68,13 @@ void Level::SpawnObject(LevelObject object)
     Enemy* enemy;
 
     if(object.type == "Asteroid")
-        enemy = new Asteroid("Asteroid");
+      enemy = new Asteroid("Asteroid");
     else if(object.type == "StraightShooter")
-        enemy = new StraightShooter("StraightShooter");
+      enemy = new StraightShooter("StraightShooter");
     else if(object.type == "TargetShooter")
-        enemy = new TargetShooter("TargetShooter");
+      enemy = new TargetShooter("TargetShooter");
     else if(object.type == "Kamikaze")
-        enemy = new Kamikaze("Kamikaze");
+      enemy = new Kamikaze("Kamikaze");
 
     enemy->position = Vector(object.positionX, -enemy->sprite->origin.Y);
   }
@@ -98,7 +98,7 @@ void Level::Update(float deltaTime)
   for(int i = objectIndex; i < LevelObjects.size(); ++i)
   {
     if(LevelObjects[i].time > timeElapsed)
-        break;
+      break;
 
     SpawnObject(LevelObjects[i]);
     objectIndex++;

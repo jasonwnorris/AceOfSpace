@@ -21,7 +21,7 @@ void Miniboss::Update(float deltaTime)
 
   lastFired += deltaTime;
   if(lastFired > MinibossFireDelay)
-      FireBullet();
+    FireBullet();
 }
 
 void Miniboss::RemoveOffScreen()
@@ -30,7 +30,7 @@ void Miniboss::RemoveOffScreen()
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
   if(intersect.w == 0 && intersect.h == 0)
-      Remove();
+    Remove();
 }
 
 // fire bullets in an octagon shape pattern
@@ -39,11 +39,11 @@ void Miniboss::FireBullet()
   for(int i = 0; i < 8; i++)
   {
     Bullet* bullet = new Bullet("NeonCross");
-      bullet->position = position;
-      bullet->direction = Vector::CalculateDirection(i * (M_PI / 4) + (M_PI / 8));
-      bullet->speed = 150.0f;
-      bullet->CollisionList = &PlayerShip::PlayerShipList;
+    bullet->position = position;
+    bullet->direction = Vector::CalculateDirection(i * (M_PI / 4) + (M_PI / 8));
+    bullet->speed = 150.0f;
+    bullet->CollisionList = &PlayerShip::PlayerShipList;
   }
 
-    lastFired = 0.0f;
+  lastFired = 0.0f;
 }

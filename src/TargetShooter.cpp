@@ -16,30 +16,30 @@ TargetShooter::TargetShooter(string keyname) : Enemy(keyname)
 
 void TargetShooter::Update(float deltaTime)
 {
-    if(target == NULL || target->dead)
+  if(target == NULL || target->dead)
     target = PickRandomObject(&PlayerShip::PlayerShipList);
 
   if(target != NULL)
   {
     targetDirection = target->position - position;
-      targetDirection.Normalize();
+    targetDirection.Normalize();
   }
   else
-      targetDirection = Vector(0, 1);
-      
+    targetDirection = Vector(0, 1);
+
   Enemy::Update(deltaTime);
 
   lastFired += deltaTime;
   if(lastFired > TargetShooterFireDelay)
-      FireBullet();
+    FireBullet();
 }
 
 void TargetShooter::FireBullet()
 {
   Bullet* bullet = new Bullet("Slime");
-    bullet->position = position;
-    bullet->direction = targetDirection;
-    bullet->CollisionList = &PlayerShip::PlayerShipList;
+  bullet->position = position;
+  bullet->direction = targetDirection;
+  bullet->CollisionList = &PlayerShip::PlayerShipList;
 
-    lastFired = 0.0f;
+  lastFired = 0.0f;
 }

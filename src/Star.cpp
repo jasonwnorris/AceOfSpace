@@ -9,7 +9,7 @@ Star::Star(string keyname) : Object(keyname)
 void Star::Update(float deltaTime)
 {
   Object::Update(deltaTime);
-  
+
   if(position.Y > ScreenHeight)
-      Remove();
+    Remove();
 }

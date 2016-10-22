@@ -30,13 +30,13 @@ class Texture
 
     SDL_Surface* textures[2];
 
-        int tilesX;
-        int tilesY;
-        int tileWidth;
-        int tileHeight;
-        int frameCount;
-        float frameInterval;
-        bool collidable;
+    int tilesX;
+    int tilesY;
+    int tileWidth;
+    int tileHeight;
+    int frameCount;
+    float frameInterval;
+    bool collidable;
 
   private:
     SDL_Surface* MakeDamageTexture(string filename);

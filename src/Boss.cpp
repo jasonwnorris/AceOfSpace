@@ -28,7 +28,7 @@ void Boss::SpawnBoss()
 
 void Boss::DestroyBoss()
 {
-    FinalBoss.boss = NULL;
+  FinalBoss.boss = NULL;
   FinalBoss.killed = true;
 }
 
@@ -46,10 +46,10 @@ BossEnemy::BossEnemy(string keyname) : Enemy(keyname)
   speed = BossSpeed;
   health = BossHealth;
 
-    childrenAngle = 0.0f;
+  childrenAngle = 0.0f;
   fireAngle = 0.0f;
   lastFired = 0.0f;
-  
+
   leftHand = new Miniboss("LeftHand");
   rightHand = new Miniboss("RightHand");
 }
@@ -60,28 +60,28 @@ void BossEnemy::Update(float deltaTime)
   Enemy::Update(deltaTime);
 
   UpdateChildren();
-  
+
   if(direction.X < 0)
   {
-      if(position.X < 300)
-        direction = Vector(1, 0);
+    if(position.X < 300)
+      direction = Vector(1, 0);
   }
   else if(direction.X > 0)
   {
-      if(position.X > ScreenWidth - 300)
-        direction = Vector(-1, 0);
+    if(position.X > ScreenWidth - 300)
+      direction = Vector(-1, 0);
   }
   else
   {
-      if(position.Y > ScreenHeight / 3)
-          if(rand() % 2 == 0)
-          direction = Vector(1, 0);
-        else
-          direction = Vector(-1, 0);
+    if(position.Y > ScreenHeight / 3)
+      if(rand() % 2 == 0)
+        direction = Vector(1, 0);
+    else
+      direction = Vector(-1, 0);
   }
 
   childrenAngle += BossChildrenRotation;
-  
+
   // increase challenge when half dead (or half alive?)
   if(health > BossHealth / 2)
   {
@@ -93,9 +93,9 @@ void BossEnemy::Update(float deltaTime)
     fireAngle += BossFireRotation * 2;
     lastFired += deltaTime * 2;
   }
-      
+
   if(lastFired > BossFireDelay)
-      FireBullet();
+    FireBullet();
 }
 
 // helper function to update objects that this parent controls
@@ -105,13 +105,13 @@ void BossEnemy::UpdateChildren()
     if(leftHand->health > 0)
       leftHand->position = position + Vector(-200, 75) + Vector::CalculateDirection(-childrenAngle) * 25;
     else
-        leftHand = NULL;
-      
+      leftHand = NULL;
+
   if(rightHand != NULL)
     if(rightHand->health > 0)
       rightHand->position = position + Vector(200, 75) + Vector::CalculateDirection(childrenAngle) * -25;
     else
-        rightHand = NULL;
+      rightHand = NULL;
 }
 
 void BossEnemy::RemoveOffScreen()
@@ -120,13 +120,13 @@ void BossEnemy::RemoveOffScreen()
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
   if(intersect.w == 0 && intersect.h == 0)
-      Remove();
+    Remove();
 }
 
 void BossEnemy::Remove()
 {
   Boss::DestroyBoss();
-  
+
   Enemy::Remove();
 }
 
@@ -140,5 +140,5 @@ void BossEnemy::FireBullet()
   bullet->speed = 100.0f;
   bullet->CollisionList = &PlayerShip::PlayerShipList;
 
-    lastFired = 0.0f;
+  lastFired = 0.0f;
 }

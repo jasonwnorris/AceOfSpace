@@ -20,5 +20,5 @@ int main(int argc, char* args[])
   Game game;
   game.OnExecute();
 
-    return 0;
+  return 0;
 }

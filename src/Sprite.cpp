@@ -3,8 +3,8 @@
 
 Sprite::Sprite(string keyname)
 {
-    texture = Texture::TextureList[keyname];
-   origin = Vector(texture->tileWidth / 2, texture->tileHeight / 2);
+  texture = Texture::TextureList[keyname];
+  origin = Vector(texture->tileWidth / 2, texture->tileHeight / 2);
   frame = 0;
   frameTimeRemaining = texture->frameInterval;
   textureIndex = 0;
@@ -32,7 +32,7 @@ void Sprite::Render(SDL_Surface* screen, Vector position)
 
   SDL_Rect clip = GetFrameBounds();
 
-    SDL_BlitSurface(surface, &clip, screen, &location);
+  SDL_BlitSurface(surface, &clip, screen, &location);
 }
 
 // grabs a SDL_Rect around the currect frame of animation we're on
@@ -51,5 +51,5 @@ SDL_Rect Sprite::GetFrameBounds()
 void Sprite::SetTextureIndex(int index)
 {
   if(texture->collidable)
-      textureIndex = index;
+    textureIndex = index;
 }

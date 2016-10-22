@@ -12,14 +12,14 @@ void Missile::Update(float deltaTime)
 {
   if(target == NULL || target->dead)
     target = PickRandomObject(CollisionList);
-      
+
   if(target != NULL)
   {
-        Vector targetDirection = target->position - position;
-        targetDirection.Normalize();
-        direction += targetDirection * MissileHomingStrength;
+    Vector targetDirection = target->position - position;
+    targetDirection.Normalize();
+    direction += targetDirection * MissileHomingStrength;
   }
-  
+
   Projectile::Update(deltaTime);
 }
 
@@ -30,5 +30,5 @@ void Missile::RemoveOffScreen()
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
   if(intersect.w == 0 && intersect.h == 0)
-      Remove();
+    Remove();
 }

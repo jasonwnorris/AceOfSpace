@@ -12,7 +12,7 @@ void Particle::Update(float deltaTime)
   lifeInterval -= deltaTime;
 
   if(lifeInterval < 0)
-      Remove();
+    Remove();
 
   Object::Update(deltaTime);
 }

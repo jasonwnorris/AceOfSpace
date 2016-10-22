@@ -14,7 +14,7 @@ void Vector::Normalize()
 {
   float length = Length();
   if(length <= 0)
-      return;
+    return;
 
   X /= length;
   Y /= length;
@@ -23,29 +23,29 @@ void Vector::Normalize()
 // finds the angle of a given vector (radians)
 float Vector::Angle()
 {
-    if(X == 0.0f)
-        if(Y > 0.0f)
+  if(X == 0.0f)
+    if(Y > 0.0f)
       return M_PI / 2.0f;
     else
-        return 3.0f * M_PI / 2.0f;
+      return 3.0f * M_PI / 2.0f;
 
-    float omega = Y / X;
+  float omega = Y / X;
 
-    if (omega < 0.0f)
+  if (omega < 0.0f)
     omega *= -1;
 
-    float angle = atan(omega);
+  float angle = atan(omega);
 
-    if(X < 0.0f && Y >= 0.0f)
+  if(X < 0.0f && Y >= 0.0f)
     return M_PI - angle;
 
-    if(X < 0.0f && Y <= 0.0f)
+  if(X < 0.0f && Y <= 0.0f)
     return M_PI + angle;
 
-    if(X > 0.0f && Y <= 0.0f)
+  if(X > 0.0f && Y <= 0.0f)
     return 2.0f * M_PI - angle;
 
-    return angle;
+  return angle;
 }
 
 // find magnitude
@@ -58,9 +58,8 @@ float Vector::Length()
 Vector Vector::CalculateDirection(float angle)
 {
   Vector vector;
-
   vector.X = sin(angle);
-    vector.Y = cos(angle);
+  vector.Y = cos(angle);
 
   return vector;
 }
