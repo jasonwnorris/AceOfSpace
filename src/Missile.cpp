@@ -11,7 +11,9 @@ Missile::Missile(std::string keyname) : Projectile(keyname)
 void Missile::Update(float deltaTime)
 {
   if (target == NULL || target->dead)
+  {
     target = PickRandomObject(CollisionList);
+  }
 
   if (target != NULL)
   {
@@ -30,5 +32,7 @@ void Missile::RemoveOffScreen()
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
   if (intersect.w == 0 && intersect.h == 0)
+  {
     Remove();
+  }
 }

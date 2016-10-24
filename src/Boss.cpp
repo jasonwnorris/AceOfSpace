@@ -64,20 +64,30 @@ void BossEnemy::Update(float deltaTime)
   if (direction.X < 0)
   {
     if (position.X < 300)
+    {
       direction = Vector(1, 0);
+    }
   }
   else if (direction.X > 0)
   {
     if (position.X > ScreenWidth - 300)
+    {
       direction = Vector(-1, 0);
+    }
   }
   else
   {
     if (position.Y > ScreenHeight / 3)
+    {
       if (rand() % 2 == 0)
+      {
         direction = Vector(1, 0);
-    else
-      direction = Vector(-1, 0);
+      }
+      else
+      {
+        direction = Vector(-1, 0);
+      }
+    }
   }
 
   childrenAngle += BossChildrenRotation;
@@ -95,23 +105,37 @@ void BossEnemy::Update(float deltaTime)
   }
 
   if (lastFired > BossFireDelay)
+  {
     FireBullet();
+  }
 }
 
 // helper function to update objects that this parent controls
 void BossEnemy::UpdateChildren()
 {
   if (leftHand != NULL)
+  {
     if (leftHand->health > 0)
+    {
       leftHand->position = position + Vector(-200, 75) + Vector::CalculateDirection(-childrenAngle) * 25;
+    }
     else
+    {
       leftHand = NULL;
+    }
+  }
 
   if (rightHand != NULL)
+  {
     if (rightHand->health > 0)
+    {
       rightHand->position = position + Vector(200, 75) + Vector::CalculateDirection(childrenAngle) * -25;
+    }
     else
+    {
       rightHand = NULL;
+    }
+  }
 }
 
 void BossEnemy::RemoveOffScreen()
@@ -120,7 +144,9 @@ void BossEnemy::RemoveOffScreen()
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
   if (intersect.w == 0 && intersect.h == 0)
+  {
     Remove();
+  }
 }
 
 void BossEnemy::Remove()

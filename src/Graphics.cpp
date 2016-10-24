@@ -42,8 +42,12 @@ void Graphics::FillAlphaRect(SDL_Surface* screen, SDL_Rect& rect, Uint8 red, Uin
   Uint32* pixels = (Uint32*)surfaceRect->pixels;
 
   for (int x = 0; x < surfaceRect->w; x++)
+  {
     for (int y = 0; y < surfaceRect->h; y++)
+    {
       pixels[(y * surfaceRect->w) + x] = color;
+    }
+  }
 
   SDL_BlitSurface(surfaceRect, NULL, screen, &rect);
 

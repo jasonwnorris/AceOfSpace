@@ -11,9 +11,11 @@ Fireball::Fireball(std::string keyname) : Projectile(keyname)
 void Fireball::Update(float deltaTime)
 {
   Projectile::Update(deltaTime);
-  
+
   lifeTimeRemaining -= deltaTime;
-  
+
   if (lifeTimeRemaining < 0)
+  {
     Remove();
+  }
 }

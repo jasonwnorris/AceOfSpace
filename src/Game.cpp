@@ -129,22 +129,33 @@ void Game::OnThink()
           Sound::PlaySound("Theme");
         }
         else if (event.key.keysym.sym == SDLK_1)
+        {
           singlePlayer = !singlePlayer;
+        }
         else if (event.key.keysym.sym == SDLK_2)
+        {
           gamestate = STATE_CONTROLS;
+        }
         else if (event.key.keysym.sym == SDLK_3)
+        {
           gamestate = STATE_CREDITS;
+        }
       }
     }
     else if (gamestate == STATE_CONTROLS || gamestate == STATE_CREDITS)
     {
       if (event.type == SDL_KEYDOWN)
+      {
         if (event.key.keysym.sym == SDLK_RETURN)
+        {
           gamestate = STATE_MENU;
+        }
+      }
     }
     else if (gamestate == STATE_GAMEOVER || gamestate == STATE_VICTORY)
     {
       if (event.type == SDL_KEYDOWN)
+      {
         if (event.key.keysym.sym == SDLK_RETURN)
         {
           gamestate = STATE_MENU;
@@ -153,6 +164,7 @@ void Game::OnThink()
           Object::RemoveAll();
           Sound::PlaySound("Intro");
         }
+      }
     }
     else if (gamestate == STATE_PLAYING)
     {
@@ -161,28 +173,42 @@ void Game::OnThink()
       if (event.type == SDL_KEYDOWN)
       {
         if (event.key.keysym.sym == SDLK_RSHIFT)
+        {
           singlePlayer = false;
+        }
         if (event.key.keysym.sym == SDLK_RETURN)
+        {
           gamestate = STATE_PAUSED;
+        }
       }
     }
     else if (gamestate == STATE_PAUSED)
     {
       if (event.type == SDL_KEYDOWN)
+      {
         if (event.key.keysym.sym == SDLK_RETURN)
+        {
           gamestate = STATE_PLAYING;
+        }
+      }
     }
 
     if (event.type == SDL_KEYDOWN)
     {
       if (event.key.keysym.sym == SDLK_ESCAPE)
+      {
         done = true;
+      }
       if (event.key.keysym.sym == SDLK_TAB)
+      {
         showDebug = !showDebug;
+      }
     }
 
     if (event.type == SDL_QUIT)
+    {
       done = true;
+    }
   }
 }
 
@@ -265,7 +291,9 @@ void Game::OnRender()
   }
 
   if (showDebug)
+  {
     DrawDebug();
+  }
 
   SDL_RenderPresent(renderer);
 }
@@ -348,9 +376,13 @@ void Game::DrawTitle()
   Texture::DrawText(renderer, "Press ENTER to Start", 25, ScreenWidth / 2, ScreenHeight / 2 + 75, 255, 255, 255);
 
   if (singlePlayer)
+  {
     Texture::DrawText(renderer, "1-Player", 20, ScreenWidth / 2, ScreenHeight / 2 + 100, 255, 255, 255);
+  }
   else
+  {
     Texture::DrawText(renderer, "2-Player", 20, ScreenWidth / 2, ScreenHeight / 2 + 100, 255, 255, 255);
+  }
 
   Texture::DrawText(renderer, "Players",  20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 150, 255, 255, 255);
   Texture::DrawText(renderer, "(1)",      20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 150, 255, 255, 255);

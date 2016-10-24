@@ -28,7 +28,9 @@ Object::~Object()
 void Object::UpdateObjects(float deltaTime)
 {
   for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
+  {
     (*Iter)->Update(deltaTime);
+  }
 
   AddNew();
   RemoveDead();
@@ -44,7 +46,9 @@ void Object::Update(float deltaTime)
 void Object::RenderObjects(SDL_Renderer* renderer)
 {
   for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
+  {
     (*Iter)->Render(renderer);
+  }
 }
 
 void Object::Render(SDL_Renderer* renderer)
@@ -58,7 +62,9 @@ void Object::Render(SDL_Renderer* renderer)
 void Object::AddNew()
 {
   for (std::vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
+  {
     ObjectList.push_back((*Iter));
+  }
 
   ObjectAddList.clear();
 }
@@ -69,6 +75,7 @@ void Object::RemoveDead()
   Enemy::RemoveKilled();
 
   for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
+  {
     if ((*Iter)->dead)
     {
       Object* temp = (*Iter);
@@ -76,7 +83,10 @@ void Object::RemoveDead()
       delete temp;
     }
     else
+    {
       ++Iter;
+    }
+  }
 }
 
 void Object::RemoveAll()
@@ -163,7 +173,9 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
   SDL_Rect collisionRect = Intersection(objectA->GetBounds(), objectB->GetBounds());
 
   if (collisionRect.w == 0 && collisionRect.h == 0)
+  {
     return false;
+  }
 
   SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
   SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);

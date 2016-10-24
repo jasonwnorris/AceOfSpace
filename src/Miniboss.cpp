@@ -34,7 +34,9 @@ void Miniboss::RemoveOffScreen()
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
   if (intersect.w == 0 && intersect.h == 0)
+  {
     Remove();
+  }
 }
 
 // fire bullets in an octagon shape pattern

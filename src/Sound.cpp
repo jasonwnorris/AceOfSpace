@@ -38,9 +38,13 @@ void Sound::LoadSounds()
     Sound* sound;
 
     if (loops == "yes")
+    {
       sound = new Sound(filename, true);
+    }
     else
+    {
       sound = new Sound(filename, false);
+    }
 
     SoundList[keyname] = sound;
     printf("Loaded sound: %s\n", keyname.c_str());
@@ -65,7 +69,11 @@ void Sound::PlaySound(std::string keyname)
   Sound* sound = SoundList[keyname];
 
   if (sound->loop)
+  {
     Mix_PlayMusic(sound->mixMusic, -1);
+  }
   else
+  {
     Mix_PlayMusic(sound->mixMusic, 0);
+  }
 }

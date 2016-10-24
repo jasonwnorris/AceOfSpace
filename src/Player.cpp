@@ -30,7 +30,9 @@ void Player::AddPlayers()
   Players = new Player[PLAYER_COUNT];
 
   for (int i = 0; i < PLAYER_COUNT; ++i)
+  {
     Players[i] = Player();
+  }
 }
 
 void Player::RemovePlayers()
@@ -52,17 +54,21 @@ void Player::SpawnPlayer(int index)
 void Player::DestroyPlayer(PlayerShip* ship)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
+  {
     if (Players[i].ship == ship)
     {
       Players[i].ship = NULL;
       Players[i].lives--;
     }
+  }
 }
 
 void Player::ProcessInput(SDL_Event& event)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
+  {
     Players[i].ProcessInput(event, i);
+  }
 }
 
 void Player::ProcessInput(SDL_Event& event, int index)
@@ -70,36 +76,60 @@ void Player::ProcessInput(SDL_Event& event, int index)
   if (ship == NULL)
   {
     if (event.type == SDL_KEYDOWN)
+    {
       if (event.key.keysym.sym == StartKey[index])
+      {
         SpawnPlayer(index);
+      }
+    }
   }
   else
   {
     if (event.type == SDL_KEYDOWN)
     {
       if (event.key.keysym.sym == UpKey[index])
+      {
         ship->movingUp = true;
+      }
       if (event.key.keysym.sym == DownKey[index])
+      {
         ship->movingDown = true;
+      }
       if (event.key.keysym.sym == LeftKey[index])
+      {
         ship->movingLeft = true;
+      }
       if (event.key.keysym.sym == RightKey[index])
+      {
         ship->movingRight = true;
+      }
       if (event.key.keysym.sym == FireKey[index])
+      {
         ship->shooting = true;
+      }
     }
     else if (event.type == SDL_KEYUP)
     {
       if (event.key.keysym.sym == UpKey[index])
+      {
         ship->movingUp = false;
+      }
       if (event.key.keysym.sym == DownKey[index])
+      {
         ship->movingDown = false;
+      }
       if (event.key.keysym.sym == LeftKey[index])
+      {
         ship->movingLeft = false;
+      }
       if (event.key.keysym.sym == RightKey[index])
+      {
         ship->movingRight = false;
+      }
       if (event.key.keysym.sym == FireKey[index])
+      {
         ship->shooting = false;
+      }
     }
   }
 }
@@ -107,7 +137,9 @@ void Player::ProcessInput(SDL_Event& event, int index)
 void Player::AwardPoints(int amount)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
+  {
     Players[i].score += amount;
+  }
 }
 
 // PlayerShip.cpp //
@@ -139,13 +171,21 @@ void PlayerShip::Update(float deltaTime)
   direction = Vector(0, 0);
 
   if (movingUp)
+  {
     direction.Y -= 1;
+  }
   if (movingDown)
+  {
     direction.Y += 1;
+  }
   if (movingLeft)
+  {
     direction.X -= 1;
+  }
   if (movingRight)
+  {
     direction.X += 1;
+  }
 
   lastFired += deltaTime;
   FireBullet();
@@ -153,29 +193,45 @@ void PlayerShip::Update(float deltaTime)
   GameObject::Update(deltaTime);
 
   if (position.X < sprite->origin.X)
+  {
     position.X = sprite->origin.X;
+  }
   else if (position.X > ScreenWidth - sprite->origin.X)
+  {
     position.X = ScreenWidth - sprite->origin.X;
+  }
 
   if (position.Y < sprite->origin.Y)
+  {
     position.Y = sprite->origin.Y;
+  }
   else if (position.Y > ScreenHeight - sprite->origin.Y)
+  {
     position.Y = ScreenHeight - sprite->origin.Y;
+  }
 }
 
 void PlayerShip::RemoveKilled()
 {
   for (std::vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
+  {
     if ((*Iter)->dead)
+    {
       Iter = PlayerShipList.erase(Iter);
+    }
     else
+    {
       ++Iter;
+    }
+  }
 }
 
 void PlayerShip::RemoveAll()
 {
   for (std::vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
+  {
     Iter = PlayerShipList.erase(Iter);
+  }
 }
 
 void PlayerShip::Remove()

@@ -53,5 +53,7 @@ SDL_Rect Sprite::GetFrameBounds()
 void Sprite::SetTextureIndex(int index)
 {
   if (texture->collidable)
+  {
     textureIndex = index;
+  }
 }

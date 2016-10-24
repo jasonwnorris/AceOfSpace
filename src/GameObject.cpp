@@ -19,13 +19,21 @@ GameObject::~GameObject()
 void GameObject::Update(float deltaTime)
 {
   for (std::vector<GameObject*>::iterator Iter = CollisionList->begin(); Iter != CollisionList->end(); ++Iter)
+  {
     if (CheckCollision(this, (*Iter)))
+    {
       Collide((*Iter));
+    }
+  }
 
   if (flickerInterval > 0)
+  {
     flickerInterval -= deltaTime;
+  }
   else
+  {
     sprite->SetTextureIndex(0);
+  }
 
   Object::Update(deltaTime);
 
@@ -55,7 +63,9 @@ void GameObject::TakeDamage(int amount)
 void GameObject::Explode()
 {
   if (explosionKeyname != "")
+  {
     Particle* explosion = new Particle(explosionKeyname, position);
+  }
 }
 
 // check if the object bounds are intersecting with the viewable screen
@@ -65,7 +75,9 @@ void GameObject::RemoveOffScreen()
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
   if (intersect.w == 0 && intersect.h == 0)
+  {
     Remove();
+  }
 }
 
 // grabs a random object from a std::vector
@@ -73,7 +85,11 @@ GameObject* GameObject::PickRandomObject(std::vector<GameObject*>* PickList)
 {
   int listSize = PickList->size();
   if (listSize > 0)
+  {
     return (*PickList)[rand() % listSize];
+  }
   else
+  {
     return NULL;
+  }
 }

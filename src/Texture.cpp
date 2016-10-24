@@ -12,9 +12,13 @@ Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int t
   SDL_QueryTexture(textures[0], &this->format, NULL, &this->width, &this->height);
 
   if (collidable)
+  {
     textures[1] = MakeDamageTexture(renderer, filename);
+  }
   else
+  {
     textures[1] = NULL;
+  }
 
   this->tilesX = tilesX;
   this->tilesY = tilesY;
@@ -30,7 +34,9 @@ Texture::~Texture()
   SDL_DestroyTexture(textures[0]);
 
   if (collidable)
+  {
     SDL_DestroyTexture(textures[1]);
+  }
 }
 
 // load in texture files from text document

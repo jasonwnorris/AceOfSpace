@@ -11,5 +11,7 @@ void Star::Update(float deltaTime)
   Object::Update(deltaTime);
 
   if (position.Y > ScreenHeight)
+  {
     Remove();
+  }
 }

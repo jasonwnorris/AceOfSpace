@@ -18,7 +18,9 @@ void StraightShooter::Update(float deltaTime)
 
   lastFired += deltaTime;
   if (lastFired > StraightShooterFireDelay)
+  {
     FireBullet();
+  }
 }
 
 void StraightShooter::FireBullet()
