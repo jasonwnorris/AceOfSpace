@@ -177,8 +177,8 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
     return false;
   }
 
-  SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
-  SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
+  //SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
+  //SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
 
   //SDL_Surface* surfaceA = objectA->sprite->texture->textures[0];
  // SDL_Surface* surfaceB = objectB->sprite->texture->textures[0];

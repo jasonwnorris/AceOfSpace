@@ -7,22 +7,24 @@ GameObject::GameObject(std::string keyname) : Object(keyname)
 {
   health = 0;
   flickerInterval = 0.0f;
-  CollisionList = new std::vector<GameObject*>;
+  CollisionList = nullptr;
 }
 
 GameObject::~GameObject()
 {
-  delete CollisionList;
 }
 
 // check objects against those in its collision list
 void GameObject::Update(float deltaTime)
 {
-  for (std::vector<GameObject*>::iterator Iter = CollisionList->begin(); Iter != CollisionList->end(); ++Iter)
+  if (CollisionList != nullptr)
   {
-    if (CheckCollision(this, (*Iter)))
+    for (std::vector<GameObject*>::iterator Iter = CollisionList->begin(); Iter != CollisionList->end(); ++Iter)
     {
-      Collide((*Iter));
+      if (CheckCollision(this, (*Iter)))
+      {
+        Collide((*Iter));
+      }
     }
   }
 
@@ -64,7 +66,8 @@ void GameObject::Explode()
 {
   if (explosionKeyname != "")
   {
-    Particle* explosion = new Particle(explosionKeyname, position);
+    Particle* explosion = new Particle(explosionKeyname);
+    explosion->position = position;
   }
 }
 

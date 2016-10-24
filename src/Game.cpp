@@ -447,6 +447,6 @@ void Game::DrawDebug()
   char buffer[15];
   sprintf(buffer, "FPS: %d", (int)(frame / timer.getStartTime()));
   Texture::DrawText(renderer, buffer, 14, 10, 10, 255, 255, 255, false);
-  sprintf(buffer, "Objects: %d", Object::ObjectList.size());
+  sprintf(buffer, "Objects: %lu", Object::ObjectList.size());
   Texture::DrawText(renderer, buffer, 14, 10, 30, 255, 255, 255, false);
 }

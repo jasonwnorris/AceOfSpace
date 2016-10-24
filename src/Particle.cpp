@@ -1,9 +1,8 @@
 // Particle.cpp //
 #include "Particle.hpp"
 
-Particle::Particle(std::string keyname, Vector location) : Object(keyname)
+Particle::Particle(std::string keyname) : Object(keyname)
 {
-  position = location;
   lifeInterval = sprite->texture->frameCount * sprite->texture->frameInterval;
 }
 

@@ -11,7 +11,7 @@ class Object
 {
   public:
     Object(std::string keyname);
-    ~Object();
+    virtual ~Object();
 
     static std::vector<Object*> ObjectList;
     static std::vector<Object*> ObjectAddList;

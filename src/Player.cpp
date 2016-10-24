@@ -278,9 +278,13 @@ void PlayerShip::FireBullet()
           Projectile* projectile = nullptr;
 
           if (weaponType == WEAPON_MISSILE)
+          {
             projectile = new Missile("Missile");
+          }
           else if (weaponType == WEAPON_PLASMA)
+          {
             projectile = new Bullet("Plasma");
+          }
 
           projectile->position = position - Vector(0, 20.0f);
           projectile->direction = Vector((i - (total / 2)) / 10.0f, -1);

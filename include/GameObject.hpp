@@ -9,7 +9,7 @@ class GameObject : public Object
 {
   public:
     GameObject(std::string keyname);
-    ~GameObject();
+    virtual ~GameObject();
 
     virtual void Update(float deltaTime);
 

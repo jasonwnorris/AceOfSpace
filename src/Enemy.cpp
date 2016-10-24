@@ -14,6 +14,10 @@ Enemy::Enemy(std::string keyname) : GameObject(keyname)
   EnemyList.push_back(this);
 }
 
+Enemy::~Enemy()
+{
+}
+
 void Enemy::RemoveKilled()
 {
   for (std::vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
