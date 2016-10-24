@@ -16,7 +16,7 @@ enum WeaponType
 class Projectile : public GameObject
 {
   public:
-    Projectile(string keyname);
+    Projectile(std::string keyname);
 
     void Collide(GameObject* object);
 };

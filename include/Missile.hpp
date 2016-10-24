@@ -8,7 +8,7 @@
 class Missile : public Projectile
 {
   public:
-    Missile(string keyname);
+    Missile(std::string keyname);
 
     void Update(float deltaTime);
 

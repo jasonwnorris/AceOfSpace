@@ -1,11 +1,11 @@
 // Sound.cpp //
 #include "Sound.hpp"
 
-map<string,Sound*> Sound::SoundList;
+std::map<std::string, Sound*> Sound::SoundList;
 
-Sound::Sound(string filename, bool loop)
+Sound::Sound(std::string filename, bool loop)
 {
-  string filepath = "resources/" + filename;
+  std::string filepath = "resources/" + filename;
 
   this->mixMusic = Mix_LoadMUS(filepath.c_str());
   this->loop = loop;
@@ -19,13 +19,13 @@ Sound::~Sound()
 // load in sound files from text document
 void Sound::LoadSounds()
 {
-  ifstream file;
+  std::ifstream file;
 
   file.open("resources/sounds.txt");
 
-  string keyname = "";
-  string filename = "";
-  string loops = "";
+  std::string keyname = "";
+  std::string filename = "";
+  std::string loops = "";
 
   getline(file, keyname);
 
@@ -51,7 +51,7 @@ void Sound::LoadSounds()
 
 void Sound::UnloadSounds()
 {
-  for (map<string,Sound*>::iterator Iter = SoundList.begin(); Iter != SoundList.end(); ++Iter)
+  for (std::map<std::string, Sound*>::iterator Iter = SoundList.begin(); Iter != SoundList.end(); ++Iter)
   {
     printf("Deleting sound: %s\n", (*Iter).first.c_str());
     delete (*Iter).second;
@@ -60,7 +60,7 @@ void Sound::UnloadSounds()
   SoundList.clear();
 }
 
-void Sound::PlaySound(string keyname)
+void Sound::PlaySound(std::string keyname)
 {
   Sound* sound = SoundList[keyname];
 

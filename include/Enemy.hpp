@@ -8,9 +8,9 @@
 class Enemy : public GameObject
 {
   public:
-    Enemy(string keyname);
+    Enemy(std::string keyname);
 
-    static vector<GameObject*> EnemyList;
+    static std::vector<GameObject*> EnemyList;
 
     static void RemoveKilled();
     static void RemoveAll();

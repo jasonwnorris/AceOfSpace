@@ -3,7 +3,7 @@
 
 #include "Projectile.hpp"
 
-Powerup::Powerup(string keyname) : Item(keyname)
+Powerup::Powerup(std::string keyname) : Item(keyname)
 {
   type = keyname;
 }

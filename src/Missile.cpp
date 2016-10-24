@@ -1,6 +1,6 @@
 #include "Missile.hpp"
 
-Missile::Missile(string keyname) : Projectile(keyname)
+Missile::Missile(std::string keyname) : Projectile(keyname)
 {
   speed = MissileSpeed;
   health = MissileHealth;

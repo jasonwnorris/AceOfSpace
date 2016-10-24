@@ -1,7 +1,7 @@
 // Asteroid.cpp //
 #include "Asteroid.hpp"
 
-Asteroid::Asteroid(string keyname) : Enemy(keyname)
+Asteroid::Asteroid(std::string keyname) : Enemy(keyname)
 {
   pointValue = AsteroidPointValue;
   health = AsteroidHealth;

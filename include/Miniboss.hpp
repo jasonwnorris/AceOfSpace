@@ -8,7 +8,7 @@
 class Miniboss : public Enemy
 {
     public:
-    Miniboss(string keyname);
+    Miniboss(std::string keyname);
 
     void Update(float deltaTime);
 

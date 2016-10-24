@@ -1,7 +1,7 @@
 // Star.cpp //
 #include "Star.hpp"
 
-Star::Star(string keyname) : Object(keyname)
+Star::Star(std::string keyname) : Object(keyname)
 {
   direction = Vector(0, 1);
 }

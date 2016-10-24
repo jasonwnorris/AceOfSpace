@@ -4,18 +4,17 @@
 #define __OBJECT_HPP__
 
 #include <vector>
-using namespace std;
 
 #include "Sprite.hpp"
 
 class Object
 {
   public:
-    Object(string keyname);
+    Object(std::string keyname);
     ~Object();
 
-    static vector<Object*> ObjectList;
-    static vector<Object*> ObjectAddList;
+    static std::vector<Object*> ObjectList;
+    static std::vector<Object*> ObjectAddList;
 
     static void UpdateObjects(float deltaTime);
     virtual void Update(float deltaTime);

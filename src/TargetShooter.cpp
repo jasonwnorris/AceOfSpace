@@ -4,7 +4,7 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 
-TargetShooter::TargetShooter(string keyname) : Enemy(keyname)
+TargetShooter::TargetShooter(std::string keyname) : Enemy(keyname)
 {
   pointValue = TargetShooterPointValue;
   health = TargetShooterHealth;

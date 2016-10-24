@@ -9,20 +9,19 @@
 #include <fstream>
 #include <string>
 #include <map>
-using namespace std;
 
 class Sound
 {
   public:
-    Sound(string filename, bool loop);
+    Sound(std::string filename, bool loop);
     ~Sound();
 
-    static map<string,Sound*> SoundList;
+    static std::map<std::string, Sound*> SoundList;
 
     static void LoadSounds();
     static void UnloadSounds();
 
-    static void PlaySound(string keyname);
+    static void PlaySound(std::string keyname);
 
     Mix_Music* mixMusic;
     bool loop;

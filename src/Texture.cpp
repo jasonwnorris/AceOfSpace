@@ -3,9 +3,9 @@
 
 #define COLOR_OFFSET  100
 
-map<string,Texture*> Texture::TextureList;
+std::map<std::string, Texture*> Texture::TextureList;
 
-Texture::Texture(SDL_Renderer* renderer, string filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable)
+Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable)
 {
   textures[0] = LoadImage(renderer, filename);
 
@@ -36,17 +36,17 @@ Texture::~Texture()
 // load in texture files from text document
 void Texture::LoadTextures(SDL_Renderer* renderer)
 {
-  ifstream file;
+  std::ifstream file;
 
   file.open("resources/textures.txt");
 
-  string keyname = "";
-  string filename = "";
+  std::string keyname = "";
+  std::string filename = "";
   int tilesX = 0;
   int tilesY = 0;
   int frameCount = 0;
   float frameRate = 0.0f;
-  string collidable = "";
+  std::string collidable = "";
 
   getline(file, keyname);
 
@@ -70,7 +70,7 @@ void Texture::LoadTextures(SDL_Renderer* renderer)
 
 void Texture::UnloadTextures()
 {
-  for (map<string,Texture*>::iterator Iter = TextureList.begin(); Iter != TextureList.end(); ++Iter)
+  for (std::map<std::string, Texture*>::iterator Iter = TextureList.begin(); Iter != TextureList.end(); ++Iter)
   {
     printf("Deleting texture: %s\n", (*Iter).first.c_str());
     delete (*Iter).second;
@@ -80,9 +80,9 @@ void Texture::UnloadTextures()
 }
 
 // simple image loading function
-SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, string filename)
+SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, std::string filename)
 {
-  string filepath = "resources/" + filename;
+  std::string filepath = "resources/" + filename;
   SDL_Surface* surface = IMG_Load(filepath.c_str());
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
@@ -91,7 +91,7 @@ SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, string filename)
 }
 
 // draws text to screen, eats up a lot of CPU cycles
-void Texture::DrawText(SDL_Renderer* renderer, string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center)
+void Texture::DrawText(SDL_Renderer* renderer, std::string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center)
 {
   SDL_Color color = {red, green, blue};
   TTF_Font* font = TTF_OpenFont("resources/framd.ttf", size);
@@ -118,7 +118,7 @@ void Texture::FillAlphaRect(SDL_Renderer* renderer, SDL_Rect& rect, Uint8 red, U
 }
 
 // TEMP: Just loads same texture.
-SDL_Texture* Texture::MakeDamageTexture(SDL_Renderer* renderer, string filename)
+SDL_Texture* Texture::MakeDamageTexture(SDL_Renderer* renderer, std::string filename)
 {
   return LoadImage(renderer, filename);
 }

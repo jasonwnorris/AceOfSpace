@@ -8,7 +8,7 @@
 class TargetShooter : public Enemy
 {
   public:
-    TargetShooter(string keyname);
+    TargetShooter(std::string keyname);
 
     virtual void Update(float deltaTime);
 

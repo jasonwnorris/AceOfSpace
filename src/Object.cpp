@@ -4,10 +4,10 @@
 #include "Player.hpp"
 #include "Enemy.hpp"
 
-vector<Object*> Object::ObjectList;
-vector<Object*> Object::ObjectAddList;
+std::vector<Object*> Object::ObjectList;
+std::vector<Object*> Object::ObjectAddList;
 
-Object::Object(string keyname)
+Object::Object(std::string keyname)
 {
   sprite = new Sprite(keyname);
   position = Vector(0, 0);
@@ -23,11 +23,11 @@ Object::~Object()
   delete sprite;
 }
 
-// objects can't be removed or added to a vector during iteration
+// objects can't be removed or added to a std::vector during iteration
 // so we do that afterwards
 void Object::UpdateObjects(float deltaTime)
 {
-  for (vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
+  for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
     (*Iter)->Update(deltaTime);
 
   AddNew();
@@ -43,7 +43,7 @@ void Object::Update(float deltaTime)
 
 void Object::RenderObjects(SDL_Renderer* renderer)
 {
-  for (vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
+  for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
     (*Iter)->Render(renderer);
 }
 
@@ -53,11 +53,11 @@ void Object::Render(SDL_Renderer* renderer)
 }
 
 // we want to add objects during the main iteration
-// so we temporarily store them in an auxiliary vector
+// so we temporarily store them in an auxiliary std::vector
 // then push them on after we're done updating
 void Object::AddNew()
 {
-  for (vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
+  for (std::vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
     ObjectList.push_back((*Iter));
 
   ObjectAddList.clear();
@@ -68,7 +68,7 @@ void Object::RemoveDead()
   PlayerShip::RemoveKilled();
   Enemy::RemoveKilled();
 
-  for (vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
+  for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
     if ((*Iter)->dead)
     {
       Object* temp = (*Iter);
@@ -84,7 +84,7 @@ void Object::RemoveAll()
   PlayerShip::RemoveAll();
   Enemy::RemoveAll();
 
-  for (vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
+  for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
   {
     Object* temp = (*Iter);
     Iter = ObjectList.erase(Iter);

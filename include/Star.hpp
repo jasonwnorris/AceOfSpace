@@ -8,7 +8,7 @@
 class Star : public Object
 {
   public:
-    Star(string keyname);
+    Star(std::string keyname);
 
     void Update(float deltaTime);
 };

@@ -13,7 +13,7 @@ Vector::Vector(float x, float y)
   Y = y;
 }
 
-// trims vector down to a unit vector
+// trims std::vector down to a unit std::vector
 void Vector::Normalize()
 {
   float length = Length();
@@ -24,7 +24,7 @@ void Vector::Normalize()
   Y /= length;
 }
 
-// finds the angle of a given vector (radians)
+// finds the angle of a given std::vector (radians)
 float Vector::Angle()
 {
   if (X == 0.0f)
@@ -58,7 +58,7 @@ float Vector::Length()
   return sqrt(X * X + Y * Y);
 }
 
-// find a vector of the given angle
+// find a std::vector of the given angle
 Vector Vector::CalculateDirection(float angle)
 {
   Vector vector;

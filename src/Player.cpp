@@ -112,9 +112,9 @@ void Player::AwardPoints(int amount)
 
 // PlayerShip.cpp //
 
-vector<GameObject*> PlayerShip::PlayerShipList;
+std::vector<GameObject*> PlayerShip::PlayerShipList;
 
-PlayerShip::PlayerShip(string keyname) : GameObject(keyname)
+PlayerShip::PlayerShip(std::string keyname) : GameObject(keyname)
 {
   position = Vector(ScreenWidth / 2, ScreenHeight - sprite->texture->tileHeight - PlayerSpawnOffset);
   speed = PlayerSpeed;
@@ -165,7 +165,7 @@ void PlayerShip::Update(float deltaTime)
 
 void PlayerShip::RemoveKilled()
 {
-  for (vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
+  for (std::vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
     if ((*Iter)->dead)
       Iter = PlayerShipList.erase(Iter);
     else
@@ -174,7 +174,7 @@ void PlayerShip::RemoveKilled()
 
 void PlayerShip::RemoveAll()
 {
-  for (vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
+  for (std::vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
     Iter = PlayerShipList.erase(Iter);
 }
 

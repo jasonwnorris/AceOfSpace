@@ -14,11 +14,11 @@ void Level::BuildLevel()
 {
   Reset();
 
-  ifstream file;
+  std::ifstream file;
 
   file.open("resources/level.txt");
 
-  string type = "";
+  std::string type = "";
   int positionX = 0;
   float time = 0.0f;
 
@@ -45,7 +45,7 @@ void Level::BuildLevel()
 }
 
 // push the information onto the list
-void Level::AddObject(string type, float positionX, float spawnTime)
+void Level::AddObject(std::string type, float positionX, float spawnTime)
 {
   LevelObject object;
   object.type = type;

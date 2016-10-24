@@ -10,7 +10,7 @@
 #define M_PI 3.14159265359
 #endif
 
-Miniboss::Miniboss(string keyname) : Enemy(keyname)
+Miniboss::Miniboss(std::string keyname) : Enemy(keyname)
 {
   pointValue = MinibossPointValue;
   health = MinibossHealth;

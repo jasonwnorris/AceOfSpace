@@ -9,7 +9,7 @@
 class BossEnemy : public Enemy
 {
   public:
-    BossEnemy(string keyname);
+    BossEnemy(std::string keyname);
 
     void Update(float deltaTime);
     void UpdateChildren();

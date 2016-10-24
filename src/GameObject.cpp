@@ -3,11 +3,11 @@
 
 #include "Particle.hpp"
 
-GameObject::GameObject(string keyname) : Object(keyname)
+GameObject::GameObject(std::string keyname) : Object(keyname)
 {
   health = 0;
   flickerInterval = 0.0f;
-  CollisionList = new vector<GameObject*>;
+  CollisionList = new std::vector<GameObject*>;
 }
 
 GameObject::~GameObject()
@@ -18,7 +18,7 @@ GameObject::~GameObject()
 // check objects against those in its collision list
 void GameObject::Update(float deltaTime)
 {
-  for (vector<GameObject*>::iterator Iter = CollisionList->begin(); Iter != CollisionList->end(); ++Iter)
+  for (std::vector<GameObject*>::iterator Iter = CollisionList->begin(); Iter != CollisionList->end(); ++Iter)
     if (CheckCollision(this, (*Iter)))
       Collide((*Iter));
 
@@ -68,8 +68,8 @@ void GameObject::RemoveOffScreen()
     Remove();
 }
 
-// grabs a random object from a vector
-GameObject* GameObject::PickRandomObject(vector<GameObject*>* PickList)
+// grabs a random object from a std::vector
+GameObject* GameObject::PickRandomObject(std::vector<GameObject*>* PickList)
 {
   int listSize = PickList->size();
   if (listSize > 0)

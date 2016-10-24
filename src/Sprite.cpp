@@ -1,7 +1,7 @@
 // Sprite.cpp //
 #include "Sprite.hpp"
 
-Sprite::Sprite(string keyname)
+Sprite::Sprite(std::string keyname)
 {
   texture = Texture::TextureList[keyname];
   origin = Vector(texture->tileWidth / 2, texture->tileHeight / 2);

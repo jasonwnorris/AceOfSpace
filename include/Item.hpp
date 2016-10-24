@@ -8,7 +8,7 @@
 class Item : public GameObject
 {
   public:
-    Item(string keyname);
+    Item(std::string keyname);
 
     void Collide(GameObject* object);
 

@@ -3,7 +3,7 @@
 
 #include "Player.hpp"
 
-Kamikaze::Kamikaze(string keyname) : Enemy(keyname)
+Kamikaze::Kamikaze(std::string keyname) : Enemy(keyname)
 {
   pointValue = KamikazePointValue;
   health = KamikazeHealth;

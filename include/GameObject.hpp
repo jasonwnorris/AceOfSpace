@@ -8,7 +8,7 @@
 class GameObject : public Object
 {
   public:
-    GameObject(string keyname);
+    GameObject(std::string keyname);
     ~GameObject();
 
     virtual void Update(float deltaTime);
@@ -19,14 +19,14 @@ class GameObject : public Object
 
     virtual void RemoveOffScreen();
 
-    GameObject* PickRandomObject(vector<GameObject*>* PickList);
+    GameObject* PickRandomObject(std::vector<GameObject*>* PickList);
 
     int health;
     float flickerInterval;
-    string explosionKeyname;
+    std::string explosionKeyname;
     int weaponType;
 
-    vector<GameObject*>* CollisionList;
+    std::vector<GameObject*>* CollisionList;
 };
 
 #endif

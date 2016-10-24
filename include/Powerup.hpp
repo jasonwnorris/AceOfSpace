@@ -8,12 +8,12 @@
 class Powerup : public Item
 {
   public:
-    Powerup(string keyname);
+    Powerup(std::string keyname);
 
     void InflictBonus(GameObject* object);
 
   private:
-    string type;
+    std::string type;
 };
 
 #endif

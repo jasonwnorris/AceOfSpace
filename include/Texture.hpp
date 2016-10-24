@@ -10,23 +10,22 @@
 #include <fstream>
 #include <string>
 #include <map>
-using namespace std;
 
 #include "Config.hpp"
 
 class Texture
 {
   public:
-    Texture(SDL_Renderer* renderer, string filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable);
+    Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable);
     ~Texture();
 
-    static map<string,Texture*> TextureList;
+    static std::map<std::string, Texture*> TextureList;
 
     static void LoadTextures(SDL_Renderer* renderer);
     static void UnloadTextures();
 
-    static SDL_Texture* LoadImage(SDL_Renderer* renderer, string filename);
-    static void DrawText(SDL_Renderer* renderer, string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center = true);
+    static SDL_Texture* LoadImage(SDL_Renderer* renderer, std::string filename);
+    static void DrawText(SDL_Renderer* renderer, std::string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center = true);
     static void FillAlphaRect(SDL_Renderer* renderer, SDL_Rect& rect, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha);
 
     SDL_Texture* textures[2];
@@ -43,7 +42,7 @@ class Texture
     bool collidable;
 
   private:
-    SDL_Texture* MakeDamageTexture(SDL_Renderer* renderer, string filename);
+    SDL_Texture* MakeDamageTexture(SDL_Renderer* renderer, std::string filename);
 };
 
 #endif

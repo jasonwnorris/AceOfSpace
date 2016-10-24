@@ -4,7 +4,7 @@ Graphics::Graphics()
 {
 }
 
-void Graphics::DrawText(SDL_Surface* screen, string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center)
+void Graphics::DrawText(SDL_Surface* screen, std::string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center)
 {
   SDL_Color color = {red, green, blue};
   TTF_Font* font = TTF_OpenFont("resources/framd.ttf", size);

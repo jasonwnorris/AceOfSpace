@@ -5,7 +5,6 @@
 
 #include <fstream>
 #include <string>
-using namespace std;
 
 #include "Vector.hpp"
 #include "Asteroid.hpp"
@@ -16,7 +15,7 @@ using namespace std;
 
 struct LevelObject
 {
-  string type;
+  std::string type;
   float positionX;
   float time;
 };
@@ -28,10 +27,10 @@ class Level
 
     static Level LevelOne;
 
-    vector<LevelObject> LevelObjects;
+    std::vector<LevelObject> LevelObjects;
 
     void BuildLevel();
-    void AddObject(string type, float positionX, float spawnTime);
+    void AddObject(std::string type, float positionX, float spawnTime);
     void SpawnObject(LevelObject object);
     void Reset();
 

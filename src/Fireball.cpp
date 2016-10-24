@@ -1,7 +1,7 @@
 // Fireball.cpp //
 #include "Fireball.hpp"
 
-Fireball::Fireball(string keyname) : Projectile(keyname)
+Fireball::Fireball(std::string keyname) : Projectile(keyname)
 {
   speed = FireballSpeed;
   health = FireballHealth;

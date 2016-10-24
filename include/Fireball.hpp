@@ -8,7 +8,7 @@
 class Fireball : public Projectile
 {
   public:
-    Fireball(string keyname);
+    Fireball(std::string keyname);
 
     void Update(float deltaTime);
 

@@ -1,7 +1,7 @@
 // Projectile.cpp //
 #include "Projectile.hpp"
 
-Projectile::Projectile(string keyname) : GameObject(keyname)
+Projectile::Projectile(std::string keyname) : GameObject(keyname)
 {
   explosionKeyname = "Flash";
 }

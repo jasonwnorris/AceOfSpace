@@ -4,9 +4,9 @@
 #include "Player.hpp"
 #include "Powerup.hpp"
 
-vector<GameObject*> Enemy::EnemyList;
+std::vector<GameObject*> Enemy::EnemyList;
 
-Enemy::Enemy(string keyname) : GameObject(keyname)
+Enemy::Enemy(std::string keyname) : GameObject(keyname)
 {
   direction = Vector(0, 1);
   explosionKeyname = "Explosion";
@@ -16,7 +16,7 @@ Enemy::Enemy(string keyname) : GameObject(keyname)
 
 void Enemy::RemoveKilled()
 {
-  for (vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
+  for (std::vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
     if ((*Iter)->dead)
       Iter = EnemyList.erase(Iter);
     else
@@ -25,7 +25,7 @@ void Enemy::RemoveKilled()
 
 void Enemy::RemoveAll()
 {
-  for (vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
+  for (std::vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
     Iter = EnemyList.erase(Iter);
 }
 

@@ -8,7 +8,7 @@
 class Bullet : public Projectile
 {
   public:
-    Bullet(string keyname);
+    Bullet(std::string keyname);
 };
 
 #endif

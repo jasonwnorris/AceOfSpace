@@ -8,7 +8,7 @@
 class Particle : public Object
 {
   public:
-    Particle(string keyname, Vector location);
+    Particle(std::string keyname, Vector location);
 
     void Update(float deltaTime);
 

@@ -14,9 +14,9 @@ enum PlayerIndex
 class PlayerShip : public GameObject
 {
   public:
-    PlayerShip(string keyname);
+    PlayerShip(std::string keyname);
 
-    static vector<GameObject*> PlayerShipList;
+    static std::vector<GameObject*> PlayerShipList;
 
     void Update(float deltaTime);
 
