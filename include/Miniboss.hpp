@@ -1,6 +1,7 @@
-// Miniboss.h //
-#ifndef MINIBOSS_H
-#define MINIBOSS_H
+// Miniboss.hpp
+
+#ifndef __MINIBOSS_HPP__
+#define __MINIBOSS_HPP__
 
 #include "Enemy.hpp"
 
@@ -15,7 +16,7 @@ class Miniboss : public Enemy
 
   private:
     void FireBullet();
-    
+
     float lastFired;
 };
 

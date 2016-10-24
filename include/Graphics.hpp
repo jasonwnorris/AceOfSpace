@@ -1,5 +1,7 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+// Graphics.hpp
+
+#ifndef __GRAPHICS_HPP__
+#define __GRAPHICS_HPP__
 
 #include <SDL.h>
 #include <SDL_image.h>

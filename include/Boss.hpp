@@ -1,6 +1,7 @@
-// Boss.h //
-#ifndef BOSS_H
-#define BOSS_H
+// Boss.hpp
+
+#ifndef __BOSS_HPP__
+#define __BOSS_HPP__
 
 #include "Enemy.hpp"
 #include "Miniboss.hpp"

@@ -1,6 +1,7 @@
-// Asteroid.h //
-#ifndef ASTEROID_H
-#define ASTEROID_H
+// Asteroid.hpp
+
+#ifndef __ASTEROID_HPP__
+#define __ASTEROID_HPP__
 
 #include "Enemy.hpp"
 

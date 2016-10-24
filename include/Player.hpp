@@ -1,6 +1,7 @@
-// Player.h //
-#ifndef PLAYER_SHIP_H
-#define PLAYER_SHIP_H
+// Player.hpp
+
+#ifndef __PLAYERSHIP_HPP__
+#define __PLAYERSHIP_HPP__
 
 #include "GameObject.hpp"
 
@@ -14,7 +15,7 @@ class PlayerShip : public GameObject
 {
   public:
     PlayerShip(string keyname);
-    
+
     static vector<GameObject*> PlayerShipList;
 
     void Update(float deltaTime);
@@ -33,7 +34,7 @@ class PlayerShip : public GameObject
 
   private:
     void FireBullet();
-    
+
     float lastFired;
 };
 

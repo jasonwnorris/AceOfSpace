@@ -1,6 +1,7 @@
-// TargetShooter.h //
-#ifndef TARGET_SHOOTER_H
-#define TARGET_SHOOTER_H
+// TargetShooter.hpp
+
+#ifndef __TARGETSHOOTER_HPP__
+#define __TARGETSHOOTER_HPP__
 
 #include "Enemy.hpp"
 
@@ -11,12 +12,11 @@ class TargetShooter : public Enemy
 
     virtual void Update(float deltaTime);
 
-    private:
+  private:
     void FireBullet();
 
     GameObject* target;
     Vector targetDirection;
-    
     float lastFired;
 };
 

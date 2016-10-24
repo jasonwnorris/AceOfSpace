@@ -1,6 +1,7 @@
-// Game.h //
-#ifndef GAME_H
-#define GAME_H
+// Game.hpp
+
+#ifndef __GAME_HPP__
+#define __GAME_HPP__
 
 #include <SDL.h>
 

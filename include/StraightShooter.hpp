@@ -1,6 +1,7 @@
-// StraightShooter.h //
-#ifndef STRAIGHT_SHOOTER_H
-#define STRAIGHT_SHOOTER_H
+// StraightShooter.hpp
+
+#ifndef __STRAIGHTSHOOTER_HPP__
+#define __STRAIGHTSHOOTER_HPP__
 
 #include "Enemy.hpp"
 
@@ -11,9 +12,9 @@ class StraightShooter : public Enemy
 
     virtual void Update(float deltaTime);
 
-    private:
+  private:
     void FireBullet();
-    
+
     float lastFired;
 };
 

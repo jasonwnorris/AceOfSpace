@@ -1,6 +1,7 @@
-// Object.h //
-#ifndef OBJECT_H
-#define OBJECT_H
+// Object.hpp
+
+#ifndef __OBJECT_HPP__
+#define __OBJECT_HPP__
 
 #include <vector>
 using namespace std;

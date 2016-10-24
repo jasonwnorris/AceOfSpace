@@ -1,6 +1,7 @@
-// Particle.h //
-#ifndef PARTICLE_H
-#define PARTICLE_H
+// Particle.hpp
+
+#ifndef __PARTICLE_HPP__
+#define __PARTICLE_HPP__
 
 #include "Object.hpp"
 

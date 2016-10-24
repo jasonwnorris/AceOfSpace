@@ -1,6 +1,7 @@
-// Sound.h //
-#ifndef SOUND_H
-#define SOUND_H
+// Sound.hpp
+
+#ifndef __SOUND_HPP__
+#define __SOUND_HPP__
 
 #include <SDL.h>
 #include <SDL_mixer.h>
@@ -24,7 +25,7 @@ class Sound
     static void PlaySound(string keyname);
 
     Mix_Music* mixMusic;
-        bool loop;
+    bool loop;
 };
 
 #endif

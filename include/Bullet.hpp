@@ -1,6 +1,7 @@
-// Bullet.h //
-#ifndef BULLET_H
-#define BULLET_H
+// Bullet.hpp
+
+#ifndef __BULLET_HPP__
+#define __BULLET_HPP__
 
 #include "Projectile.hpp"
 

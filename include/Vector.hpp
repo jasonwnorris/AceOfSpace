@@ -1,6 +1,7 @@
-// Vector.h //
-#ifndef VECTOR_H
-#define VECTOR_H
+// Vector.hpp
+
+#ifndef __VECTOR_HPP__
+#define __VECTOR_HPP__
 
 class Vector
 {

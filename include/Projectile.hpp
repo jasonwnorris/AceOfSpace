@@ -1,6 +1,7 @@
-// Projectile.h //
-#ifndef PROJECTILE_H
-#define PROJECTILE_H
+// Projectile.hpp
+
+#ifndef __PROJECTILE_HPP__
+#define __PROJECTILE_HPP__
 
 #include "GameObject.hpp"
 

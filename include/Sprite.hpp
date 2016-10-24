@@ -1,6 +1,7 @@
-// Sprite.h //
-#ifndef SPRITE_H
-#define SPRITE_H
+// Sprite.hpp
+
+#ifndef __SPRITE_HPP__
+#define __SPRITE_HPP__
 
 #include "Vector.hpp"
 #include "Texture.hpp"

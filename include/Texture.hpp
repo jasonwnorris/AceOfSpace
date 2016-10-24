@@ -1,6 +1,7 @@
-// Texture.h //
-#ifndef TEXTURE_H
-#define TEXTURE_H
+// Texture.hpp
+
+#ifndef __TEXTURE_HPP__
+#define __TEXTURE_HPP__
 
 #include <SDL.h>
 #include <SDL_image.h>

@@ -1,6 +1,7 @@
-// Config.h //
-#ifndef CONFIG_H
-#define CONFIG_H
+// Config.hpp
+
+#ifndef __CONFIG_HPP__
+#define __CONFIG_HPP__
 
 #define Maximum(a, b)  ((a > b) ? a : b)
 #define Minimum(a, b)  ((a < b) ? a : b)

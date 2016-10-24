@@ -1,20 +1,21 @@
-// Timer.h //
-#ifndef TIMER_H
-#define TIMER_H
+// Timer.hpp
+
+#ifndef __TIMER_HPP__
+#define __TIMER_HPP__
 
 #include <SDL.h>
 
 class Timer
 {
   public:
-     Timer();
-     ~Timer();
+   Timer();
+   ~Timer();
 
-     float getStartTime();
-     float getDeltaTime();
+   float getStartTime();
+   float getDeltaTime();
 
   private:
-     float previousTime;
+   float previousTime;
 };
 
 #endif
