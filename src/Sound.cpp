@@ -47,7 +47,7 @@ void Sound::LoadSounds()
     }
 
     SoundList[keyname] = sound;
-    SDL_Log("Loaded sound: %s\n", keyname.c_str());
+    SDL_Log("Loaded sound: %s", keyname.c_str());
   }
 
   file.close();
@@ -57,7 +57,7 @@ void Sound::UnloadSounds()
 {
   for (std::map<std::string, Sound*>::iterator Iter = SoundList.begin(); Iter != SoundList.end(); ++Iter)
   {
-    SDL_Log("Deleting sound: %s\n", (*Iter).first.c_str());
+    SDL_Log("Deleting sound: %s", (*Iter).first.c_str());
     delete (*Iter).second;
   }
 
