@@ -9,51 +9,51 @@
 
 Game::Game()
 {
-  printf("Initializing SDL... ");
+  SDL_Log("Initializing SDL... ");
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
   {
-    fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError());
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize SDL: %s\n", SDL_GetError());
     exit(1);
   }
-  printf("complete!\n");
+  SDL_Log("complete!\n");
 
   SDL_ShowCursor(SDL_DISABLE);
 
-  printf("Initializing TTF... ");
+  SDL_Log("Initializing TTF... ");
   if (TTF_Init() < 0)
   {
-    fprintf(stderr, "Unable to initialize TTF: %s\n", SDL_GetError());
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize TTF: %s\n", SDL_GetError());
     exit(1);
   }
-  printf("complete!\n");
+  SDL_Log("complete!\n");
 
-  printf("Initializing audio... ");
+  SDL_Log("Initializing audio... ");
   if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
   {
-    fprintf(stderr, "Unable to initialize audio: %s\n", SDL_GetError());
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize audio: %s\n", SDL_GetError());
     exit(1);
   }
-  printf("complete!\n");
+  SDL_Log("complete!\n");
 
-  printf("Initializing window... ");
+  SDL_Log("Initializing window... ");
   window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
 
   if (window == nullptr)
   {
-    fprintf(stderr, "Failed to initialize the window.\n");
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to initialize the window.\n");
     exit(1);
   }
-  printf("complete!\n");
+  SDL_Log("complete!\n");
 
-  printf("Initializing renderer... ");
+  SDL_Log("Initializing renderer... ");
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
   if (renderer == nullptr)
   {
-    fprintf(stderr, "Failed to initialize the renderer.\n");
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to initialize the renderer.\n");
     exit(1);
   }
-  printf("complete!\n");
+  SDL_Log("complete!\n");
 
   done = false;
   frame = 0;
@@ -64,21 +64,21 @@ Game::Game()
 
 Game::~Game()
 {
-  printf("Closing audio... ");
+  SDL_Log("Closing audio... ");
   Mix_CloseAudio();
-  printf("complete!\n");
+  SDL_Log("complete!\n");
 
-  printf("Closing TTF... ");
+  SDL_Log("Closing TTF... ");
   TTF_Quit();
-  printf("complete!\n");
+  SDL_Log("complete!\n");
 
-  printf("Closing SDL... ");
+  SDL_Log("Closing SDL... ");
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();
-  printf("complete!\n");
+  SDL_Log("complete!\n");
 
-  printf("Game ended successfully!");
+  SDL_Log("Game ended successfully!");
 }
 
 void Game::OnExecute()
