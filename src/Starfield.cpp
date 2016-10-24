@@ -10,9 +10,9 @@ void Starfield::Update(float deltaTime)
 {
   lastSpawn += deltaTime;
 
-  if(lastSpawn > StarfieldSpawnTime)
+  if (lastSpawn > StarfieldSpawnTime)
   {
-    for(int i = 0; i < 3; ++i)
+    for (int i = 0; i < 3; ++i)
     {
       char starkey[6];
       snprintf(starkey, 6, "Star%d", i + 1);

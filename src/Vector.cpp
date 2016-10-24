@@ -17,7 +17,7 @@ Vector::Vector(float x, float y)
 void Vector::Normalize()
 {
   float length = Length();
-  if(length <= 0)
+  if (length <= 0)
     return;
 
   X /= length;
@@ -27,8 +27,8 @@ void Vector::Normalize()
 // finds the angle of a given vector (radians)
 float Vector::Angle()
 {
-  if(X == 0.0f)
-    if(Y > 0.0f)
+  if (X == 0.0f)
+    if (Y > 0.0f)
       return M_PI / 2.0f;
     else
       return 3.0f * M_PI / 2.0f;
@@ -40,13 +40,13 @@ float Vector::Angle()
 
   float angle = atan(omega);
 
-  if(X < 0.0f && Y >= 0.0f)
+  if (X < 0.0f && Y >= 0.0f)
     return M_PI - angle;
 
-  if(X < 0.0f && Y <= 0.0f)
+  if (X < 0.0f && Y <= 0.0f)
     return M_PI + angle;
 
-  if(X > 0.0f && Y <= 0.0f)
+  if (X > 0.0f && Y <= 0.0f)
     return 2.0f * M_PI - angle;
 
   return angle;
@@ -74,7 +74,7 @@ Vector Vector::LinearInterp(const Vector& v1, const Vector& v2, const float& wei
 {
   Vector vector;
 
-  if(weight < 0 || weight > 1)
+  if (weight < 0 || weight > 1)
     return vector;
 
   vector.X = v1.X * (1.0f - weight) + v2.X * weight;

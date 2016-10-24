@@ -61,20 +61,20 @@ void BossEnemy::Update(float deltaTime)
 
   UpdateChildren();
 
-  if(direction.X < 0)
+  if (direction.X < 0)
   {
-    if(position.X < 300)
+    if (position.X < 300)
       direction = Vector(1, 0);
   }
-  else if(direction.X > 0)
+  else if (direction.X > 0)
   {
-    if(position.X > ScreenWidth - 300)
+    if (position.X > ScreenWidth - 300)
       direction = Vector(-1, 0);
   }
   else
   {
-    if(position.Y > ScreenHeight / 3)
-      if(rand() % 2 == 0)
+    if (position.Y > ScreenHeight / 3)
+      if (rand() % 2 == 0)
         direction = Vector(1, 0);
     else
       direction = Vector(-1, 0);
@@ -83,7 +83,7 @@ void BossEnemy::Update(float deltaTime)
   childrenAngle += BossChildrenRotation;
 
   // increase challenge when half dead (or half alive?)
-  if(health > BossHealth / 2)
+  if (health > BossHealth / 2)
   {
     fireAngle += BossFireRotation;
     lastFired += deltaTime;
@@ -94,21 +94,21 @@ void BossEnemy::Update(float deltaTime)
     lastFired += deltaTime * 2;
   }
 
-  if(lastFired > BossFireDelay)
+  if (lastFired > BossFireDelay)
     FireBullet();
 }
 
 // helper function to update objects that this parent controls
 void BossEnemy::UpdateChildren()
 {
-  if(leftHand != NULL)
-    if(leftHand->health > 0)
+  if (leftHand != NULL)
+    if (leftHand->health > 0)
       leftHand->position = position + Vector(-200, 75) + Vector::CalculateDirection(-childrenAngle) * 25;
     else
       leftHand = NULL;
 
-  if(rightHand != NULL)
-    if(rightHand->health > 0)
+  if (rightHand != NULL)
+    if (rightHand->health > 0)
       rightHand->position = position + Vector(200, 75) + Vector::CalculateDirection(childrenAngle) * -25;
     else
       rightHand = NULL;
@@ -119,7 +119,7 @@ void BossEnemy::RemoveOffScreen()
   SDL_Rect bounds = {-ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3};
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
-  if(intersect.w == 0 && intersect.h == 0)
+  if (intersect.w == 0 && intersect.h == 0)
     Remove();
 }
 

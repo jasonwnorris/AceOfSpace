@@ -26,7 +26,7 @@ void Level::BuildLevel()
 
   getline(file, type);
 
-  while(!file.eof())
+  while (!file.eof())
   {
     file >> type;
     file >> positionX;
@@ -59,7 +59,7 @@ void Level::AddObject(string type, float positionX, float spawnTime)
 // each LevelObject object
 void Level::SpawnObject(LevelObject object)
 {
-  if(object.type == "Boss")
+  if (object.type == "Boss")
   {
     Boss::SpawnBoss();
   }
@@ -67,13 +67,13 @@ void Level::SpawnObject(LevelObject object)
   {
     Enemy* enemy;
 
-    if(object.type == "Asteroid")
+    if (object.type == "Asteroid")
       enemy = new Asteroid("Asteroid");
-    else if(object.type == "StraightShooter")
+    else if (object.type == "StraightShooter")
       enemy = new StraightShooter("StraightShooter");
-    else if(object.type == "TargetShooter")
+    else if (object.type == "TargetShooter")
       enemy = new TargetShooter("TargetShooter");
-    else if(object.type == "Kamikaze")
+    else if (object.type == "Kamikaze")
       enemy = new Kamikaze("Kamikaze");
 
     enemy->position = Vector(object.positionX, -enemy->sprite->origin.Y);
@@ -95,9 +95,9 @@ void Level::Update(float deltaTime)
 {
   timeElapsed += deltaTime;
 
-  for(int i = objectIndex; i < LevelObjects.size(); ++i)
+  for (int i = objectIndex; i < LevelObjects.size(); ++i)
   {
-    if(LevelObjects[i].time > timeElapsed)
+    if (LevelObjects[i].time > timeElapsed)
       break;
 
     SpawnObject(LevelObjects[i]);

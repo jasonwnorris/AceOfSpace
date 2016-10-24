@@ -29,7 +29,7 @@ void Sound::LoadSounds()
 
   getline(file, keyname);
 
-  while(!file.eof())
+  while (!file.eof())
   {
     file >> keyname;
     file >> filename;
@@ -37,7 +37,7 @@ void Sound::LoadSounds()
 
     Sound* sound;
 
-    if(loops == "yes")
+    if (loops == "yes")
       sound = new Sound(filename, true);
     else
       sound = new Sound(filename, false);
@@ -51,7 +51,7 @@ void Sound::LoadSounds()
 
 void Sound::UnloadSounds()
 {
-  for(map<string,Sound*>::iterator Iter = SoundList.begin(); Iter != SoundList.end(); ++Iter)
+  for (map<string,Sound*>::iterator Iter = SoundList.begin(); Iter != SoundList.end(); ++Iter)
   {
     printf("Deleting sound: %s\n", (*Iter).first.c_str());
     delete (*Iter).second;
@@ -64,7 +64,7 @@ void Sound::PlaySound(string keyname)
 {
   Sound* sound = SoundList[keyname];
 
-  if(sound->loop)
+  if (sound->loop)
     Mix_PlayMusic(sound->mixMusic, -1);
   else
     Mix_PlayMusic(sound->mixMusic, 0);

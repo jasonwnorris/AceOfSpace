@@ -24,7 +24,7 @@ void Miniboss::Update(float deltaTime)
   Enemy::Update(deltaTime);
 
   lastFired += deltaTime;
-  if(lastFired > MinibossFireDelay)
+  if (lastFired > MinibossFireDelay)
     FireBullet();
 }
 
@@ -33,14 +33,14 @@ void Miniboss::RemoveOffScreen()
   SDL_Rect bounds = {-ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3};
   SDL_Rect intersect = Intersection(GetBounds(), bounds);
 
-  if(intersect.w == 0 && intersect.h == 0)
+  if (intersect.w == 0 && intersect.h == 0)
     Remove();
 }
 
 // fire bullets in an octagon shape pattern
 void Miniboss::FireBullet()
 {
-  for(int i = 0; i < 8; i++)
+  for (int i = 0; i < 8; i++)
   {
     Bullet* bullet = new Bullet("NeonCross");
     bullet->position = position;

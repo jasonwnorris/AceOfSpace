@@ -14,6 +14,6 @@ void Fireball::Update(float deltaTime)
   
   lifeTimeRemaining -= deltaTime;
   
-  if(lifeTimeRemaining < 0)
+  if (lifeTimeRemaining < 0)
     Remove();
 }

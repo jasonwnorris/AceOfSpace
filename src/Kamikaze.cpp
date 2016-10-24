@@ -14,11 +14,11 @@ Kamikaze::Kamikaze(string keyname) : Enemy(keyname)
 
 void Kamikaze::Update(float deltaTime)
 {
-  if(!foundTarget)
+  if (!foundTarget)
   {
     idleDelay -= deltaTime;
 
-    if(idleDelay < 0)
+    if (idleDelay < 0)
     {
       GameObject* target = PickRandomObject(&PlayerShip::PlayerShipList);
       direction = target->position - position;

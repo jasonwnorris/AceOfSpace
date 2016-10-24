@@ -13,7 +13,7 @@ Sprite::Sprite(string keyname)
 void Sprite::Update(float deltaTime)
 {
   frameTimeRemaining -= deltaTime;
-  if(frameTimeRemaining < 0)
+  if (frameTimeRemaining < 0)
   {
     frame++;
     frame %= texture->frameCount;
@@ -52,6 +52,6 @@ SDL_Rect Sprite::GetFrameBounds()
 // switch to damage texture if it has one
 void Sprite::SetTextureIndex(int index)
 {
-  if(texture->collidable)
+  if (texture->collidable)
     textureIndex = index;
 }

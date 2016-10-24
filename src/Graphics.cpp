@@ -10,7 +10,7 @@ void Graphics::DrawText(SDL_Surface* screen, string text, int size, Sint16 x, Si
   TTF_Font* font = TTF_OpenFont("resources/framd.ttf", size);
   SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), color);
   SDL_Rect rect = {x, y};
-  if(center)
+  if (center)
   {
     rect.x -= surface->w / 2;
     rect.y -= surface->h / 2;
@@ -41,8 +41,8 @@ void Graphics::FillAlphaRect(SDL_Surface* screen, SDL_Rect& rect, Uint8 red, Uin
   Uint32 color = SDL_MapRGBA(surfaceRect->format, red, green, blue, alpha);
   Uint32* pixels = (Uint32*)surfaceRect->pixels;
 
-  for(int x = 0; x < surfaceRect->w; x++)
-    for(int y = 0; y < surfaceRect->h; y++)
+  for (int x = 0; x < surfaceRect->w; x++)
+    for (int y = 0; y < surfaceRect->h; y++)
       pixels[(y * surfaceRect->w) + x] = color;
 
   SDL_BlitSurface(surfaceRect, NULL, screen, &rect);

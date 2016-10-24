@@ -11,7 +11,7 @@ Texture::Texture(SDL_Renderer* renderer, string filename, int tilesX, int tilesY
 
   SDL_QueryTexture(textures[0], &this->format, NULL, &this->width, &this->height);
 
-  if(collidable)
+  if (collidable)
     textures[1] = MakeDamageTexture(renderer, filename);
   else
     textures[1] = NULL;
@@ -29,7 +29,7 @@ Texture::~Texture()
 {
   SDL_DestroyTexture(textures[0]);
 
-  if(collidable)
+  if (collidable)
     SDL_DestroyTexture(textures[1]);
 }
 
@@ -50,7 +50,7 @@ void Texture::LoadTextures(SDL_Renderer* renderer)
 
   getline(file, keyname);
 
-  while(!file.eof())
+  while (!file.eof())
   {
     file >> keyname;
     file >> filename;
@@ -70,7 +70,7 @@ void Texture::LoadTextures(SDL_Renderer* renderer)
 
 void Texture::UnloadTextures()
 {
-  for(map<string,Texture*>::iterator Iter = TextureList.begin(); Iter != TextureList.end(); ++Iter)
+  for (map<string,Texture*>::iterator Iter = TextureList.begin(); Iter != TextureList.end(); ++Iter)
   {
     printf("Deleting texture: %s\n", (*Iter).first.c_str());
     delete (*Iter).second;
@@ -98,7 +98,7 @@ void Texture::DrawText(SDL_Renderer* renderer, string text, int size, Sint16 x, 
   SDL_Surface* surface = TTF_RenderText_Blended(font, text.c_str(), color);
   SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_Rect rect = {x, y, surface->w, surface->h};
-  if(center)
+  if (center)
   {
     rect.x -= surface->w / 2;
     rect.y -= surface->h / 2;

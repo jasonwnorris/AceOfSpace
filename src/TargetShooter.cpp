@@ -16,10 +16,10 @@ TargetShooter::TargetShooter(string keyname) : Enemy(keyname)
 
 void TargetShooter::Update(float deltaTime)
 {
-  if(target == NULL || target->dead)
+  if (target == NULL || target->dead)
     target = PickRandomObject(&PlayerShip::PlayerShipList);
 
-  if(target != NULL)
+  if (target != NULL)
   {
     targetDirection = target->position - position;
     targetDirection.Normalize();
@@ -30,7 +30,7 @@ void TargetShooter::Update(float deltaTime)
   Enemy::Update(deltaTime);
 
   lastFired += deltaTime;
-  if(lastFired > TargetShooterFireDelay)
+  if (lastFired > TargetShooterFireDelay)
     FireBullet();
 }
 

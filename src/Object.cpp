@@ -27,7 +27,7 @@ Object::~Object()
 // so we do that afterwards
 void Object::UpdateObjects(float deltaTime)
 {
-  for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
+  for (vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
     (*Iter)->Update(deltaTime);
 
   AddNew();
@@ -43,7 +43,7 @@ void Object::Update(float deltaTime)
 
 void Object::RenderObjects(SDL_Renderer* renderer)
 {
-  for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
+  for (vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
     (*Iter)->Render(renderer);
 }
 
@@ -57,7 +57,7 @@ void Object::Render(SDL_Renderer* renderer)
 // then push them on after we're done updating
 void Object::AddNew()
 {
-  for(vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
+  for (vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
     ObjectList.push_back((*Iter));
 
   ObjectAddList.clear();
@@ -68,8 +68,8 @@ void Object::RemoveDead()
   PlayerShip::RemoveKilled();
   Enemy::RemoveKilled();
 
-  for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
-    if((*Iter)->dead)
+  for (vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
+    if ((*Iter)->dead)
     {
       Object* temp = (*Iter);
       Iter = ObjectList.erase(Iter);
@@ -84,7 +84,7 @@ void Object::RemoveAll()
   PlayerShip::RemoveAll();
   Enemy::RemoveAll();
 
-  for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
+  for (vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
   {
     Object* temp = (*Iter);
     Iter = ObjectList.erase(Iter);
@@ -142,7 +142,7 @@ SDL_Rect Object::Intersection(const SDL_Rect& boundsA, const SDL_Rect& boundsB)
   int width = x2 - x1;
   int height = y2 - y1;
 
-  if(width > 0 && height > 0)
+  if (width > 0 && height > 0)
   {
     SDL_Rect intersect = {x1, y1, width, height};
     return intersect;
@@ -162,7 +162,7 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
 {
   SDL_Rect collisionRect = Intersection(objectA->GetBounds(), objectB->GetBounds());
 
-  if(collisionRect.w == 0 && collisionRect.h == 0)
+  if (collisionRect.w == 0 && collisionRect.h == 0)
     return false;
 
   SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
@@ -171,9 +171,9 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
   //SDL_Surface* surfaceA = objectA->sprite->texture->textures[0];
  // SDL_Surface* surfaceB = objectB->sprite->texture->textures[0];
 
-  //for(int y = 0; y <= collisionRect.h; ++y)
-  //  for(int x = 0; x <= collisionRect.w; ++x)
-  //    if(GetAlphaXY(surfaceA, normalA.x + x, normalA.y + y) && GetAlphaXY(surfaceB, normalB.x + x, normalB.y + y))
+  //for (int y = 0; y <= collisionRect.h; ++y)
+  //  for (int x = 0; x <= collisionRect.w; ++x)
+  //    if (GetAlphaXY(surfaceA, normalA.x + x, normalA.y + y) && GetAlphaXY(surfaceB, normalB.x + x, normalB.y + y))
   //      return true;
 
   return false;
@@ -195,7 +195,7 @@ bool Object::GetAlphaXY(SDL_Surface* surface, int x, int y)
       pixelColor = *(Uint16*)p;
       break;
     case(3):
-      if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
+      if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
         pixelColor = p[0] << 16 | p[1] << 8 | p[2];
       else
         pixelColor = p[0] | p[1] << 8 | p[2] << 16;

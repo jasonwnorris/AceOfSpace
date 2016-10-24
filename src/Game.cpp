@@ -10,7 +10,7 @@
 Game::Game()
 {
   printf("Initializing SDL... ");
-  if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
+  if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
   {
     fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError());
     exit(1);
@@ -20,7 +20,7 @@ Game::Game()
   SDL_ShowCursor(SDL_DISABLE);
 
   printf("Initializing TTF... ");
-  if(TTF_Init() < 0)
+  if (TTF_Init() < 0)
   {
     fprintf(stderr, "Unable to initialize TTF: %s\n", SDL_GetError());
     exit(1);
@@ -28,7 +28,7 @@ Game::Game()
   printf("complete!\n");
 
   printf("Initializing audio... ");
-  if(Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
+  if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
   {
     fprintf(stderr, "Unable to initialize audio: %s\n", SDL_GetError());
     exit(1);
@@ -38,7 +38,7 @@ Game::Game()
   printf("Initializing window... ");
   window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
 
-  if(window == NULL)
+  if (window == NULL)
   {
     fprintf(stderr, "Failed to initialize the window.\n");
     exit(1);
@@ -48,7 +48,7 @@ Game::Game()
   printf("Initializing renderer... ");
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-  if(renderer == NULL)
+  if (renderer == NULL)
   {
     fprintf(stderr, "Failed to initialize the renderer.\n");
     exit(1);
@@ -85,7 +85,7 @@ void Game::OnExecute()
 {
   OnStart();
 
-  while(!done)
+  while (!done)
   {
     OnThink();
     OnUpdate();
@@ -112,40 +112,40 @@ void Game::OnEnd()
 
 void Game::OnThink()
 {
-  while(SDL_PollEvent(&event))
+  while (SDL_PollEvent(&event))
   {
-    if(gamestate == STATE_MENU)
+    if (gamestate == STATE_MENU)
     {
-      if(event.type == SDL_KEYDOWN)
+      if (event.type == SDL_KEYDOWN)
       {
-        if(event.key.keysym.sym == SDLK_RETURN)
+        if (event.key.keysym.sym == SDLK_RETURN)
         {
           gamestate = STATE_PLAYING;
           Level::LevelOne.BuildLevel();
           Player::AddPlayers();
           Player::SpawnPlayer(PLAYER_ONE);
-          if(!singlePlayer)
+          if (!singlePlayer)
             Player::SpawnPlayer(PLAYER_TWO);
           Sound::PlaySound("Theme");
         }
-        else if(event.key.keysym.sym == SDLK_1)
+        else if (event.key.keysym.sym == SDLK_1)
           singlePlayer = !singlePlayer;
-        else if(event.key.keysym.sym == SDLK_2)
+        else if (event.key.keysym.sym == SDLK_2)
           gamestate = STATE_CONTROLS;
-        else if(event.key.keysym.sym == SDLK_3)
+        else if (event.key.keysym.sym == SDLK_3)
           gamestate = STATE_CREDITS;
       }
     }
-    else if(gamestate == STATE_CONTROLS || gamestate == STATE_CREDITS)
+    else if (gamestate == STATE_CONTROLS || gamestate == STATE_CREDITS)
     {
-      if(event.type == SDL_KEYDOWN)
-        if(event.key.keysym.sym == SDLK_RETURN)
+      if (event.type == SDL_KEYDOWN)
+        if (event.key.keysym.sym == SDLK_RETURN)
           gamestate = STATE_MENU;
     }
-    else if(gamestate == STATE_GAMEOVER || gamestate == STATE_VICTORY)
+    else if (gamestate == STATE_GAMEOVER || gamestate == STATE_VICTORY)
     {
-      if(event.type == SDL_KEYDOWN)
-        if(event.key.keysym.sym == SDLK_RETURN)
+      if (event.type == SDL_KEYDOWN)
+        if (event.key.keysym.sym == SDLK_RETURN)
         {
           gamestate = STATE_MENU;
           Player::RemovePlayers();
@@ -154,34 +154,34 @@ void Game::OnThink()
           Sound::PlaySound("Intro");
         }
     }
-    else if(gamestate == STATE_PLAYING)
+    else if (gamestate == STATE_PLAYING)
     {
       Player::ProcessInput(event);
 
-      if(event.type == SDL_KEYDOWN)
+      if (event.type == SDL_KEYDOWN)
       {
-        if(event.key.keysym.sym == SDLK_RSHIFT)
+        if (event.key.keysym.sym == SDLK_RSHIFT)
           singlePlayer = false;
-        if(event.key.keysym.sym == SDLK_RETURN)
+        if (event.key.keysym.sym == SDLK_RETURN)
           gamestate = STATE_PAUSED;
       }
     }
-    else if(gamestate == STATE_PAUSED)
+    else if (gamestate == STATE_PAUSED)
     {
-      if(event.type == SDL_KEYDOWN)
-        if(event.key.keysym.sym == SDLK_RETURN)
+      if (event.type == SDL_KEYDOWN)
+        if (event.key.keysym.sym == SDLK_RETURN)
           gamestate = STATE_PLAYING;
     }
 
-    if(event.type == SDL_KEYDOWN)
+    if (event.type == SDL_KEYDOWN)
     {
-      if(event.key.keysym.sym == SDLK_ESCAPE)
+      if (event.key.keysym.sym == SDLK_ESCAPE)
         done = true;
-      if(event.key.keysym.sym == SDLK_TAB)
+      if (event.key.keysym.sym == SDLK_TAB)
         showDebug = !showDebug;
     }
 
-    if(event.type == SDL_QUIT)
+    if (event.type == SDL_QUIT)
       done = true;
   }
 }
@@ -190,15 +190,15 @@ void Game::OnUpdate()
 {
   float deltaTime = timer.getDeltaTime();
 
-  if(gamestate == STATE_PLAYING)
+  if (gamestate == STATE_PLAYING)
   {
     Object::UpdateObjects(deltaTime);
     Level::LevelOne.Update(deltaTime);
     starfield.Update(deltaTime);
 
-    if(singlePlayer)
+    if (singlePlayer)
     {
-      if(Player::Players[0].lives <= 0)
+      if (Player::Players[0].lives <= 0)
       {
         gamestate = STATE_GAMEOVER;
         Sound::PlaySound("GameOver");
@@ -206,14 +206,14 @@ void Game::OnUpdate()
     }
     else
     {
-      if(Player::Players[0].lives + Player::Players[1].lives <= 0)
+      if (Player::Players[0].lives + Player::Players[1].lives <= 0)
       {
         gamestate = STATE_GAMEOVER;
         Sound::PlaySound("GameOver");
       }
     }
 
-    if(Boss::FinalBoss.spawned && Boss::FinalBoss.killed)
+    if (Boss::FinalBoss.spawned && Boss::FinalBoss.killed)
     {
       gamestate = STATE_VICTORY;
       Sound::PlaySound("Victory");
@@ -228,43 +228,43 @@ void Game::OnRender()
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
   SDL_RenderClear(renderer);
 
-  if(gamestate == STATE_MENU)
+  if (gamestate == STATE_MENU)
   {
     DrawTitle();
   }
-  else if(gamestate == STATE_CONTROLS)
+  else if (gamestate == STATE_CONTROLS)
   {
     DrawControls();
   }
-  else if(gamestate == STATE_CREDITS)
+  else if (gamestate == STATE_CREDITS)
   {
     DrawCredits();
   }
-  else if(gamestate == STATE_PLAYING)
+  else if (gamestate == STATE_PLAYING)
   {
     Object::RenderObjects(renderer);
     DrawHUD();
   }
-  else if(gamestate == STATE_PAUSED)
+  else if (gamestate == STATE_PAUSED)
   {
     Object::RenderObjects(renderer);
     DrawHUD();
     DrawPaused();
   }
-  else if(gamestate == STATE_GAMEOVER)
+  else if (gamestate == STATE_GAMEOVER)
   {
     Object::RenderObjects(renderer);
     DrawHUD();
     DrawGameOver();
   }
-  else if(gamestate == STATE_VICTORY)
+  else if (gamestate == STATE_VICTORY)
   {
     Object::RenderObjects(renderer);
     DrawHUD();
     DrawVictory();
   }
 
-  if(showDebug)
+  if (showDebug)
     DrawDebug();
 
   SDL_RenderPresent(renderer);
@@ -279,14 +279,14 @@ void Game::DrawHUD()
   SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
   SDL_RenderFillRect(renderer, &health1);
 
-  if(Player::Players[0].ship != NULL)
+  if (Player::Players[0].ship != NULL)
   {
     health1.w = Player::Players[0].ship->health * 2;
     SDL_SetRenderDrawColor(renderer, 200, 50, 50, 255);
     SDL_RenderFillRect(renderer, &health1);
   }
 
-  for(int i = 0; i < Player::Players[0].lives; ++i)
+  for (int i = 0; i < Player::Players[0].lives; ++i)
   {
     SDL_Rect box = {(i + 1) * 20, ScreenHeight - 45, 10, 10};
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -294,13 +294,13 @@ void Game::DrawHUD()
   }
 
   // player 2 HUD
-  if(!singlePlayer)
+  if (!singlePlayer)
   {
     SDL_Rect health2 = {ScreenWidth - 220, ScreenHeight - 25, 200, 10};
     SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(renderer, &health2);
 
-    if(Player::Players[1].ship != NULL)
+    if (Player::Players[1].ship != NULL)
     {
       health2.x = ScreenWidth - 220 + (PlayerHealth - Player::Players[1].ship->health) * 2;
       health2.w = Player::Players[1].ship->health * 2;
@@ -308,7 +308,7 @@ void Game::DrawHUD()
       SDL_RenderFillRect(renderer, &health2);
     }
 
-    for(int i = 0; i < Player::Players[1].lives; ++i)
+    for (int i = 0; i < Player::Players[1].lives; ++i)
     {
       SDL_Rect box = {ScreenWidth - 10 - (i + 1) * 20, ScreenHeight - 45, 10, 10};
       SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -323,14 +323,14 @@ void Game::DrawHUD()
   Texture::DrawText(renderer, buffer,  14, ScreenWidth / 2, ScreenHeight - 20, 255, 255, 255);
 
   // boss HUD
-  if(Boss::FinalBoss.spawned && !Boss::FinalBoss.killed)
+  if (Boss::FinalBoss.spawned && !Boss::FinalBoss.killed)
   {
     int barWidth = ScreenWidth - 40;
     SDL_Rect boss = {20, 20, barWidth, 10};
     SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(renderer, &boss);
 
-    if(Boss::FinalBoss.boss != NULL)
+    if (Boss::FinalBoss.boss != NULL)
     {
       boss.w = (Sint16)(1.0f * Boss::FinalBoss.boss->health / BossHealth * barWidth);
       SDL_SetRenderDrawColor(renderer, 50, 200, 50, 255);
@@ -347,7 +347,7 @@ void Game::DrawTitle()
 
   Texture::DrawText(renderer, "Press ENTER to Start", 25, ScreenWidth / 2, ScreenHeight / 2 + 75, 255, 255, 255);
 
-  if(singlePlayer)
+  if (singlePlayer)
     Texture::DrawText(renderer, "1-Player", 20, ScreenWidth / 2, ScreenHeight / 2 + 100, 255, 255, 255);
   else
     Texture::DrawText(renderer, "2-Player", 20, ScreenWidth / 2, ScreenHeight / 2 + 100, 255, 255, 255);
