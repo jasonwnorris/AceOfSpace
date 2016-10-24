@@ -9,19 +9,19 @@ TargetShooter::TargetShooter(std::string keyname) : Enemy(keyname)
   pointValue = TargetShooterPointValue;
   health = TargetShooterHealth;
   speed = TargetShooterSpeed;
-  target = NULL;
+  target = nullptr;
   targetDirection = Vector(0, 0);
   lastFired = 0.0f;
 }
 
 void TargetShooter::Update(float deltaTime)
 {
-  if (target == NULL || target->dead)
+  if (target == nullptr || target->dead)
   {
     target = PickRandomObject(&PlayerShip::PlayerShipList);
   }
 
-  if (target != NULL)
+  if (target != nullptr)
   {
     targetDirection = target->position - position;
     targetDirection.Normalize();

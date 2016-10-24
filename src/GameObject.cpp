@@ -90,6 +90,6 @@ GameObject* GameObject::PickRandomObject(std::vector<GameObject*>* PickList)
   }
   else
   {
-    return NULL;
+    return nullptr;
   }
 }

@@ -38,7 +38,7 @@ Game::Game()
   printf("Initializing window... ");
   window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
 
-  if (window == NULL)
+  if (window == nullptr)
   {
     fprintf(stderr, "Failed to initialize the window.\n");
     exit(1);
@@ -48,7 +48,7 @@ Game::Game()
   printf("Initializing renderer... ");
   renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-  if (renderer == NULL)
+  if (renderer == nullptr)
   {
     fprintf(stderr, "Failed to initialize the renderer.\n");
     exit(1);
@@ -307,7 +307,7 @@ void Game::DrawHUD()
   SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
   SDL_RenderFillRect(renderer, &health1);
 
-  if (Player::Players[0].ship != NULL)
+  if (Player::Players[0].ship != nullptr)
   {
     health1.w = Player::Players[0].ship->health * 2;
     SDL_SetRenderDrawColor(renderer, 200, 50, 50, 255);
@@ -328,7 +328,7 @@ void Game::DrawHUD()
     SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(renderer, &health2);
 
-    if (Player::Players[1].ship != NULL)
+    if (Player::Players[1].ship != nullptr)
     {
       health2.x = ScreenWidth - 220 + (PlayerHealth - Player::Players[1].ship->health) * 2;
       health2.w = Player::Players[1].ship->health * 2;
@@ -358,7 +358,7 @@ void Game::DrawHUD()
     SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(renderer, &boss);
 
-    if (Boss::FinalBoss.boss != NULL)
+    if (Boss::FinalBoss.boss != nullptr)
     {
       boss.w = (Sint16)(1.0f * Boss::FinalBoss.boss->health / BossHealth * barWidth);
       SDL_SetRenderDrawColor(renderer, 50, 200, 50, 255);
@@ -371,7 +371,7 @@ void Game::DrawTitle()
 {
   Texture* titleTexture = Texture::TextureList["Title"];
   SDL_Rect titleRect = {ScreenWidth / 2 - titleTexture->width / 2, ScreenHeight / 2 - titleTexture->height / 2 - 100, titleTexture->width, titleTexture->height};
-  SDL_RenderCopy(renderer, titleTexture->textures[0], NULL, &titleRect);
+  SDL_RenderCopy(renderer, titleTexture->textures[0], nullptr, &titleRect);
 
   Texture::DrawText(renderer, "Press ENTER to Start", 25, ScreenWidth / 2, ScreenHeight / 2 + 75, 255, 255, 255);
 
@@ -402,7 +402,7 @@ void Game::DrawControls()
 
   Texture* keyTexture = Texture::TextureList["Keyboard"];
   SDL_Rect keyRect = {ScreenWidth / 2 - keyTexture->width / 2, ScreenHeight / 2 - keyTexture->height / 2, keyTexture->width, keyTexture->height};
-  SDL_RenderCopy(renderer, keyTexture->textures[0], NULL, &keyRect);
+  SDL_RenderCopy(renderer, keyTexture->textures[0], nullptr, &keyRect);
 
   Texture::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight - 40, 255, 255, 255);
 }

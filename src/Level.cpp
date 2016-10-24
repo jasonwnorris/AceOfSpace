@@ -65,7 +65,7 @@ void Level::SpawnObject(LevelObject object)
   }
   else
   {
-    Enemy* enemy;
+    Enemy* enemy = nullptr;
 
     if (object.type == "Asteroid")
     {

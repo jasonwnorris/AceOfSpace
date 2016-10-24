@@ -16,7 +16,7 @@ void Graphics::DrawText(SDL_Surface* screen, std::string text, int size, Sint16 
     rect.y -= surface->h / 2;
   }
 
-  SDL_BlitSurface(surface, NULL, screen, &rect);
+  SDL_BlitSurface(surface, nullptr, screen, &rect);
 
   TTF_CloseFont(font);
   SDL_FreeSurface(surface);
@@ -49,7 +49,7 @@ void Graphics::FillAlphaRect(SDL_Surface* screen, SDL_Rect& rect, Uint8 red, Uin
     }
   }
 
-  SDL_BlitSurface(surfaceRect, NULL, screen, &rect);
+  SDL_BlitSurface(surfaceRect, nullptr, screen, &rect);
 
   SDL_FreeSurface(surfaceRect);
 }

@@ -4,18 +4,18 @@ Missile::Missile(std::string keyname) : Projectile(keyname)
 {
   speed = MissileSpeed;
   health = MissileHealth;
-  target = NULL;
+  target = nullptr;
 }
 
 // point the missile at its target, but very slowly
 void Missile::Update(float deltaTime)
 {
-  if (target == NULL || target->dead)
+  if (target == nullptr || target->dead)
   {
     target = PickRandomObject(CollisionList);
   }
 
-  if (target != NULL)
+  if (target != nullptr)
   {
     Vector targetDirection = target->position - position;
     targetDirection.Normalize();

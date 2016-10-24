@@ -51,7 +51,7 @@ void Enemy::DropItem()
   if (rand() % 5 == 0)
   {
     int dropType = rand() % 5;
-    Item* item;
+    Item* item = nullptr;
 
     if (dropType == 0)
     {

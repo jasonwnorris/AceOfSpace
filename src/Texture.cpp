@@ -9,7 +9,7 @@ Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int t
 {
   textures[0] = LoadImage(renderer, filename);
 
-  SDL_QueryTexture(textures[0], &this->format, NULL, &this->width, &this->height);
+  SDL_QueryTexture(textures[0], &this->format, nullptr, &this->width, &this->height);
 
   if (collidable)
   {
@@ -17,7 +17,7 @@ Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int t
   }
   else
   {
-    textures[1] = NULL;
+    textures[1] = nullptr;
   }
 
   this->tilesX = tilesX;
@@ -110,7 +110,7 @@ void Texture::DrawText(SDL_Renderer* renderer, std::string text, int size, Sint1
     rect.y -= surface->h / 2;
   }
 
-  SDL_RenderCopy(renderer, texture, NULL, &rect);
+  SDL_RenderCopy(renderer, texture, nullptr, &rect);
 
   TTF_CloseFont(font);
   SDL_FreeSurface(surface);

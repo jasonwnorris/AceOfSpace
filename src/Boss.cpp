@@ -7,14 +7,14 @@ Boss Boss::FinalBoss;
 
 Boss::Boss()
 {
-  boss = NULL;
+  boss = nullptr;
   spawned = false;
   killed = false;
 }
 
 void Boss::RemoveBoss()
 {
-  FinalBoss.boss = NULL;
+  FinalBoss.boss = nullptr;
   FinalBoss.spawned = false;
   FinalBoss.killed = false;
 }
@@ -28,7 +28,7 @@ void Boss::SpawnBoss()
 
 void Boss::DestroyBoss()
 {
-  FinalBoss.boss = NULL;
+  FinalBoss.boss = nullptr;
   FinalBoss.killed = true;
 }
 
@@ -113,7 +113,7 @@ void BossEnemy::Update(float deltaTime)
 // helper function to update objects that this parent controls
 void BossEnemy::UpdateChildren()
 {
-  if (leftHand != NULL)
+  if (leftHand != nullptr)
   {
     if (leftHand->health > 0)
     {
@@ -121,11 +121,11 @@ void BossEnemy::UpdateChildren()
     }
     else
     {
-      leftHand = NULL;
+      leftHand = nullptr;
     }
   }
 
-  if (rightHand != NULL)
+  if (rightHand != nullptr)
   {
     if (rightHand->health > 0)
     {
@@ -133,7 +133,7 @@ void BossEnemy::UpdateChildren()
     }
     else
     {
-      rightHand = NULL;
+      rightHand = nullptr;
     }
   }
 }

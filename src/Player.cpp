@@ -16,11 +16,11 @@ SDL_Keycode LeftKey[2]  = {SDLK_a,     SDLK_LEFT};
 SDL_Keycode RightKey[2] = {SDLK_d,     SDLK_RIGHT};
 SDL_Keycode FireKey[2]  = {SDLK_j,     SDLK_RCTRL};
 
-Player* Player::Players = NULL;
+Player* Player::Players = nullptr;
 
 Player::Player()
 {
-  ship = NULL;
+  ship = nullptr;
   lives = PlayerLives;
   score = 0;
 }
@@ -38,12 +38,12 @@ void Player::AddPlayers()
 void Player::RemovePlayers()
 {
   delete [] Players;
-  Players = NULL;
+  Players = nullptr;
 }
 
 void Player::SpawnPlayer(int index)
 {
-  if (Players[index].ship == NULL && Players[index].lives > 0)
+  if (Players[index].ship == nullptr && Players[index].lives > 0)
   {
     char player[8];
     snprintf(player, 8, "Player%d", index + 1);
@@ -57,7 +57,7 @@ void Player::DestroyPlayer(PlayerShip* ship)
   {
     if (Players[i].ship == ship)
     {
-      Players[i].ship = NULL;
+      Players[i].ship = nullptr;
       Players[i].lives--;
     }
   }
@@ -73,7 +73,7 @@ void Player::ProcessInput(SDL_Event& event)
 
 void Player::ProcessInput(SDL_Event& event, int index)
 {
-  if (ship == NULL)
+  if (ship == nullptr)
   {
     if (event.type == SDL_KEYDOWN)
     {
@@ -275,7 +275,7 @@ void PlayerShip::FireBullet()
         int total = 5;
         for (int i = 0; i < total; ++i)
         {
-          Projectile* projectile;
+          Projectile* projectile = nullptr;
 
           if (weaponType == WEAPON_MISSILE)
             projectile = new Missile("Missile");
