@@ -11,7 +11,7 @@ class Sprite
     Sprite(string keyname);
 
     void Update(float deltaTime);
-    void Render(SDL_Surface* screen, Vector position);
+    void Render(SDL_Renderer* renderer, Vector position);
 
     SDL_Rect GetFrameBounds();
 

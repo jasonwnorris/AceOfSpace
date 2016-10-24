@@ -19,8 +19,8 @@ class Object
     static void UpdateObjects(float deltaTime);
     virtual void Update(float deltaTime);
 
-    static void RenderObjects(SDL_Surface* screen);
-    virtual void Render(SDL_Surface* screen);
+    static void RenderObjects(SDL_Renderer* renderer);
+    virtual void Render(SDL_Renderer* renderer);
 
     static void AddNew();
     static void RemoveDead();
@@ -33,7 +33,6 @@ class Object
     SDL_Rect NormalizeBounds(const SDL_Rect& rect);
     static SDL_Rect Intersection(const SDL_Rect& boundsA, const SDL_Rect& boundsB);
     static bool CheckCollision(Object* objectA, Object* objectB);
-    static bool GetAlphaXY(Object* object, int x, int y);
     static bool GetAlphaXY(SDL_Surface* surface, int x, int y);
 
     Sprite* sprite;

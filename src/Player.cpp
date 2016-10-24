@@ -9,12 +9,12 @@
 
 #define PLAYER_COUNT 2
 
-SDLKey StartKey[2] = {SDLK_SPACE, SDLK_RSHIFT};
-SDLKey UpKey[2]    = {SDLK_w,     SDLK_UP};
-SDLKey DownKey[2]  = {SDLK_s,     SDLK_DOWN};
-SDLKey LeftKey[2]  = {SDLK_a,     SDLK_LEFT};
-SDLKey RightKey[2] = {SDLK_d,     SDLK_RIGHT};
-SDLKey FireKey[2]  = {SDLK_j,     SDLK_RCTRL};
+SDL_Keycode StartKey[2] = {SDLK_SPACE, SDLK_RSHIFT};
+SDL_Keycode UpKey[2]    = {SDLK_w,     SDLK_UP};
+SDL_Keycode DownKey[2]  = {SDLK_s,     SDLK_DOWN};
+SDL_Keycode LeftKey[2]  = {SDLK_a,     SDLK_LEFT};
+SDL_Keycode RightKey[2] = {SDLK_d,     SDLK_RIGHT};
+SDL_Keycode FireKey[2]  = {SDLK_j,     SDLK_RCTRL};
 
 Player* Player::Players = NULL;
 
@@ -43,8 +43,8 @@ void Player::SpawnPlayer(int index)
 {
   if(Players[index].ship == NULL && Players[index].lives > 0)
   {
-    char player[7];
-    sprintf(player, "Player%d", index + 1);
+    char player[8];
+    snprintf(player, 8, "Player%d", index + 1);
     Players[index].ship = new PlayerShip(player);
   }
 }
@@ -168,8 +168,8 @@ void PlayerShip::RemoveKilled()
   for(vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
     if((*Iter)->dead)
       Iter = PlayerShipList.erase(Iter);
-  else
-    ++Iter;
+    else
+      ++Iter;
 }
 
 void PlayerShip::RemoveAll()

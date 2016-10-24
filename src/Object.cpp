@@ -41,15 +41,15 @@ void Object::Update(float deltaTime)
   Move(direction * speed * deltaTime);
 }
 
-void Object::RenderObjects(SDL_Surface* screen)
+void Object::RenderObjects(SDL_Renderer* renderer)
 {
   for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
-    (*Iter)->Render(screen);
+    (*Iter)->Render(renderer);
 }
 
-void Object::Render(SDL_Surface* screen)
+void Object::Render(SDL_Renderer* renderer)
 {
-  sprite->Render(screen, position);
+  sprite->Render(renderer, position);
 }
 
 // we want to add objects during the main iteration
@@ -72,7 +72,7 @@ void Object::RemoveDead()
     if((*Iter)->dead)
     {
       Object* temp = (*Iter);
-      ObjectList.erase(Iter);
+      Iter = ObjectList.erase(Iter);
       delete temp;
     }
     else
@@ -87,7 +87,7 @@ void Object::RemoveAll()
   for(vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
   {
     Object* temp = (*Iter);
-    ObjectList.erase(Iter);
+    Iter = ObjectList.erase(Iter);
     delete temp;
   }
 
@@ -168,13 +168,13 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
   SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
   SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
 
-  SDL_Surface* surfaceA = objectA->sprite->texture->textures[0];
-  SDL_Surface* surfaceB = objectB->sprite->texture->textures[0];
+  //SDL_Surface* surfaceA = objectA->sprite->texture->textures[0];
+ // SDL_Surface* surfaceB = objectB->sprite->texture->textures[0];
 
-  for(int y = 0; y <= collisionRect.h; ++y)
-    for(int x = 0; x <= collisionRect.w; ++x)
-      if(GetAlphaXY(surfaceA, normalA.x + x, normalA.y + y) && GetAlphaXY(surfaceB, normalB.x + x, normalB.y + y))
-        return true;
+  //for(int y = 0; y <= collisionRect.h; ++y)
+  //  for(int x = 0; x <= collisionRect.w; ++x)
+  //    if(GetAlphaXY(surfaceA, normalA.x + x, normalA.y + y) && GetAlphaXY(surfaceB, normalB.x + x, normalB.y + y))
+  //      return true;
 
   return false;
 }

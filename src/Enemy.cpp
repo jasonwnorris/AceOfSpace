@@ -19,8 +19,8 @@ void Enemy::RemoveKilled()
   for(vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
     if((*Iter)->dead)
       Iter = EnemyList.erase(Iter);
-  else
-    Iter++;
+    else
+      Iter++;
 }
 
 void Enemy::RemoveAll()

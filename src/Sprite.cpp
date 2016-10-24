@@ -22,17 +22,19 @@ void Sprite::Update(float deltaTime)
 }
 
 // render either the plain or damaged texture
-void Sprite::Render(SDL_Surface* screen, Vector position)
+void Sprite::Render(SDL_Renderer* renderer, Vector position)
 {
-  SDL_Surface* surface = texture->textures[textureIndex];
+  SDL_Texture* t = texture->textures[textureIndex];
+
+  SDL_Rect clip = GetFrameBounds();
 
   SDL_Rect location;
   location.x = (Sint16)(position.X - origin.X);
   location.y = (Sint16)(position.Y - origin.Y);
+  location.w = clip.w;
+  location.h = clip.h;
 
-  SDL_Rect clip = GetFrameBounds();
-
-  SDL_BlitSurface(surface, &clip, screen, &location);
+  SDL_RenderCopy(renderer, t, &clip, &location);
 }
 
 // grabs a SDL_Rect around the currect frame of animation we're on

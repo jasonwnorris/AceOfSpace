@@ -1,28 +1,7 @@
 #include "Graphics.hpp"
 
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-  Uint32 Rmask = 0xFF000000;
-  Uint32 Gmask = 0x00FF0000;
-  Uint32 Bmask = 0x0000FF00;
-  Uint32 Amask = 0x000000FF;
-#else
-  Uint32 Rmask = 0x000000FF;
-  Uint32 Gmask = 0x0000FF00;
-  Uint32 Bmask = 0x00FF0000;
-  Uint32 Amask = 0xFF000000;
-#endif
-
 Graphics::Graphics()
 {
-}
-
-SDL_Surface* Graphics::LoadImage(string filename)
-{
-  SDL_Surface* tempSurface = IMG_Load(filename.c_str());
-  SDL_Surface* formatSurface = SDL_DisplayFormatAlpha(tempSurface);
-  SDL_FreeSurface(tempSurface);
-
-  return formatSurface;
 }
 
 void Graphics::DrawText(SDL_Surface* screen, string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center)
@@ -45,6 +24,18 @@ void Graphics::DrawText(SDL_Surface* screen, string text, int size, Sint16 x, Si
 
 void Graphics::FillAlphaRect(SDL_Surface* screen, SDL_Rect& rect, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha)
 {
+  #if SDL_BYTEORDER == SDL_BIG_ENDIAN
+    Uint32 Rmask = 0xFF000000;
+    Uint32 Gmask = 0x00FF0000;
+    Uint32 Bmask = 0x0000FF00;
+    Uint32 Amask = 0x000000FF;
+  #else
+    Uint32 Rmask = 0x000000FF;
+    Uint32 Gmask = 0x0000FF00;
+    Uint32 Bmask = 0x00FF0000;
+    Uint32 Amask = 0xFF000000;
+  #endif
+
   SDL_Surface* surfaceRect = SDL_CreateRGBSurface(SDL_SWSURFACE, rect.w, rect.h, screen->format->BitsPerPixel, Rmask, Gmask, Bmask, Amask);
 
   Uint32 color = SDL_MapRGBA(surfaceRect->format, red, green, blue, alpha);

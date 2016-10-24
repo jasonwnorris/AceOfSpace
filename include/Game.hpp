@@ -2,7 +2,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "SDL.h"
+#include <SDL.h>
 
 #include "Timer.hpp"
 #include "Starfield.hpp"
@@ -43,7 +43,8 @@ class Game
     void DrawVictory();
     void DrawDebug();
 
-    SDL_Surface* screen;
+    SDL_Window* window;
+    SDL_Renderer* renderer;
     SDL_Event event;
 
     bool done;
