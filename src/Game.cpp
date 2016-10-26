@@ -6,6 +6,7 @@
 #include "Level.hpp"
 #include "Player.hpp"
 #include "Boss.hpp"
+#include "Graphics.hpp"
 
 Game::Game()
 {
@@ -347,8 +348,8 @@ void Game::DrawHUD()
   // display score
   char buffer[20];
   sprintf(buffer, "%d", Player::Players[0].score);
-  Texture::DrawText(renderer, "SCORE", 10, ScreenWidth / 2, ScreenHeight - 35, 255, 255, 255);
-  Texture::DrawText(renderer, buffer,  14, ScreenWidth / 2, ScreenHeight - 20, 255, 255, 255);
+  Graphics::DrawText(renderer, "SCORE", 10, ScreenWidth / 2, ScreenHeight - 35, 255, 255, 255);
+  Graphics::DrawText(renderer, buffer,  14, ScreenWidth / 2, ScreenHeight - 20, 255, 255, 255);
 
   // boss HUD
   if (Boss::FinalBoss.spawned && !Boss::FinalBoss.killed)
@@ -373,80 +374,80 @@ void Game::DrawTitle()
   SDL_Rect titleRect = {ScreenWidth / 2 - titleTexture->width / 2, ScreenHeight / 2 - titleTexture->height / 2 - 100, titleTexture->width, titleTexture->height};
   SDL_RenderCopy(renderer, titleTexture->textures[0], nullptr, &titleRect);
 
-  Texture::DrawText(renderer, "Press ENTER to Start", 25, ScreenWidth / 2, ScreenHeight / 2 + 75, 255, 255, 255);
+  Graphics::DrawText(renderer, "Press ENTER to Start", 25, ScreenWidth / 2, ScreenHeight / 2 + 75, 255, 255, 255);
 
   if (singlePlayer)
   {
-    Texture::DrawText(renderer, "1-Player", 20, ScreenWidth / 2, ScreenHeight / 2 + 100, 255, 255, 255);
+    Graphics::DrawText(renderer, "1-Player", 20, ScreenWidth / 2, ScreenHeight / 2 + 100, 255, 255, 255);
   }
   else
   {
-    Texture::DrawText(renderer, "2-Player", 20, ScreenWidth / 2, ScreenHeight / 2 + 100, 255, 255, 255);
+    Graphics::DrawText(renderer, "2-Player", 20, ScreenWidth / 2, ScreenHeight / 2 + 100, 255, 255, 255);
   }
 
-  Texture::DrawText(renderer, "Players",  20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 150, 255, 255, 255);
-  Texture::DrawText(renderer, "(1)",      20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 150, 255, 255, 255);
-  Texture::DrawText(renderer, "Controls", 20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 175, 255, 255, 255);
-  Texture::DrawText(renderer, "(2)",      20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 175, 255, 255, 255);
-  Texture::DrawText(renderer, "Credits",  20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 200, 255, 255, 255);
-  Texture::DrawText(renderer, "(3)",      20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 200, 255, 255, 255);
-  Texture::DrawText(renderer, "Debug",    20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 225, 255, 255, 255);
-  Texture::DrawText(renderer, "(Tab)",    20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 225, 255, 255, 255);
-  Texture::DrawText(renderer, "Exit",     20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 250, 255, 255, 255);
-  Texture::DrawText(renderer, "(Esc)",    20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 250, 255, 255, 255);
+  Graphics::DrawText(renderer, "Players",  20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 150, 255, 255, 255);
+  Graphics::DrawText(renderer, "(1)",      20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 150, 255, 255, 255);
+  Graphics::DrawText(renderer, "Controls", 20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 175, 255, 255, 255);
+  Graphics::DrawText(renderer, "(2)",      20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 175, 255, 255, 255);
+  Graphics::DrawText(renderer, "Credits",  20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 200, 255, 255, 255);
+  Graphics::DrawText(renderer, "(3)",      20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 200, 255, 255, 255);
+  Graphics::DrawText(renderer, "Debug",    20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 225, 255, 255, 255);
+  Graphics::DrawText(renderer, "(Tab)",    20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 225, 255, 255, 255);
+  Graphics::DrawText(renderer, "Exit",     20, ScreenWidth / 2 - 100, ScreenHeight / 2 + 250, 255, 255, 255);
+  Graphics::DrawText(renderer, "(Esc)",    20, ScreenWidth / 2 + 100, ScreenHeight / 2 + 250, 255, 255, 255);
 }
 
 void Game::DrawControls()
 {
-  Texture::DrawText(renderer, "CONTROLS", 35, ScreenWidth / 2,  40, 255, 255, 255);
+  Graphics::DrawText(renderer, "CONTROLS", 35, ScreenWidth / 2,  40, 255, 255, 255);
 
   Texture* keyTexture = Texture::TextureList["Keyboard"];
   SDL_Rect keyRect = {ScreenWidth / 2 - keyTexture->width / 2, ScreenHeight / 2 - keyTexture->height / 2, keyTexture->width, keyTexture->height};
   SDL_RenderCopy(renderer, keyTexture->textures[0], nullptr, &keyRect);
 
-  Texture::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight - 40, 255, 255, 255);
+  Graphics::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight - 40, 255, 255, 255);
 }
 
 void Game::DrawCredits()
 {
-  Texture::DrawText(renderer, "CREDITS",      35, ScreenWidth / 2,  40, 255, 255, 255);
-  Texture::DrawText(renderer, "Programming",  15, ScreenWidth / 2, 150, 255, 255, 255);
-  Texture::DrawText(renderer, "Jason Norris", 25, ScreenWidth / 2, 170, 255, 255, 255);
-  Texture::DrawText(renderer, "Artwork",      15, ScreenWidth / 2, 250, 255, 255, 255);
-  Texture::DrawText(renderer, "Jason Norris", 25, ScreenWidth / 2, 270, 255, 255, 255);
-  Texture::DrawText(renderer, "Music",        15, ScreenWidth / 2, 350, 255, 255, 255);
-  Texture::DrawText(renderer, "Andy Cubrich", 25, ScreenWidth / 2, 370, 255, 255, 255);
-  Texture::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight - 40, 255, 255, 255);
+  Graphics::DrawText(renderer, "CREDITS",      35, ScreenWidth / 2,  40, 255, 255, 255);
+  Graphics::DrawText(renderer, "Programming",  15, ScreenWidth / 2, 150, 255, 255, 255);
+  Graphics::DrawText(renderer, "Jason Norris", 25, ScreenWidth / 2, 170, 255, 255, 255);
+  Graphics::DrawText(renderer, "Artwork",      15, ScreenWidth / 2, 250, 255, 255, 255);
+  Graphics::DrawText(renderer, "Jason Norris", 25, ScreenWidth / 2, 270, 255, 255, 255);
+  Graphics::DrawText(renderer, "Music",        15, ScreenWidth / 2, 350, 255, 255, 255);
+  Graphics::DrawText(renderer, "Andy Cubrich", 25, ScreenWidth / 2, 370, 255, 255, 255);
+  Graphics::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight - 40, 255, 255, 255);
 }
 
 void Game::DrawPaused()
 {
   SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
-  Texture::FillAlphaRect(renderer, rect, 0, 0, 0, 128);
-  Texture::DrawText(renderer, "PAUSED", 30, ScreenWidth / 2, ScreenHeight / 2, 255, 255, 255);
+  Graphics::FillAlphaRect(renderer, rect, 0, 0, 0, 128);
+  Graphics::DrawText(renderer, "PAUSED", 30, ScreenWidth / 2, ScreenHeight / 2, 255, 255, 255);
 }
 
 void Game::DrawGameOver()
 {
   SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
-  Texture::FillAlphaRect(renderer, rect, 255, 0, 0, 128);
-  Texture::DrawText(renderer, "FAILURE", 95, ScreenWidth / 2, ScreenHeight / 2, 255, 0, 0);
-  Texture::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight / 2 + 50, 255, 0, 0);
+  Graphics::FillAlphaRect(renderer, rect, 255, 0, 0, 128);
+  Graphics::DrawText(renderer, "FAILURE", 95, ScreenWidth / 2, ScreenHeight / 2, 255, 0, 0);
+  Graphics::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight / 2 + 50, 255, 0, 0);
 }
 
 void Game::DrawVictory()
 {
   SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
-  Texture::FillAlphaRect(renderer, rect, 0, 255, 0, 128);
-  Texture::DrawText(renderer, "SUCCESS", 95, ScreenWidth / 2, ScreenHeight / 2, 0, 255, 0);
-  Texture::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight / 2 + 50, 0, 255, 0);
+  Graphics::FillAlphaRect(renderer, rect, 0, 255, 0, 128);
+  Graphics::DrawText(renderer, "SUCCESS", 95, ScreenWidth / 2, ScreenHeight / 2, 0, 255, 0);
+  Graphics::DrawText(renderer, "Press ENTER to Return to Main Menu", 16, ScreenWidth / 2, ScreenHeight / 2 + 50, 0, 255, 0);
 }
 
 void Game::DrawDebug()
 {
   char buffer[15];
   sprintf(buffer, "FPS: %d", (int)(frame / timer.getStartTime()));
-  Texture::DrawText(renderer, buffer, 14, 10, 10, 255, 255, 255, false);
+  Graphics::DrawText(renderer, buffer, 14, 10, 10, 255, 255, 255, false);
   sprintf(buffer, "Objects: %lu", Object::ObjectList.size());
-  Texture::DrawText(renderer, buffer, 14, 10, 30, 255, 255, 255, false);
+  Graphics::DrawText(renderer, buffer, 14, 10, 30, 255, 255, 255, false);
 }
