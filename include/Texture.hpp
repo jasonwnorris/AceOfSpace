@@ -39,7 +39,7 @@ class Texture
     bool collidable;
 
   private:
-    SDL_Texture* MakeDamageTexture(SDL_Renderer* renderer, std::string filename);
+    SDL_Texture* MakeDamageTexture(SDL_Renderer* renderer);
 };
 
 #endif

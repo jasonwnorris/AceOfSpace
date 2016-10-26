@@ -13,7 +13,7 @@ Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int t
 
   if (collidable)
   {
-    textures[1] = MakeDamageTexture(renderer, filename);
+    textures[1] = MakeDamageTexture(renderer);
   }
   else
   {
@@ -85,7 +85,6 @@ void Texture::UnloadTextures()
   TextureList.clear();
 }
 
-// simple image loading function
 SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, std::string filename)
 {
   std::string filepath = "resources/" + filename;
@@ -96,8 +95,32 @@ SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, std::string filename)
   return texture;
 }
 
-// TEMP: Just loads same texture.
-SDL_Texture* Texture::MakeDamageTexture(SDL_Renderer* renderer, std::string filename)
+SDL_Texture* Texture::MakeDamageTexture(SDL_Renderer* renderer)
 {
-  return LoadImage(renderer, filename);
+  SDL_Rect rect = {0, 0, width, height};
+  Uint32* pixels = new Uint32[width * height];
+  int pitch = -1;
+
+  SDL_SetRenderTarget(renderer, textures[0]);
+  SDL_RenderReadPixels(renderer, &rect, format, pixels, pitch);
+  SDL_SetRenderTarget(renderer, nullptr);
+
+  SDL_PixelFormat* pixelFormat = SDL_AllocFormat(format);
+
+  for (int i = 0; i < width * height; ++i)
+  {
+    Uint8 red, green, blue, alpha;
+    SDL_GetRGBA(pixels[i], pixelFormat, &red, &green, &blue, &alpha);
+    pixels[i] = SDL_MapRGBA(pixelFormat, 255, 255, 255, alpha);
+  }
+
+  SDL_FreeFormat(pixelFormat);
+
+  SDL_Texture* texture = SDL_CreateTexture(renderer, format, SDL_TEXTUREACCESS_STATIC, width, height);
+  SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
+  SDL_UpdateTexture(texture, &rect, pixels, pitch);
+
+  delete [] pixels;
+
+  return texture;
 }
