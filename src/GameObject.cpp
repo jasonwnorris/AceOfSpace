@@ -74,10 +74,10 @@ void GameObject::Explode()
 // check if the object bounds are intersecting with the viewable screen
 void GameObject::RemoveOffScreen()
 {
-  SDL_Rect bounds = {0, 0, ScreenWidth, ScreenHeight};
-  SDL_Rect intersect = Intersection(GetBounds(), bounds);
+  SDL_Rect screenBounds = {0, 0, ScreenWidth, ScreenHeight};
+  SDL_Rect objectBounds = GetBounds();
 
-  if (intersect.w == 0 && intersect.h == 0)
+  if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)
   {
     Remove();
   }

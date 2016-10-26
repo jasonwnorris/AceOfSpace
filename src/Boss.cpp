@@ -140,10 +140,10 @@ void BossEnemy::UpdateChildren()
 
 void BossEnemy::RemoveOffScreen()
 {
-  SDL_Rect bounds = {-ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3};
-  SDL_Rect intersect = Intersection(GetBounds(), bounds);
+  SDL_Rect screenBounds = {-ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3};
+  SDL_Rect objectBounds = GetBounds();
 
-  if (intersect.w == 0 && intersect.h == 0)
+  if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)
   {
     Remove();
   }

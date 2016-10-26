@@ -31,7 +31,6 @@ class Object
 
     SDL_Rect GetBounds();
     SDL_Rect NormalizeBounds(const SDL_Rect& rect);
-    static SDL_Rect Intersection(const SDL_Rect& boundsA, const SDL_Rect& boundsB);
     static bool CheckCollision(Object* objectA, Object* objectB);
     static bool GetAlphaXY(SDL_Surface* surface, int x, int y);
 

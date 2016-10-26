@@ -28,10 +28,10 @@ void Missile::Update(float deltaTime)
 // give the missile some space to go offscreen and fly back on
 void Missile::RemoveOffScreen()
 {
-  SDL_Rect bounds = {-ScreenWidth / 2, -ScreenHeight / 2, ScreenWidth * 2, ScreenHeight * 2};
-  SDL_Rect intersect = Intersection(GetBounds(), bounds);
+  SDL_Rect screenBounds = {-ScreenWidth / 2, -ScreenHeight / 2, ScreenWidth * 2, ScreenHeight * 2};
+  SDL_Rect objectBounds = GetBounds();
 
-  if (intersect.w == 0 && intersect.h == 0)
+  if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)
   {
     Remove();
   }

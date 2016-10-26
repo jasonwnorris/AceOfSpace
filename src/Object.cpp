@@ -140,42 +140,16 @@ SDL_Rect Object::NormalizeBounds(const SDL_Rect& rect)
   return normalizeRect;
 }
 
-// checks to see if two SDL_Rects intersect
-// returns the colliding area if true, or an empty one if false
-SDL_Rect Object::Intersection(const SDL_Rect& boundsA, const SDL_Rect& boundsB)
-{
-  int x1 = Maximum(boundsA.x, boundsB.x);
-  int y1 = Maximum(boundsA.y, boundsB.y);
-  int x2 = Minimum(boundsA.x + boundsA.w, boundsB.x + boundsB.w);
-  int y2 = Minimum(boundsA.y + boundsA.h, boundsB.y + boundsB.h);
-
-  int width = x2 - x1;
-  int height = y2 - y1;
-
-  if (width > 0 && height > 0)
-  {
-    SDL_Rect intersect = {x1, y1, width, height};
-    return intersect;
-  }
-  else
-  {
-    SDL_Rect intersect = {0, 0, 0, 0};
-    return intersect;
-  }
-}
-
 // checks bounding box collision first, if true, it continues on
 // don't do per pixel collision every time, YOUR PROCESSOR WILL CRY!
 // next, it grabs the area of the surface that will actually need to be checked
 // then sees if the pixels in the same (x,y) are fully opaque (alpha == 255)
 bool Object::CheckCollision(Object* objectA, Object* objectB)
 {
-  SDL_Rect collisionRect = Intersection(objectA->GetBounds(), objectB->GetBounds());
+  SDL_Rect boundsA = objectA->GetBounds();
+  SDL_Rect boundsB = objectB->GetBounds();
 
-  if (collisionRect.w == 0 && collisionRect.h == 0)
-  {
-    return false;
-  }
+  return SDL_HasIntersection(&boundsA, &boundsB) == SDL_TRUE;
 
   //SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
   //SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
@@ -187,8 +161,6 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
   //  for (int x = 0; x <= collisionRect.w; ++x)
   //    if (GetAlphaXY(surfaceA, normalA.x + x, normalA.y + y) && GetAlphaXY(surfaceB, normalB.x + x, normalB.y + y))
   //      return true;
-
-  return false;
 }
 
 // helper function to find the alpha on a surface with a give (x,y)
