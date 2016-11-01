@@ -37,6 +37,7 @@ class Texture
     int frameCount;
     float frameInterval;
     bool collidable;
+    bool* solidity;
 
   private:
     SDL_Texture* MakeDamageTexture(SDL_Renderer* renderer);

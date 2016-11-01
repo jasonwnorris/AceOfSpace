@@ -140,57 +140,38 @@ SDL_Rect Object::NormalizeBounds(const SDL_Rect& rect)
   return normalizeRect;
 }
 
-// checks bounding box collision first, if true, it continues on
-// don't do per pixel collision every time, YOUR PROCESSOR WILL CRY!
-// next, it grabs the area of the surface that will actually need to be checked
-// then sees if the pixels in the same (x,y) are fully opaque (alpha == 255)
 bool Object::CheckCollision(Object* objectA, Object* objectB)
 {
   SDL_Rect boundsA = objectA->GetBounds();
   SDL_Rect boundsB = objectB->GetBounds();
 
-  return SDL_HasIntersection(&boundsA, &boundsB) == SDL_TRUE;
-
-  //SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
-  //SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
-
-  //SDL_Surface* surfaceA = objectA->sprite->texture->textures[0];
- // SDL_Surface* surfaceB = objectB->sprite->texture->textures[0];
-
-  //for (int y = 0; y <= collisionRect.h; ++y)
-  //  for (int x = 0; x <= collisionRect.w; ++x)
-  //    if (GetAlphaXY(surfaceA, normalA.x + x, normalA.y + y) && GetAlphaXY(surfaceB, normalB.x + x, normalB.y + y))
-  //      return true;
-}
-
-// helper function to find the alpha on a surface with a give (x,y)
-bool Object::GetAlphaXY(SDL_Surface* surface, int x, int y)
-{
-  int bpp = surface->format->BytesPerPixel;
-  Uint8* p = (Uint8*)surface->pixels + y * surface->pitch + x * bpp;
-  Uint32 pixelColor;
-
-  switch(bpp)
+  SDL_Rect collisionRect;
+  if (SDL_IntersectRect(&boundsA, &boundsB, &collisionRect) == SDL_FALSE)
   {
-    case(1):
-      pixelColor = *p;
-      break;
-    case(2):
-      pixelColor = *(Uint16*)p;
-      break;
-    case(3):
-      if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
-        pixelColor = p[0] << 16 | p[1] << 8 | p[2];
-      else
-        pixelColor = p[0] | p[1] << 8 | p[2] << 16;
-      break;
-    case(4):
-      pixelColor = *(Uint32*)p;
-      break;
+    return false;
   }
 
-  Uint8 red, green, blue, alpha;
-  SDL_GetRGBA(pixelColor, surface->format, &red, &green, &blue, &alpha);
+  SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
+  SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
 
-  return alpha == 255;
+  Texture* textureA = objectA->sprite->texture;
+  Texture* textureB = objectB->sprite->texture;
+
+  for (int y = 0; y <= collisionRect.h; ++y)
+  {
+    for (int x = 0; x <= collisionRect.w; ++x)
+    {
+      if (GetAlphaXY(textureA, normalA.x + x, normalA.y + y) && GetAlphaXY(textureB, normalB.x + x, normalB.y + y))
+      {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+bool Object::GetAlphaXY(Texture* texture, int x, int y)
+{
+  return texture->solidity[x + y * texture->width];
 }

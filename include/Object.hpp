@@ -32,7 +32,7 @@ class Object
     SDL_Rect GetBounds();
     SDL_Rect NormalizeBounds(const SDL_Rect& rect);
     static bool CheckCollision(Object* objectA, Object* objectB);
-    static bool GetAlphaXY(SDL_Surface* surface, int x, int y);
+    static bool GetAlphaXY(Texture* texture, int x, int y);
 
     Sprite* sprite;
     Vector position;

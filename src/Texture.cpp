@@ -1,8 +1,6 @@
 // Texture.cpp //
 #include "Texture.hpp"
 
-#define COLOR_OFFSET  100
-
 std::map<std::string, Texture*> Texture::TextureList;
 
 Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable)
@@ -35,6 +33,7 @@ Texture::~Texture()
 
   if (collidable)
   {
+    delete [] solidity;
     SDL_DestroyTexture(textures[1]);
   }
 }
@@ -97,8 +96,9 @@ SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, std::string filename)
 
 SDL_Texture* Texture::MakeDamageTexture(SDL_Renderer* renderer)
 {
+  int count = width * height;
   SDL_Rect rect = {0, 0, width, height};
-  Uint32* pixels = new Uint32[width * height];
+  Uint32* pixels = new Uint32[count];
   int pitch = -1;
 
   SDL_SetRenderTarget(renderer, textures[0]);
@@ -107,11 +107,14 @@ SDL_Texture* Texture::MakeDamageTexture(SDL_Renderer* renderer)
 
   SDL_PixelFormat* pixelFormat = SDL_AllocFormat(format);
 
-  for (int i = 0; i < width * height; ++i)
+  solidity = new bool[count];
+
+  for (int i = 0; i < count; ++i)
   {
     Uint8 red, green, blue, alpha;
     SDL_GetRGBA(pixels[i], pixelFormat, &red, &green, &blue, &alpha);
     pixels[i] = SDL_MapRGBA(pixelFormat, 255, 255, 255, alpha);
+    solidity[i] = (alpha == 255);
   }
 
   SDL_FreeFormat(pixelFormat);
