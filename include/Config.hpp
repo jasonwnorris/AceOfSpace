@@ -3,9 +3,6 @@
 #ifndef __CONFIG_HPP__
 #define __CONFIG_HPP__
 
-#define Maximum(a, b)  ((a > b) ? a : b)
-#define Minimum(a, b)  ((a < b) ? a : b)
-
 const int ScreenWidth = 800;
 const int ScreenHeight = 600;
 const int ScreenBPP = 32;

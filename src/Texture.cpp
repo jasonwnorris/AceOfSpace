@@ -1,6 +1,8 @@
 // Texture.cpp //
 #include "Texture.hpp"
 
+#include <algorithm>
+
 std::map<std::string, Texture*> Texture::TextureList;
 
 Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable)
@@ -114,9 +116,9 @@ void Texture::MakeDamageTexture(SDL_Renderer* renderer, std::string filename)
     {
       int index = x + y * surface->w;
       SDL_GetRGBA(pixels[index], surface->format, &red, &green, &blue, &alpha);
-      red = Minimum(red + 100, 255);
-      green = Minimum(green + 100, 255);
-      blue = Minimum(blue + 100, 255);
+      red = std::min(red + 100, 255);
+      green = std::min(green + 100, 255);
+      blue = std::min(blue + 100, 255);
       pixels[index] = SDL_MapRGBA(surface->format, red, green, blue, alpha);
       solidity[index] = (alpha == 255);
     }

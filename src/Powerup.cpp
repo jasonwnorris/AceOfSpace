@@ -3,6 +3,8 @@
 
 #include "Projectile.hpp"
 
+#include <algorithm>
+
 Powerup::Powerup(std::string keyname) : Item(keyname)
 {
   type = keyname;
@@ -12,7 +14,7 @@ void Powerup::InflictBonus(GameObject* object)
 {
   if (type == "ItemHealth")
   {
-    object->health = Minimum(object->health + 50, PlayerHealth);
+    object->health = std::min(object->health + 50, PlayerHealth);
   }
   else if (type == "ItemSpeed")
   {
