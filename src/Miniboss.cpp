@@ -1,8 +1,9 @@
-// Miniboss.cpp //
-#include "Miniboss.hpp"
+// Miniboss.cpp
 
+// STL Includes
 #include <math.h>
-
+// AOS Includes
+#include "Miniboss.hpp"
 #include "Bullet.hpp"
 #include "Player.hpp"
 

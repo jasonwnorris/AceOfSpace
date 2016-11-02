@@ -1,4 +1,6 @@
-// Particle.cpp //
+// Particle.cpp
+
+// AOS Includes
 #include "Particle.hpp"
 
 Particle::Particle(std::string keyname) : Object(keyname)

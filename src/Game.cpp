@@ -1,6 +1,7 @@
-// Game.cpp //
-#include "Game.hpp"
+// Game.cpp
 
+// AOS Includes
+#include "Game.hpp"
 #include "Config.hpp"
 #include "Sound.hpp"
 #include "Level.hpp"

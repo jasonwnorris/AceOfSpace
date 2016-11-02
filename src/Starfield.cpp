@@ -1,4 +1,6 @@
-// Starfield.cpp //
+// Starfield.cpp
+
+// AOS Includes
 #include "Starfield.hpp"
 
 Starfield::Starfield()

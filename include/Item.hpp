@@ -3,6 +3,7 @@
 #ifndef __ITEM_HPP__
 #define __ITEM_HPP__
 
+// AOS Includes
 #include "GameObject.hpp"
 
 class Item : public GameObject

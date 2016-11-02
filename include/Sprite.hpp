@@ -3,6 +3,7 @@
 #ifndef __SPRITE_HPP__
 #define __SPRITE_HPP__
 
+// AOS Includes
 #include "Vector.hpp"
 #include "Texture.hpp"
 

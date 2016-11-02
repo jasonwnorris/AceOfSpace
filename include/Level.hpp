@@ -3,9 +3,10 @@
 #ifndef __LEVEL_HPP__
 #define __LEVEL_HPP__
 
+// STL Includes
 #include <fstream>
 #include <string>
-
+// AOS Includes
 #include "Vector.hpp"
 #include "Asteroid.hpp"
 #include "StraightShooter.hpp"

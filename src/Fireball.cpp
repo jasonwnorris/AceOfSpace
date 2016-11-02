@@ -1,4 +1,6 @@
-// Fireball.cpp //
+// Fireball.cpp
+
+// AOS Includes
 #include "Fireball.hpp"
 
 Fireball::Fireball(std::string keyname) : Projectile(keyname)

@@ -3,6 +3,7 @@
 #ifndef __PROJECTILE_HPP__
 #define __PROJECTILE_HPP__
 
+// AOS Includes
 #include "GameObject.hpp"
 
 enum WeaponType

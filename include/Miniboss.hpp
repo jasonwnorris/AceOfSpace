@@ -3,6 +3,7 @@
 #ifndef __MINIBOSS_HPP__
 #define __MINIBOSS_HPP__
 
+// AOS Includes
 #include "Enemy.hpp"
 
 class Miniboss : public Enemy

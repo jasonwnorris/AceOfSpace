@@ -3,6 +3,7 @@
 #ifndef __ENEMY_HPP__
 #define __ENEMY_HPP__
 
+// AOS Includes
 #include "GameObject.hpp"
 
 class Enemy : public GameObject

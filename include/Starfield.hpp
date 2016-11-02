@@ -3,6 +3,7 @@
 #ifndef __STARFIELD_HPP__
 #define __STARFIELD_HPP__
 
+// AOS Includes
 #include "Star.hpp"
 
 class Starfield

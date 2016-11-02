@@ -3,14 +3,15 @@
 #ifndef __TEXTURE_HPP__
 #define __TEXTURE_HPP__
 
+// SDL Includes
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
+// STL Includes
 #include <fstream>
 #include <string>
 #include <map>
-
+// AOS Includes
 #include "Config.hpp"
 
 class Texture

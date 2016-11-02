@@ -1,4 +1,6 @@
-// Timer.cpp //
+// Timer.cpp
+
+// AOS Includes
 #include "Timer.hpp"
 
 Timer::Timer()

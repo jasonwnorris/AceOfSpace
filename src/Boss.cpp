@@ -1,6 +1,7 @@
-// Boss.cpp //
-#include "Boss.hpp"
+// Boss.cpp
 
+// AOS Includes
+#include "Boss.hpp"
 #include "Sound.hpp"
 
 Boss Boss::FinalBoss;

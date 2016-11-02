@@ -1,6 +1,7 @@
-// StraightShooter.cpp //
-#include "StraightShooter.hpp"
+// StraightShooter.cpp
 
+// AOS Includes
+#include "StraightShooter.hpp"
 #include "Player.hpp"
 #include "Bullet.hpp"
 

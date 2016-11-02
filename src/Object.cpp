@@ -1,6 +1,7 @@
-// Object.cpp //
-#include "Object.hpp"
+// Object.cpp
 
+// AOS Includes
+#include "Object.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
 

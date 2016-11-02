@@ -3,8 +3,9 @@
 #ifndef __OBJECT_HPP__
 #define __OBJECT_HPP__
 
+// STL Includes
 #include <vector>
-
+// AOS Includes
 #include "Sprite.hpp"
 
 class Object

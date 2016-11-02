@@ -1,7 +1,9 @@
-#include "Graphics.hpp"
+// Graphics.cpp
 
-#include <SDL_image.h>
+// SDL Includes
 #include <SDL_ttf.h>
+// AOS Includes
+#include "Graphics.hpp"
 
 // draws text to screen, eats up a lot of CPU cycles
 void Graphics::DrawText(SDL_Renderer* renderer, std::string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center)

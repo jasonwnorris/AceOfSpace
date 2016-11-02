@@ -1,9 +1,10 @@
-// Powerup.cpp //
-#include "Powerup.hpp"
+// Powerup.cpp
 
-#include "Projectile.hpp"
-
+// STL Includes
 #include <algorithm>
+// AOS Includes
+#include "Powerup.hpp"
+#include "Projectile.hpp"
 
 Powerup::Powerup(std::string keyname) : Item(keyname)
 {

@@ -3,8 +3,9 @@
 #ifndef __GAME_HPP__
 #define __GAME_HPP__
 
+// SDL Includes
 #include <SDL.h>
-
+// AOS Includes
 #include "Timer.hpp"
 #include "Starfield.hpp"
 

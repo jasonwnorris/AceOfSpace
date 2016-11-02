@@ -1,7 +1,9 @@
-// Texture.cpp //
-#include "Texture.hpp"
+// Texture.cpp
 
+// STL Includes
 #include <algorithm>
+// AOS Includes
+#include "Texture.hpp"
 
 std::map<std::string, Texture*> Texture::TextureList;
 

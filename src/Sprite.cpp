@@ -1,4 +1,6 @@
-// Sprite.cpp //
+// Sprite.cpp
+
+// AOS Includes
 #include "Sprite.hpp"
 
 Sprite::Sprite(std::string keyname)

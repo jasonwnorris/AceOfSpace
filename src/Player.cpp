@@ -1,6 +1,7 @@
-// Player.cpp //
-#include "Player.hpp"
+// Player.cpp
 
+// AOS Includes
+#include "Player.hpp"
 #include "Sound.hpp"
 #include "Enemy.hpp"
 #include "Bullet.hpp"

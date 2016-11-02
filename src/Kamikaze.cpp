@@ -1,6 +1,7 @@
-// Kamikaze.cpp //
-#include "Kamikaze.hpp"
+// Kamikaze.cpp
 
+// AOS Includes
+#include "Kamikaze.hpp"
 #include "Player.hpp"
 
 Kamikaze::Kamikaze(std::string keyname) : Enemy(keyname)

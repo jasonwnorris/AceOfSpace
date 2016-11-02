@@ -1,4 +1,6 @@
-// Asteroid.cpp //
+// Asteroid.cpp
+
+// AOS Includes
 #include "Asteroid.hpp"
 
 Asteroid::Asteroid(std::string keyname) : Enemy(keyname)

@@ -1,6 +1,7 @@
-// TargetShooter.cpp //
-#include "TargetShooter.hpp"
+// TargetShooter.cpp
 
+// AOS Includes
+#include "TargetShooter.hpp"
 #include "Player.hpp"
 #include "Bullet.hpp"
 

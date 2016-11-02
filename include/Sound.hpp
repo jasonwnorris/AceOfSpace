@@ -3,9 +3,10 @@
 #ifndef __SOUND_HPP__
 #define __SOUND_HPP__
 
+// SDL Includes
 #include <SDL.h>
 #include <SDL_mixer.h>
-
+// STL Includes
 #include <fstream>
 #include <string>
 #include <map>

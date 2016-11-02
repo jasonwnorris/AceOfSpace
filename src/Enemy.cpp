@@ -1,6 +1,7 @@
-// Enemy.cpp //
-#include "Enemy.hpp"
+// Enemy.cpp
 
+// AOS Includes
+#include "Enemy.hpp"
 #include "Player.hpp"
 #include "Powerup.hpp"
 

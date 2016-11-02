@@ -3,6 +3,7 @@
 #ifndef __KAMIKAZE_HPP__
 #define __KAMIKAZE_HPP__
 
+// AOS Includes
 #include "Enemy.hpp"
 
 class Kamikaze : public Enemy

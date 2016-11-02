@@ -1,6 +1,7 @@
-// GameObject.cpp //
-#include "GameObject.hpp"
+// GameObject.cpp
 
+// AOS Includes
+#include "GameObject.hpp"
 #include "Particle.hpp"
 
 GameObject::GameObject(std::string keyname) : Object(keyname)

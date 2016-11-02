@@ -1,4 +1,6 @@
-// Star.cpp //
+// Star.cpp
+
+// AOS Includes
 #include "Star.hpp"
 
 Star::Star(std::string keyname) : Object(keyname)

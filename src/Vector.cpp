@@ -1,7 +1,9 @@
-// Vector.cpp //
-#include "Vector.hpp"
+// Vector.cpp
 
+// STL Includes
 #include <math.h>
+// AOS Includes
+#include "Vector.hpp"
 
 #ifndef M_PI
 #define M_PI 3.14159265359

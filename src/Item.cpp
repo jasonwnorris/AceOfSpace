@@ -1,6 +1,7 @@
-// Item.cpp //
-#include "Item.hpp"
+// Item.cpp
 
+// AOS Includes
+#include "Item.hpp"
 #include "Player.hpp"
 
 Item::Item(std::string keyname) : GameObject(keyname)
