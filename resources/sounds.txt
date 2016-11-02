@@ -1,0 +1,6 @@
+Keyname			Filename		Loop?
+Intro			intro.ogg		yes
+Theme			theme.ogg		yes
+Boss			boss.ogg		yes
+Victory			victory.ogg		no
+GameOver		gameover.ogg		no
