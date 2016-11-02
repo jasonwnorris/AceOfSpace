@@ -5,7 +5,7 @@
 
 std::map<std::string, Sound*> Sound::SoundList;
 
-Sound::Sound(std::string filename, bool loop)
+Sound::Sound(const std::string& filename, bool loop)
 {
   std::string filepath = "resources/" + filename;
 
@@ -66,7 +66,7 @@ void Sound::UnloadSounds()
   SoundList.clear();
 }
 
-void Sound::PlaySound(std::string keyname)
+void Sound::PlaySound(const std::string& keyname)
 {
   Sound* sound = SoundList[keyname];
 

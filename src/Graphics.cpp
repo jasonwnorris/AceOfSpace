@@ -6,7 +6,7 @@
 #include "Graphics.hpp"
 
 // draws text to screen, eats up a lot of CPU cycles
-void Graphics::DrawText(SDL_Renderer* renderer, std::string text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center)
+void Graphics::DrawText(SDL_Renderer* renderer, const std::string& text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center)
 {
   SDL_Color color = {red, green, blue};
   TTF_Font* font = TTF_OpenFont("resources/framd.ttf", size);

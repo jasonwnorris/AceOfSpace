@@ -9,7 +9,7 @@
 class Miniboss : public Enemy
 {
     public:
-    Miniboss(std::string keyname);
+    Miniboss(const std::string& keyname);
 
     void Update(float deltaTime);
 

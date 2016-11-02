@@ -4,7 +4,7 @@
 #include "GameObject.hpp"
 #include "Particle.hpp"
 
-GameObject::GameObject(std::string keyname) : Object(keyname)
+GameObject::GameObject(const std::string& keyname) : Object(keyname)
 {
   health = 0;
   flickerInterval = 0.0f;

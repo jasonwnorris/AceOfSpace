@@ -9,7 +9,7 @@
 class Star : public Object
 {
   public:
-    Star(std::string keyname);
+    Star(const std::string& keyname);
 
     void Update(float deltaTime);
 };

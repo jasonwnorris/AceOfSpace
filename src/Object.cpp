@@ -8,7 +8,7 @@
 std::vector<Object*> Object::ObjectList;
 std::vector<Object*> Object::ObjectAddList;
 
-Object::Object(std::string keyname)
+Object::Object(const std::string& keyname)
 {
   sprite = new Sprite(keyname);
   position = Vector(0, 0);

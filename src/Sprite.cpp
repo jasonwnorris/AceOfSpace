@@ -3,7 +3,7 @@
 // AOS Includes
 #include "Sprite.hpp"
 
-Sprite::Sprite(std::string keyname)
+Sprite::Sprite(const std::string& keyname)
 {
   texture = Texture::TextureList[keyname];
   origin = Vector(texture->tileWidth / 2, texture->tileHeight / 2);

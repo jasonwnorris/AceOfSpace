@@ -3,7 +3,7 @@
 // AOS Includes
 #include "Star.hpp"
 
-Star::Star(std::string keyname) : Object(keyname)
+Star::Star(const std::string& keyname) : Object(keyname)
 {
   direction = Vector(0, 1);
 }

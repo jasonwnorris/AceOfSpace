@@ -38,7 +38,7 @@ void Boss::DestroyBoss()
 #include "Bullet.hpp"
 #include "Player.hpp"
 
-BossEnemy::BossEnemy(std::string keyname) : Enemy(keyname)
+BossEnemy::BossEnemy(const std::string& keyname) : Enemy(keyname)
 {
   pointValue = BossPointValue;
 

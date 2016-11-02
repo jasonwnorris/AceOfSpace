@@ -6,7 +6,7 @@
 #include "Powerup.hpp"
 #include "Projectile.hpp"
 
-Powerup::Powerup(std::string keyname) : Item(keyname)
+Powerup::Powerup(const std::string& keyname) : Item(keyname)
 {
   type = keyname;
 }

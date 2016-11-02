@@ -3,7 +3,7 @@
 // AOS Includes
 #include "Asteroid.hpp"
 
-Asteroid::Asteroid(std::string keyname) : Enemy(keyname)
+Asteroid::Asteroid(const std::string& keyname) : Enemy(keyname)
 {
   pointValue = AsteroidPointValue;
   health = AsteroidHealth;

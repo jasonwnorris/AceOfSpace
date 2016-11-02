@@ -3,7 +3,7 @@
 // AOS Includes
 #include "Projectile.hpp"
 
-Projectile::Projectile(std::string keyname) : GameObject(keyname)
+Projectile::Projectile(const std::string& keyname) : GameObject(keyname)
 {
   explosionKeyname = "Flash";
 }

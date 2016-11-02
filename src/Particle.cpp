@@ -3,7 +3,7 @@
 // AOS Includes
 #include "Particle.hpp"
 
-Particle::Particle(std::string keyname) : Object(keyname)
+Particle::Particle(const std::string& keyname) : Object(keyname)
 {
   lifeInterval = sprite->texture->frameCount * sprite->texture->frameInterval;
 }

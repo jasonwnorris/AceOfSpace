@@ -5,7 +5,7 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 
-StraightShooter::StraightShooter(std::string keyname) : Enemy(keyname)
+StraightShooter::StraightShooter(const std::string& keyname) : Enemy(keyname)
 {
   pointValue = StraightShooterPointValue;
   health = StraightShooterHealth;

@@ -47,7 +47,7 @@ void Level::BuildLevel()
 }
 
 // push the information onto the list
-void Level::AddObject(std::string type, float positionX, float spawnTime)
+void Level::AddObject(const std::string& type, float positionX, float spawnTime)
 {
   LevelObject object;
   object.type = type;

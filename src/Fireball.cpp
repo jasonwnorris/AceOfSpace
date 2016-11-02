@@ -3,7 +3,7 @@
 // AOS Includes
 #include "Fireball.hpp"
 
-Fireball::Fireball(std::string keyname) : Projectile(keyname)
+Fireball::Fireball(const std::string& keyname) : Projectile(keyname)
 {
   speed = FireballSpeed;
   health = FireballHealth;

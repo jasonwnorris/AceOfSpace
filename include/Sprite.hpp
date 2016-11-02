@@ -10,7 +10,7 @@
 class Sprite
 {
   public:
-    Sprite(std::string keyname);
+    Sprite(const std::string& keyname);
 
     void Update(float deltaTime);
     void Render(SDL_Renderer* renderer, Vector position);

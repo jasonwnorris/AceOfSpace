@@ -4,7 +4,7 @@
 #include "Kamikaze.hpp"
 #include "Player.hpp"
 
-Kamikaze::Kamikaze(std::string keyname) : Enemy(keyname)
+Kamikaze::Kamikaze(const std::string& keyname) : Enemy(keyname)
 {
   pointValue = KamikazePointValue;
   health = KamikazeHealth;

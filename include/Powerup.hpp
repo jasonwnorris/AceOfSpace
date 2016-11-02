@@ -9,7 +9,7 @@
 class Powerup : public Item
 {
   public:
-    Powerup(std::string keyname);
+    Powerup(const std::string& keyname);
 
     void InflictBonus(GameObject* object);
 

@@ -9,7 +9,7 @@
 class Particle : public Object
 {
   public:
-    Particle(std::string keyname);
+    Particle(const std::string& keyname);
 
     void Update(float deltaTime);
 

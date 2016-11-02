@@ -7,7 +7,7 @@
 
 std::map<std::string, Texture*> Texture::TextureList;
 
-Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable)
+Texture::Texture(SDL_Renderer* renderer, const std::string& filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable)
 {
   textures[0] = LoadImage(renderer, filename);
 
@@ -84,7 +84,7 @@ void Texture::UnloadTextures()
   TextureList.clear();
 }
 
-SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, std::string filename)
+SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, const std::string& filename)
 {
   std::string filepath = "resources/" + filename;
   SDL_Surface* surface = IMG_Load(filepath.c_str());
@@ -94,7 +94,7 @@ SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, std::string filename)
   return texture;
 }
 
-void Texture::MakeDamageTexture(SDL_Renderer* renderer, std::string filename)
+void Texture::MakeDamageTexture(SDL_Renderer* renderer, const std::string& filename)
 {
   std::string filepath = "resources/" + filename;
   SDL_Surface* surface = IMG_Load(filepath.c_str());

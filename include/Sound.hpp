@@ -14,7 +14,7 @@
 class Sound
 {
   public:
-    Sound(std::string filename, bool loop);
+    Sound(const std::string& filename, bool loop);
     ~Sound();
 
     static std::map<std::string, Sound*> SoundList;
@@ -22,7 +22,7 @@ class Sound
     static void LoadSounds();
     static void UnloadSounds();
 
-    static void PlaySound(std::string keyname);
+    static void PlaySound(const std::string& keyname);
 
     Mix_Music* mixMusic;
     bool loop;

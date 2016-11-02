@@ -31,7 +31,7 @@ class Level
     std::vector<LevelObject> LevelObjects;
 
     void BuildLevel();
-    void AddObject(std::string type, float positionX, float spawnTime);
+    void AddObject(const std::string& type, float positionX, float spawnTime);
     void SpawnObject(LevelObject object);
     void Reset();
 

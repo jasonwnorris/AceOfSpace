@@ -4,7 +4,7 @@
 #include "Item.hpp"
 #include "Player.hpp"
 
-Item::Item(std::string keyname) : GameObject(keyname)
+Item::Item(const std::string& keyname) : GameObject(keyname)
 {
   direction = Vector(0, 1);
   speed = ItemSpeed;

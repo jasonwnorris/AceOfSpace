@@ -9,7 +9,7 @@
 class Kamikaze : public Enemy
 {
   public:
-    Kamikaze(std::string keyname);
+    Kamikaze(const std::string& keyname);
 
     void Update(float deltaTime);
 

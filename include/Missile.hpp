@@ -9,7 +9,7 @@
 class Missile : public Projectile
 {
   public:
-    Missile(std::string keyname);
+    Missile(const std::string& keyname);
 
     void Update(float deltaTime);
 

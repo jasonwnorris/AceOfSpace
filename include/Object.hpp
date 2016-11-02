@@ -11,7 +11,7 @@
 class Object
 {
   public:
-    Object(std::string keyname);
+    Object(const std::string& keyname);
     virtual ~Object();
 
     static std::vector<Object*> ObjectList;

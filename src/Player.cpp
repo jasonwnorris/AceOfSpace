@@ -147,7 +147,7 @@ void Player::AwardPoints(int amount)
 
 std::vector<GameObject*> PlayerShip::PlayerShipList;
 
-PlayerShip::PlayerShip(std::string keyname) : GameObject(keyname)
+PlayerShip::PlayerShip(const std::string& keyname) : GameObject(keyname)
 {
   position = Vector(ScreenWidth / 2, ScreenHeight - sprite->texture->tileHeight - PlayerSpawnOffset);
   speed = PlayerSpeed;

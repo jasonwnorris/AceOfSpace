@@ -10,7 +10,7 @@
 class BossEnemy : public Enemy
 {
   public:
-    BossEnemy(std::string keyname);
+    BossEnemy(const std::string& keyname);
 
     void Update(float deltaTime);
     void UpdateChildren();

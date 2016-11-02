@@ -3,7 +3,7 @@
 // AOS Includes
 #include "Missile.hpp"
 
-Missile::Missile(std::string keyname) : Projectile(keyname)
+Missile::Missile(const std::string& keyname) : Projectile(keyname)
 {
   speed = MissileSpeed;
   health = MissileHealth;

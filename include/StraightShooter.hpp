@@ -9,7 +9,7 @@
 class StraightShooter : public Enemy
 {
   public:
-    StraightShooter(std::string keyname);
+    StraightShooter(const std::string& keyname);
 
     virtual void Update(float deltaTime);
 

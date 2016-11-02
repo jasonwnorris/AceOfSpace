@@ -17,14 +17,14 @@
 class Texture
 {
   public:
-    Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable);
+    Texture(SDL_Renderer* renderer, const std::string& filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable);
     ~Texture();
 
     static std::map<std::string, Texture*> TextureList;
 
     static void LoadTextures(SDL_Renderer* renderer);
     static void UnloadTextures();
-    static SDL_Texture* LoadImage(SDL_Renderer* renderer, std::string filename);
+    static SDL_Texture* LoadImage(SDL_Renderer* renderer, const std::string& filename);
 
     SDL_Texture* textures[2];
 
@@ -41,7 +41,7 @@ class Texture
     bool* solidity;
 
   private:
-    void MakeDamageTexture(SDL_Renderer* renderer, std::string filename);
+    void MakeDamageTexture(SDL_Renderer* renderer, const std::string& filename);
 };
 
 #endif
