@@ -46,7 +46,7 @@ SDL_Texture* Font::GetTexture() const
 
 SDL_Rect Font::GetCharacterBounds(Uint16 p_Character) const
 {
-  SDL_Rect rect;
+  SDL_Rect rect = { 0, 0, 0, 0 };
 
   for (const auto& glyph : m_Glyphs)
   {
@@ -228,7 +228,7 @@ int Font::HeuristicWidth()
     totalSize += glyph.VisualWidth * glyph.VisualHeight;
   }
 
-  return MakeValidTextureSize(static_cast<int>(sqrtf(totalSize)), true);
+  return MakeValidTextureSize(static_cast<int>(sqrt(totalSize)), true);
 }
 
 int Font::MakeValidTextureSize(int p_Value, bool p_IsPOT)

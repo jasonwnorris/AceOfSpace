@@ -34,7 +34,7 @@ void Level::BuildLevel()
     file >> positionX;
     file >> time;
 
-    AddObject(type, positionX, time);
+    AddObject(type, static_cast<float>(positionX), time);
 
     finalTime = time;
   }

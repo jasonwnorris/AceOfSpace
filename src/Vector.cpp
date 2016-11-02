@@ -32,11 +32,11 @@ float Vector::Angle()
   {
     if (Y > 0.0f)
     {
-      return M_PI / 2.0f;
+      return static_cast<float>(M_PI / 2.0f);
     }
     else
     {
-      return 3.0f * M_PI / 2.0f;
+      return static_cast<float>(3.0f * M_PI / 2.0f);
     }
   }
 
@@ -47,21 +47,21 @@ float Vector::Angle()
     omega *= -1;
   }
 
-  float angle = atan(omega);
+  float angle = atanf(omega);
 
   if (X < 0.0f && Y >= 0.0f)
   {
-    return M_PI - angle;
+    return static_cast<float>(M_PI - angle);
   }
 
   if (X < 0.0f && Y <= 0.0f)
   {
-    return M_PI + angle;
+    return static_cast<float>(M_PI + angle);
   }
 
   if (X > 0.0f && Y <= 0.0f)
   {
-    return 2.0f * M_PI - angle;
+    return static_cast<float>(2.0f * M_PI - angle);
   }
 
   return angle;
@@ -70,15 +70,15 @@ float Vector::Angle()
 // find magnitude
 float Vector::Length()
 {
-  return sqrt(X * X + Y * Y);
+  return sqrtf(X * X + Y * Y);
 }
 
 // find a std::vector of the given angle
 Vector Vector::CalculateDirection(float angle)
 {
   Vector vector;
-  vector.X = sin(angle);
-  vector.Y = cos(angle);
+  vector.X = sinf(angle);
+  vector.Y = cosf(angle);
 
   return vector;
 }

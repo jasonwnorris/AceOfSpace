@@ -27,7 +27,7 @@ void StraightShooter::Update(float deltaTime)
 void StraightShooter::FireBullet()
 {
   Bullet* bullet = new Bullet("Needle");
-  bullet->position = position + Vector(0, 58.0f);
+  bullet->position = position + Vector(0.0f, 58.0f);
   bullet->direction = Vector(0, 1);
   bullet->CollisionList = &PlayerShip::PlayerShipList;
 

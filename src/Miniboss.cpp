@@ -44,7 +44,7 @@ void Miniboss::FireBullet()
   {
     Bullet* bullet = new Bullet("NeonCross");
     bullet->position = position;
-    bullet->direction = Vector::CalculateDirection(i * (M_PI / 4) + (M_PI / 8));
+    bullet->direction = Vector::CalculateDirection(static_cast<float>(i * (M_PI / 4.0f) + (M_PI / 8.0f)));
     bullet->speed = 150.0f;
     bullet->CollisionList = &PlayerShip::PlayerShipList;
   }

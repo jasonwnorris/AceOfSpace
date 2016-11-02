@@ -87,7 +87,7 @@ void GameObject::RemoveOffScreen()
 // grabs a random object from a std::vector
 GameObject* GameObject::PickRandomObject(std::vector<GameObject*>* PickList)
 {
-  int listSize = PickList->size();
+  int listSize = static_cast<int>(PickList->size());
   if (listSize > 0)
   {
     return (*PickList)[rand() % listSize];

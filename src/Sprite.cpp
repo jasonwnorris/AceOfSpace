@@ -6,7 +6,7 @@
 Sprite::Sprite(const std::string& keyname)
 {
   texture = Texture::TextureList[keyname];
-  origin = Vector(texture->tileWidth / 2, texture->tileHeight / 2);
+  origin = Vector(texture->tileWidth / 2.0f, texture->tileHeight / 2.0f);
   frame = 0;
   frameTimeRemaining = texture->frameInterval;
   textureIndex = 0;

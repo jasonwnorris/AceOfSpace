@@ -365,7 +365,7 @@ void Game::DrawHUD()
 
   // display score
   char buffer[20];
-  sprintf(buffer, "%d", Player::Players[0].score);
+  sprintf_s(buffer, "%d", Player::Players[0].score);
   Graphics::DrawText(renderer, font10, "SCORE", ScreenWidth / 2, ScreenHeight - 35, c_White);
   Graphics::DrawText(renderer, font14, buffer, ScreenWidth / 2, ScreenHeight - 20, c_White);
 
@@ -463,8 +463,8 @@ void Game::DrawVictory()
 void Game::DrawDebug()
 {
   char buffer[15];
-  sprintf(buffer, "FPS: %d", (int)(frame / timer.getStartTime()));
+  sprintf_s(buffer, "FPS: %d", (int)(frame / timer.getStartTime()));
   Graphics::DrawText(renderer, font14, buffer, 10, 10, c_White, false);
-  sprintf(buffer, "Objects: %lu", Object::ObjectList.size());
+  sprintf_s(buffer, "Objects: %lu", static_cast<unsigned long>(Object::ObjectList.size()));
   Graphics::DrawText(renderer, font14, buffer, 10, 30, c_White, false);
 }
