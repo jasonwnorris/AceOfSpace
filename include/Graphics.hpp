@@ -7,11 +7,13 @@
 #include <SDL.h>
 // STL Includes
 #include <string>
+// AOS Includes
+#include "Font.hpp"
 
 class Graphics
 {
   public:
-    static void DrawText(SDL_Renderer* renderer, const std::string& text, int size, Sint16 x, Sint16 y, Uint8 red, Uint8 green, Uint8 blue, bool center = true);
+    static void DrawText(SDL_Renderer* renderer, const Font& font, const std::string& text, int x, int y, SDL_Color color, bool center = true);
     static void FillAlphaRect(SDL_Renderer* renderer, SDL_Rect& rect, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha);
 };
 

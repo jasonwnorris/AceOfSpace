@@ -169,6 +169,7 @@
     <ClCompile Include="..\..\src\Bullet.cpp" />
     <ClCompile Include="..\..\src\Enemy.cpp" />
     <ClCompile Include="..\..\src\Fireball.cpp" />
+    <ClCompile Include="..\..\src\Font.cpp" />
     <ClCompile Include="..\..\src\Game.cpp" />
     <ClCompile Include="..\..\src\GameObject.cpp" />
     <ClCompile Include="..\..\src\Graphics.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="..\..\include\Config.hpp" />
     <ClInclude Include="..\..\include\Enemy.hpp" />
     <ClInclude Include="..\..\include\Fireball.hpp" />
+    <ClInclude Include="..\..\include\Font.hpp" />
     <ClInclude Include="..\..\include\Game.hpp" />
     <ClInclude Include="..\..\include\GameObject.hpp" />
     <ClInclude Include="..\..\include\Graphics.hpp" />
