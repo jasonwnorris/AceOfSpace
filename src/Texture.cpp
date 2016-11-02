@@ -11,11 +11,7 @@ Texture::Texture(SDL_Renderer* renderer, std::string filename, int tilesX, int t
 
   if (collidable)
   {
-    textures[1] = MakeDamageTexture(renderer);
-  }
-  else
-  {
-    textures[1] = nullptr;
+    MakeDamageTexture(renderer, filename);
   }
 
   this->tilesX = tilesX;
@@ -33,7 +29,7 @@ Texture::~Texture()
 
   if (collidable)
   {
-    delete [] solidity;
+    delete[] solidity;
     SDL_DestroyTexture(textures[1]);
   }
 }
@@ -94,36 +90,43 @@ SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, std::string filename)
   return texture;
 }
 
-SDL_Texture* Texture::MakeDamageTexture(SDL_Renderer* renderer)
+void Texture::MakeDamageTexture(SDL_Renderer* renderer, std::string filename)
 {
-  int count = width * height;
-  SDL_Rect rect = {0, 0, width, height};
-  Uint32* pixels = new Uint32[count];
-  int pitch = -1;
+  std::string filepath = "resources/" + filename;
+  SDL_Surface* surface = IMG_Load(filepath.c_str());
 
-  SDL_SetRenderTarget(renderer, textures[0]);
-  SDL_RenderReadPixels(renderer, &rect, format, pixels, pitch);
-  SDL_SetRenderTarget(renderer, nullptr);
-
-  SDL_PixelFormat* pixelFormat = SDL_AllocFormat(format);
-
-  solidity = new bool[count];
-
-  for (int i = 0; i < count; ++i)
+  if (SDL_MUSTLOCK(surface))
   {
-    Uint8 red, green, blue, alpha;
-    SDL_GetRGBA(pixels[i], pixelFormat, &red, &green, &blue, &alpha);
-    pixels[i] = SDL_MapRGBA(pixelFormat, 255, 255, 255, alpha);
-    solidity[i] = (alpha == 255);
+    SDL_LockSurface(surface);
   }
 
-  SDL_FreeFormat(pixelFormat);
+  Uint32* pixels = (Uint32*)surface->pixels;
+  Uint8 red;
+  Uint8 green;
+  Uint8 blue;
+  Uint8 alpha;
 
-  SDL_Texture* texture = SDL_CreateTexture(renderer, format, SDL_TEXTUREACCESS_STATIC, width, height);
-  SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND);
-  SDL_UpdateTexture(texture, &rect, pixels, pitch);
+  solidity = new bool[width * height];
 
-  delete [] pixels;
+  for (int x = 0; x < surface->w; ++x)
+  {
+    for (int y = 0; y < surface->h; ++y)
+    {
+      int index = x + y * surface->w;
+      SDL_GetRGBA(pixels[index], surface->format, &red, &green, &blue, &alpha);
+      red = Minimum(red + 100, 255);
+      green = Minimum(green + 100, 255);
+      blue = Minimum(blue + 100, 255);
+      pixels[index] = SDL_MapRGBA(surface->format, red, green, blue, alpha);
+      solidity[index] = (alpha == 255);
+    }
+  }
 
-  return texture;
+  if (SDL_MUSTLOCK(surface))
+  {
+    SDL_UnlockSurface(surface);
+  }
+
+  textures[1] = SDL_CreateTextureFromSurface(renderer, surface);
+  SDL_FreeSurface(surface);
 }

@@ -40,7 +40,7 @@ class Texture
     bool* solidity;
 
   private:
-    SDL_Texture* MakeDamageTexture(SDL_Renderer* renderer);
+    void MakeDamageTexture(SDL_Renderer* renderer, std::string filename);
 };
 
 #endif
