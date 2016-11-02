@@ -1,0 +1,289 @@
+Enemy Name		Position X		Spawn Time
+
+Asteroid		400			1.0
+Asteroid		350			1.5
+Asteroid		450			1.5
+Asteroid		300			2.0
+Asteroid		500			2.0
+Asteroid		250			2.5
+Asteroid		550			2.5
+Asteroid		200			3.0
+Asteroid		600			3.0
+
+Kamikaze		100			6.0
+Kamikaze		700			6.0
+
+StraightShooter		100			9.0
+StraightShooter		700			9.0
+StraightShooter		200			10.0
+StraightShooter		600			10.0
+
+TargetShooter		400			15.0
+TargetShooter		300			16.0
+TargetShooter		500			16.0
+
+Asteroid		0			19.0
+Asteroid		100			20.0
+Asteroid		200			21.0
+Asteroid		300			22.0
+Asteroid		400			23.0
+Asteroid		500			24.0
+Asteroid		600			25.0
+Asteroid		700			26.0
+Asteroid		800			27.0
+
+Kamikaze		400			30.0
+Kamikaze		200			31.0
+Kamikaze		600			31.0
+
+TargetShooter		100			35.0
+TargetShooter		700			35.0
+
+StraightShooter		100			40.0
+StraightShooter		300			40.0
+StraightShooter		500			40.0
+StraightShooter		700			40.0
+
+TargetShooter		350			43.0
+TargetShooter		450			43.0
+Kamikaze		100			44.0
+Kamikaze		700			44.0
+TargetShooter		250			45.0
+TargetShooter		550			45.0
+
+TargetShooter		100			50.0
+TargetShooter		700			50.0
+TargetShooter		200			51.0
+TargetShooter		600			51.0
+TargetShooter		300			52.0
+TargetShooter		500			52.0
+Kamikaze		400			53.0
+
+Asteroid		800			55.0
+Asteroid		700			56.0
+Asteroid		600			57.0
+Asteroid		500			58.0
+Asteroid		400			59.0
+Asteroid		300			60.0
+Asteroid		200			61.0
+Asteroid		100			62.0
+Asteroid		0			63.0
+
+StraightShooter		400			65.0
+StraightShooter		350			65.5
+StraightShooter		450			65.5
+StraightShooter		300			66.0
+StraightShooter		500			66.0
+
+TargetShooter		50			67.0
+TargetShooter		750			67.0
+
+Kamikaze		0			69.0
+Kamikaze		800			70.0
+Kamikaze		0			71.0
+Kamikaze		800			72.0
+Kamikaze		0			73.0
+Kamikaze		800			74.0
+
+Asteroid		0			77.0
+Asteroid		50			77.0
+Asteroid		100			77.0
+Asteroid		150			77.0
+Asteroid		200			77.0
+Asteroid		250			77.0
+Asteroid		300			77.0
+Asteroid		350			77.0
+Asteroid		400			77.0
+Asteroid		450			77.0
+Asteroid		500			77.0
+Asteroid		550			77.0
+Asteroid		600			77.0
+Asteroid		650			77.0
+Asteroid		700			77.0
+Asteroid		750			77.0
+Asteroid		800			77.0
+
+TargetShooter		100			80.0
+TargetShooter		700			80.0
+TargetShooter		100			82.0
+TargetShooter		700			82.0
+Kamikaze		400			83.0
+TargetShooter		100			84.0
+TargetShooter		700			84.0
+TargetShooter		100			86.0
+TargetShooter		700			86.0
+Kamikaze		400			87.0
+TargetShooter		100			88.0
+TargetShooter		700			88.0
+TargetShooter		100			90.0
+TargetShooter		700			90.0
+
+StraightShooter		200			92.0
+StraightShooter		400			92.0
+StraightShooter		600			92.0
+
+StraightShooter		100			94.0
+StraightShooter		300			94.0
+StraightShooter		500			94.0
+StraightShooter		700			94.0
+
+TargetShooter		200			100.0
+TargetShooter		400			100.0
+TargetShooter		600			100.0
+
+TargetShooter		100			103.0
+TargetShooter		300			103.0
+TargetShooter		500			103.0
+TargetShooter		700			103.0
+TargetShooter		700			103.0
+
+TargetShooter		200			106.0
+TargetShooter		400			106.0
+TargetShooter		600			106.0
+
+Asteroid		50			110.0
+Asteroid		150			110.0
+Asteroid		250			110.0
+Asteroid		350			110.0
+Asteroid		450			110.0
+Asteroid		550			110.0
+Asteroid		650			110.0
+Asteroid		750			110.0
+
+Asteroid		100			112.0
+Asteroid		200			112.0
+Asteroid		300			112.0
+Asteroid		400			112.0
+Asteroid		500			112.0
+Asteroid		600			112.0
+Asteroid		700			112.0
+
+TargetShooter		100			115.0
+TargetShooter		700			115.0
+StraightShooter		200			116.0
+StraightShooter		300			116.0
+StraightShooter		500			116.0
+StraightShooter		600			116.0
+
+Kamikaze		400			120.0
+Kamikaze		300			120.0
+Kamikaze		500			120.0
+
+TargetShooter		400			123.0
+Kamikaze		0			123.5
+Kamikaze		800			123.5
+TargetShooter		300			124.0
+TargetShooter		500			124.0
+
+Asteroid		0			125.0
+Asteroid		50			125.1
+Asteroid		100			125.2
+Asteroid		150			125.3
+Asteroid		200			125.4
+Asteroid		250			125.5
+Asteroid		300			125.6
+Asteroid		350			125.7
+Asteroid		400			125.8
+Asteroid		450			125.9
+Asteroid		500			126.0
+Asteroid		550			126.1
+Asteroid		600			126.2
+Asteroid		650			126.3
+Asteroid		700			126.4
+Asteroid		750			126.5
+Asteroid		800			126.6
+
+TargetShooter		200			128.0
+StraightShooter		300			128.0
+TargetShooter		400			128.0
+StraightShooter		500			128.0
+TargetShooter		600			128.0
+
+Kamikaze		0			132.0
+Kamikaze		400			132.0
+Kamikaze		800			132.0
+
+StraightShooter		200			135.0
+StraightShooter		600			135.0
+
+Kamikaze		0			138.0
+Kamikaze		400			138.0
+Kamikaze		800			138.0
+
+TargetShooter		200			141.0
+TargetShooter		600			141.0
+TargetShooter		400			142.0
+TargetShooter		200			143.0
+TargetShooter		600			143.0
+
+Asteroid		800			145.0
+Asteroid		750			145.0
+Asteroid		700			145.0
+Asteroid		650			145.0
+Asteroid		600			145.0
+Asteroid		550			145.0
+Asteroid		500			145.0
+Asteroid		450			145.0
+Asteroid		400			145.0
+Asteroid		350			145.0
+Asteroid		300			145.0
+Asteroid		250			145.0
+Asteroid		200			145.0
+Asteroid		150			145.0
+Asteroid		100			145.0
+Asteroid		50			145.0
+Asteroid		0			145.0
+
+StraightShooter		100			148.0
+StraightShooter		700			148.0
+StraightShooter		200			149.0
+StraightShooter		600			149.0
+StraightShooter		300			150.0
+StraightShooter		500			150.0
+StraightShooter		400			151.0
+
+TargetShooter		100			155.0
+TargetShooter		700			155.0
+TargetShooter		200			156.0
+TargetShooter		600			156.0
+TargetShooter		300			157.0
+TargetShooter		500			157.0
+TargetShooter		400			158.0
+
+Kamikaze		0			160.0
+Kamikaze		800			160.0
+
+Asteroid		200			162.0
+Asteroid		400			162.0
+Asteroid		600			162.0
+
+StraightShooter		300			164.0
+StraightShooter		500			164.0
+
+TargetShooter		100			166.0
+TargetShooter		700			166.0
+TargetShooter		50			167.0
+TargetShooter		750			167.0
+
+Asteroid		400			168.0
+Asteroid		350			168.5
+Asteroid		450			168.5
+Asteroid		300			169.0
+Asteroid		500			169.0
+Asteroid		300			169.5
+Asteroid		400			169.5
+Asteroid		500			169.5
+Asteroid		350			170.0
+Asteroid		450			170.0
+
+StraightShooter		350			172.0
+StraightShooter		400			172.0
+StraightShooter		450			172.0
+
+Kamikaze		100			174.0
+Kamikaze		700			174.0
+Kamikaze		200			176.0
+Kamikaze		600			176.0
+Kamikaze		300			178.0
+Kamikaze		500			178.0
+Kamikaze		400			180.0
