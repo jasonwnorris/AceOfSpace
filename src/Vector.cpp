@@ -1,13 +1,10 @@
 // Vector.cpp
 
 // STL Includes
+#define _USE_MATH_DEFINES
 #include <math.h>
 // AOS Includes
 #include "Vector.hpp"
-
-#ifndef M_PI
-#define M_PI 3.14159265359
-#endif
 
 Vector::Vector(float x, float y)
 {

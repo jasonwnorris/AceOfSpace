@@ -1,15 +1,12 @@
 // Miniboss.cpp
 
 // STL Includes
+#define _USE_MATH_DEFINES
 #include <math.h>
 // AOS Includes
 #include "Miniboss.hpp"
 #include "Bullet.hpp"
 #include "Player.hpp"
-
-#ifndef M_PI
-#define M_PI 3.14159265359
-#endif
 
 Miniboss::Miniboss(const std::string& keyname) : Enemy(keyname)
 {
