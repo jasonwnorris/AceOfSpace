@@ -22,7 +22,10 @@ void Kamikaze::Update(float deltaTime)
     if (idleDelay < 0)
     {
       GameObject* target = PickRandomObject(&PlayerShip::PlayerShipList);
-      direction = target->position - position;
+      if (target != nullptr)
+      {
+        direction = target->position - position;
+      }
 
       speed = KamikazeAttackSpeed;
       foundTarget = true;
