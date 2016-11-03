@@ -55,7 +55,11 @@ class Game
     SDL_Event event;
 
     bool done;
-    int frame;
+    float interval;
+    float elapsedTime;
+    int frameCount;
+    int framesPerSecond;
+    int objectCount;
     int gamestate;
     bool singlePlayer;
     bool showDebug;

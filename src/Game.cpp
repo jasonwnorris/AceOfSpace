@@ -64,7 +64,11 @@ Game::Game()
   SDL_Log("complete!");
 
   done = false;
-  frame = 0;
+  interval = 0.25f;
+  elapsedTime = 0.0f;
+  frameCount = 0;
+  framesPerSecond = 0;
+  objectCount = 0;
   gamestate = STATE_MENU;
   singlePlayer = true;
   showDebug = false;
@@ -269,7 +273,15 @@ void Game::OnUpdate()
     }
   }
 
-  ++frame;
+  ++frameCount;
+  elapsedTime += deltaTime;
+  if (elapsedTime >= interval)
+  {
+    framesPerSecond = (int)(frameCount / interval);
+    objectCount = (int)Object::ObjectList.size();
+    elapsedTime = 0.0f;
+    frameCount = 0;
+  }
 }
 
 void Game::OnRender()
@@ -465,9 +477,9 @@ void Game::DrawVictory()
 void Game::DrawDebug()
 {
   std::stringstream ss1;
-  ss1 << "FPS: " << (int)(frame / timer.getStartTime());
+  ss1 << "FPS: " << framesPerSecond;
   Graphics::DrawText(renderer, font14, ss1.str(), 10, 10, c_White, false);
   std::stringstream ss2;
-  ss2 << "Objects: " << Object::ObjectList.size();
+  ss2 << "Objects: " << objectCount;
   Graphics::DrawText(renderer, font14, ss2.str(), 10, 30, c_White, false);
 }
