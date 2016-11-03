@@ -20,7 +20,7 @@ void Starfield::Update(float deltaTime)
       snprintf(starkey, 6, "Star%d", i + 1);
 
       Star* star = new Star(starkey);
-      star->position = Vector(static_cast<float>(rand() % ScreenWidth), -star->sprite->origin.Y);
+      star->position = Vector2f(static_cast<float>(rand() % ScreenWidth), -star->sprite->origin.Y);
       star->speed = 100.0f + i * 35.0f;
     }
 

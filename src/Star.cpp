@@ -5,7 +5,7 @@
 
 Star::Star(const std::string& keyname) : Object(keyname)
 {
-  direction = Vector(0, 1);
+  direction = Vector2f(0, 1);
 }
 
 void Star::Update(float deltaTime)

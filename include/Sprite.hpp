@@ -4,7 +4,7 @@
 #define __SPRITE_HPP__
 
 // AOS Includes
-#include "Vector.hpp"
+#include "Vector2f.hpp"
 #include "Texture.hpp"
 
 class Sprite
@@ -13,14 +13,14 @@ class Sprite
     Sprite(const std::string& keyname);
 
     void Update(float deltaTime);
-    void Render(SDL_Renderer* renderer, Vector position);
+    void Render(SDL_Renderer* renderer, Vector2f position);
 
     SDL_Rect GetFrameBounds();
 
     void SetTextureIndex(int index);
 
     Texture* texture;
-    Vector origin;
+    Vector2f origin;
 
   private:
     int frame;

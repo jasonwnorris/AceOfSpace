@@ -149,7 +149,7 @@ std::vector<GameObject*> PlayerShip::PlayerShipList;
 
 PlayerShip::PlayerShip(const std::string& keyname) : GameObject(keyname)
 {
-  position = Vector(ScreenWidth / 2.0f, static_cast<float>(ScreenHeight - sprite->texture->tileHeight - PlayerSpawnOffset));
+  position = Vector2f(ScreenWidth / 2.0f, static_cast<float>(ScreenHeight - sprite->texture->tileHeight - PlayerSpawnOffset));
   speed = PlayerSpeed;
   health = PlayerHealth;
   explosionKeyname = "Explosion";
@@ -169,7 +169,7 @@ PlayerShip::PlayerShip(const std::string& keyname) : GameObject(keyname)
 
 void PlayerShip::Update(float deltaTime)
 {
-  direction = Vector::Zero;
+  direction = Vector2f::Zero;
 
   if (movingUp)
   {
@@ -261,8 +261,8 @@ void PlayerShip::FireBullet()
         for (int i = 0; i < total; ++i)
         {
           Projectile* projectile = new Bullet("Bullet");
-          projectile->position = position + Vector::Left * (1 - i) * 5.0f + Vector::Up * 20.0f;
-          projectile->direction = Vector::Up;
+          projectile->position = position + Vector2f::Left * (1 - i) * 5.0f + Vector2f::Up * 20.0f;
+          projectile->direction = Vector2f::Up;
           projectile->CollisionList = &Enemy::EnemyList;
         }
 
@@ -287,8 +287,8 @@ void PlayerShip::FireBullet()
             projectile = new Bullet("Plasma");
           }
 
-          projectile->position = position + Vector::Up * 20.0f;
-          projectile->direction = Vector::Right * (i - (total / 2)) / 10.0f + Vector::Up;
+          projectile->position = position + Vector2f::Up * 20.0f;
+          projectile->direction = Vector2f::Right * (i - (total / 2)) / 10.0f + Vector2f::Up;
           projectile->CollisionList = &Enemy::EnemyList;
         }
 
@@ -300,8 +300,8 @@ void PlayerShip::FireBullet()
       if (lastFired > FireballFireDelay)
       {
         Projectile* projectile = new Fireball("Flames");
-        projectile->position = position + Vector::Up * 28.0f;
-        projectile->direction = Vector::Right * (rand() % 101 - 50) / 100.0f + Vector::Up;
+        projectile->position = position + Vector2f::Up * 28.0f;
+        projectile->direction = Vector2f::Right * (rand() % 101 - 50) / 100.0f + Vector2f::Up;
         projectile->CollisionList = &Enemy::EnemyList;
 
         lastFired = 0.0f;

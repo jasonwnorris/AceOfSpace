@@ -28,7 +28,7 @@ class Object
     static void RemoveAll();
     virtual void Remove();
 
-    void Move(Vector amount);
+    void Move(Vector2f amount);
 
     SDL_Rect GetBounds();
     SDL_Rect NormalizeBounds(const SDL_Rect& rect);
@@ -36,8 +36,8 @@ class Object
     static bool GetAlphaXY(Texture* texture, int x, int y);
 
     Sprite* sprite;
-    Vector position;
-    Vector direction;
+    Vector2f position;
+    Vector2f direction;
     float speed;
     bool dead;
 };

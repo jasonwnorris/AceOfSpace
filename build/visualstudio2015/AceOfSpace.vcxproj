@@ -192,7 +192,7 @@
     <ClCompile Include="..\..\src\TargetShooter.cpp" />
     <ClCompile Include="..\..\src\Texture.cpp" />
     <ClCompile Include="..\..\src\Timer.cpp" />
-    <ClCompile Include="..\..\src\Vector.cpp" />
+    <ClCompile Include="..\..\src\Vector2f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Asteroid.hpp" />
@@ -223,7 +223,7 @@
     <ClInclude Include="..\..\include\TargetShooter.hpp" />
     <ClInclude Include="..\..\include\Texture.hpp" />
     <ClInclude Include="..\..\include\Timer.hpp" />
-    <ClInclude Include="..\..\include\Vector.hpp" />
+    <ClInclude Include="..\..\include\Vector2f.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

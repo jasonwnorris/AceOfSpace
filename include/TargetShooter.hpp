@@ -17,7 +17,7 @@ class TargetShooter : public Enemy
     void FireBullet();
 
     GameObject* target;
-    Vector targetDirection;
+    Vector2f targetDirection;
     float lastFired;
 };
 

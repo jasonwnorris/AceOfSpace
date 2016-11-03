@@ -1,25 +1,25 @@
-// Vector.cpp
+// Vector2f.cpp
 
 // STL Includes
 #define _USE_MATH_DEFINES
 #include <math.h>
 // AOS Includes
-#include "Vector.hpp"
+#include "Vector2f.hpp"
 
-const Vector Vector::Zero = Vector(0.0f, 0.0f);
-const Vector Vector::One = Vector(1.0f, 1.0f);
-const Vector Vector::Up = Vector(0.0f, -1.0f);
-const Vector Vector::Down = Vector(0.0f, 1.0f);
-const Vector Vector::Left = Vector(-1.0f, 0.0f);
-const Vector Vector::Right = Vector(1.0f, 0.0f);
+const Vector2f Vector2f::Zero = Vector2f(0.0f, 0.0f);
+const Vector2f Vector2f::One = Vector2f(1.0f, 1.0f);
+const Vector2f Vector2f::Up = Vector2f(0.0f, -1.0f);
+const Vector2f Vector2f::Down = Vector2f(0.0f, 1.0f);
+const Vector2f Vector2f::Left = Vector2f(-1.0f, 0.0f);
+const Vector2f Vector2f::Right = Vector2f(1.0f, 0.0f);
 
-Vector::Vector(float x, float y)
+Vector2f::Vector2f(float x, float y)
 {
   X = x;
   Y = y;
 }
 
-void Vector::Normalize()
+void Vector2f::Normalize()
 {
   float length = Length();
   if (length > 0.0f)
@@ -29,7 +29,7 @@ void Vector::Normalize()
   }
 }
 
-float Vector::Angle() const
+float Vector2f::Angle() const
 {
   if (X == 0.0f)
   {
@@ -64,21 +64,21 @@ float Vector::Angle() const
   return angle;
 }
 
-float Vector::Length() const
+float Vector2f::Length() const
 {
   return sqrtf(X * X + Y * Y);
 }
 
-Vector Vector::CalculateDirection(float angle)
+Vector2f Vector2f::CalculateDirection(float angle)
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = sinf(angle);
   vector.Y = cosf(angle);
 
   return vector;
 }
 
-Vector Vector::LinearInterp(const Vector& v1, const Vector& v2, const float& weight)
+Vector2f Vector2f::LinearInterp(const Vector2f& v1, const Vector2f& v2, const float& weight)
 {
   if (weight <= 0.0f)
   {
@@ -90,97 +90,97 @@ Vector Vector::LinearInterp(const Vector& v1, const Vector& v2, const float& wei
     return v2;
   }
 
-  Vector vector;
+  Vector2f vector;
   vector.X = v1.X * (1.0f - weight) + v2.X * weight;
   vector.Y = v1.Y * (1.0f - weight) + v2.Y * weight;
 
   return vector;
 }
 
-Vector Vector::operator+(const Vector& v) const
+Vector2f Vector2f::operator+(const Vector2f& v) const
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = X + v.X;
   vector.Y = Y + v.Y;
 
   return vector;
 }
 
-Vector Vector::operator-(const Vector& v) const
+Vector2f Vector2f::operator-(const Vector2f& v) const
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = X - v.X;
   vector.Y = Y - v.Y;
 
   return vector;
 }
 
-Vector Vector::operator*(int mag) const
+Vector2f Vector2f::operator*(int mag) const
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = X * static_cast<float>(mag);
   vector.Y = Y * static_cast<float>(mag);
 
   return vector;
 }
 
-Vector Vector::operator*(float mag) const
+Vector2f Vector2f::operator*(float mag) const
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = X * mag;
   vector.Y = Y * mag;
 
   return vector;
 }
 
-Vector Vector::operator/(int mag) const
+Vector2f Vector2f::operator/(int mag) const
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = X / static_cast<float>(mag);
   vector.Y = Y / static_cast<float>(mag);
 
   return vector;
 }
 
-Vector Vector::operator/(float mag) const
+Vector2f Vector2f::operator/(float mag) const
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = X / mag;
   vector.Y = Y / mag;
 
   return vector;
 }
 
-void Vector::operator=(const Vector& v)
+void Vector2f::operator=(const Vector2f& v)
 {
   X = v.X;
   Y = v.Y;
 }
 
-void Vector::operator+=(const Vector& v)
+void Vector2f::operator+=(const Vector2f& v)
 {
   X += v.X;
   Y += v.Y;
 }
 
-void Vector::operator-=(const Vector& v)
+void Vector2f::operator-=(const Vector2f& v)
 {
   X -= v.X;
   Y -= v.Y;
 }
 
-Vector operator*(int mag, const Vector& v)
+Vector2f operator*(int mag, const Vector2f& v)
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = v.X * static_cast<float>(mag);
   vector.Y = v.Y * static_cast<float>(mag);
 
   return vector;
 }
 
-Vector operator*(float mag, const Vector& v)
+Vector2f operator*(float mag, const Vector2f& v)
 {
-  Vector vector;
+  Vector2f vector;
   vector.X = v.X * mag;
   vector.Y = v.Y * mag;
 

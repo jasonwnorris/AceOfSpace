@@ -11,8 +11,8 @@ std::vector<Object*> Object::ObjectAddList;
 Object::Object(const std::string& keyname)
 {
   sprite = new Sprite(keyname);
-  position = Vector::Zero;
-  direction = Vector::Zero;
+  position = Vector2f::Zero;
+  direction = Vector2f::Zero;
   speed = 0.0f;
   dead = false;
 
@@ -111,7 +111,7 @@ void Object::Remove()
   dead = true;
 }
 
-void Object::Move(Vector amount)
+void Object::Move(Vector2f amount)
 {
   position += amount;
 }

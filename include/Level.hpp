@@ -7,7 +7,7 @@
 #include <fstream>
 #include <string>
 // AOS Includes
-#include "Vector.hpp"
+#include "Vector2f.hpp"
 #include "Asteroid.hpp"
 #include "StraightShooter.hpp"
 #include "TargetShooter.hpp"

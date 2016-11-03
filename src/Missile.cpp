@@ -20,7 +20,7 @@ void Missile::Update(float deltaTime)
 
   if (target != nullptr)
   {
-    Vector targetDirection = target->position - position;
+    Vector2f targetDirection = target->position - position;
     targetDirection.Normalize();
     direction += targetDirection * MissileHomingStrength;
   }

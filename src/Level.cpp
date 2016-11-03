@@ -86,7 +86,7 @@ void Level::SpawnObject(LevelObject object)
       enemy = new Kamikaze("Kamikaze");
     }
 
-    enemy->position = Vector(object.positionX, -enemy->sprite->origin.Y);
+    enemy->position = Vector2f(object.positionX, -enemy->sprite->origin.Y);
   }
 }
 

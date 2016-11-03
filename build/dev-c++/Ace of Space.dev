@@ -58,7 +58,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=Vector.h
+FileName=Vector2f.h
 CompileCpp=1
 Folder=Engine/Header Files
 Compile=1
@@ -68,7 +68,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=Vector.cpp
+FileName=Vector2f.cpp
 CompileCpp=1
 Folder=Engine/Source Files
 Compile=1

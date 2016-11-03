@@ -12,7 +12,7 @@ Miniboss::Miniboss(const std::string& keyname) : Enemy(keyname)
 {
   pointValue = MinibossPointValue;
   health = MinibossHealth;
-  position = Vector::Up * ScreenHeight / 2.0f;
+  position = Vector2f::Up * ScreenHeight / 2.0f;
 
   lastFired = 0.0f;
 }
@@ -44,7 +44,7 @@ void Miniboss::FireBullet()
   {
     Bullet* bullet = new Bullet("NeonCross");
     bullet->position = position;
-    bullet->direction = Vector::CalculateDirection(static_cast<float>(i * (M_PI / 4.0f) + (M_PI / 8.0f)));
+    bullet->direction = Vector2f::CalculateDirection(static_cast<float>(i * (M_PI / 4.0f) + (M_PI / 8.0f)));
     bullet->speed = 150.0f;
     bullet->CollisionList = &PlayerShip::PlayerShipList;
   }

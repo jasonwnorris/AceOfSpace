@@ -92,7 +92,7 @@
     <ClCompile Include="..\..\src\Timer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Vector.cpp">
+    <ClCompile Include="..\..\src\Vector2f.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Font.cpp">
@@ -181,7 +181,7 @@
     <ClInclude Include="..\..\include\Timer.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Vector.hpp">
+    <ClInclude Include="..\..\include\Vector2f.hpp">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\Font.hpp">

@@ -6,7 +6,7 @@
 Sprite::Sprite(const std::string& keyname)
 {
   texture = Texture::TextureList[keyname];
-  origin = Vector(texture->tileWidth / 2.0f, texture->tileHeight / 2.0f);
+  origin = Vector2f(texture->tileWidth / 2.0f, texture->tileHeight / 2.0f);
   frame = 0;
   frameTimeRemaining = texture->frameInterval;
   textureIndex = 0;
@@ -24,7 +24,7 @@ void Sprite::Update(float deltaTime)
 }
 
 // render either the plain or damaged texture
-void Sprite::Render(SDL_Renderer* renderer, Vector position)
+void Sprite::Render(SDL_Renderer* renderer, Vector2f position)
 {
   SDL_Texture* t = texture->textures[textureIndex];
 

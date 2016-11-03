@@ -42,8 +42,8 @@ BossEnemy::BossEnemy(const std::string& keyname) : Enemy(keyname)
 {
   pointValue = BossPointValue;
 
-  position = Vector(ScreenWidth / 2, -sprite->origin.Y);
-  direction = Vector::Down;
+  position = Vector2f(ScreenWidth / 2, -sprite->origin.Y);
+  direction = Vector2f::Down;
   speed = BossSpeed;
   health = BossHealth;
 
@@ -66,14 +66,14 @@ void BossEnemy::Update(float deltaTime)
   {
     if (position.X < 300)
     {
-      direction = Vector::Right;
+      direction = Vector2f::Right;
     }
   }
   else if (direction.X > 0)
   {
     if (position.X > ScreenWidth - 300)
     {
-      direction = Vector::Left;
+      direction = Vector2f::Left;
     }
   }
   else
@@ -82,11 +82,11 @@ void BossEnemy::Update(float deltaTime)
     {
       if (rand() % 2 == 0)
       {
-        direction = Vector::Right;
+        direction = Vector2f::Right;
       }
       else
       {
-        direction = Vector::Left;
+        direction = Vector2f::Left;
       }
     }
   }
@@ -118,7 +118,7 @@ void BossEnemy::UpdateChildren()
   {
     if (leftHand->health > 0)
     {
-      leftHand->position = position + Vector::Left * 200.0f + Vector::Down * 75.0f + Vector::CalculateDirection(-childrenAngle) * 25.0f;
+      leftHand->position = position + Vector2f::Left * 200.0f + Vector2f::Down * 75.0f + Vector2f::CalculateDirection(-childrenAngle) * 25.0f;
     }
     else
     {
@@ -130,7 +130,7 @@ void BossEnemy::UpdateChildren()
   {
     if (rightHand->health > 0)
     {
-      rightHand->position = position + Vector::Right * 200.0f + Vector::Down * 75.0f + Vector::CalculateDirection(childrenAngle) * -25.0f;
+      rightHand->position = position + Vector2f::Right * 200.0f + Vector2f::Down * 75.0f + Vector2f::CalculateDirection(childrenAngle) * -25.0f;
     }
     else
     {
@@ -163,7 +163,7 @@ void BossEnemy::FireBullet()
 {
   Bullet* bullet = new Bullet("NeonOrb");
   bullet->position = position;
-  bullet->direction = Vector::CalculateDirection(fireAngle);
+  bullet->direction = Vector2f::CalculateDirection(fireAngle);
   bullet->speed = 100.0f;
   bullet->CollisionList = &PlayerShip::PlayerShipList;
 
