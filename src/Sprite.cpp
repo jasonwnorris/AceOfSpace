@@ -5,57 +5,54 @@
 
 Sprite::Sprite(const std::string& keyname)
 {
-  texture = Texture::TextureList[keyname];
-  origin = Vector2f(texture->tileWidth / 2.0f, texture->tileHeight / 2.0f);
-  frame = 0;
-  frameTimeRemaining = texture->frameInterval;
-  textureIndex = 0;
+  m_Texture = Texture::TextureList[keyname];
+  m_Origin = Vector2f(m_Texture->m_TileWidth / 2.0f, m_Texture->m_TileHeight / 2.0f);
+  m_Frame = 0;
+  m_FrameTimeRemaining = m_Texture->m_FrameInterval;
+  m_TextureIndex = 0;
 }
 
 void Sprite::Update(float deltaTime)
 {
-  frameTimeRemaining -= deltaTime;
-  if (frameTimeRemaining < 0)
+  m_FrameTimeRemaining -= deltaTime;
+  if (m_FrameTimeRemaining < 0)
   {
-    frame++;
-    frame %= texture->frameCount;
-    frameTimeRemaining = texture->frameInterval;
+    m_Frame++;
+    m_Frame %= m_Texture->m_FrameCount;
+    m_FrameTimeRemaining = m_Texture->m_FrameInterval;
   }
 }
 
-// render either the plain or damaged texture
 void Sprite::Render(SDL_Renderer* renderer, Vector2f position)
 {
-  SDL_Texture* t = texture->textures[textureIndex];
+  SDL_Texture* t = m_Texture->m_Textures[m_TextureIndex];
 
   SDL_Rect clip = GetFrameBounds();
 
   SDL_Rect location;
-  location.x = (Sint16)(position.X - origin.X);
-  location.y = (Sint16)(position.Y - origin.Y);
+  location.x = (Sint16)(position.X - m_Origin.X);
+  location.y = (Sint16)(position.Y - m_Origin.Y);
   location.w = clip.w;
   location.h = clip.h;
 
   SDL_RenderCopy(renderer, t, &clip, &location);
 }
 
-// grabs a SDL_Rect around the currect frame of animation we're on
 SDL_Rect Sprite::GetFrameBounds()
 {
-  SDL_Rect frameBounds;
-  frameBounds.x = frame % texture->tilesX * texture->tileWidth;
-  frameBounds.y = frame / texture->tilesX * texture->tileHeight;
-  frameBounds.w = texture->tileWidth;
-  frameBounds.h = texture->tileHeight;
+  SDL_Rect m_FrameBounds;
+  m_FrameBounds.x = m_Frame % m_Texture->m_TilesX * m_Texture->m_TileWidth;
+  m_FrameBounds.y = m_Frame / m_Texture->m_TilesX * m_Texture->m_TileHeight;
+  m_FrameBounds.w = m_Texture->m_TileWidth;
+  m_FrameBounds.h = m_Texture->m_TileHeight;
 
-  return frameBounds;
+  return m_FrameBounds;
 }
 
-// switch to damage texture if it has one
 void Sprite::SetTextureIndex(int index)
 {
-  if (texture->collidable)
+  if (m_Texture->m_IsCollidable)
   {
-    textureIndex = index;
+    m_TextureIndex = index;
   }
 }

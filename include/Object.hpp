@@ -35,11 +35,11 @@ class Object
     static bool CheckCollision(Object* objectA, Object* objectB);
     static bool GetAlphaXY(Texture* texture, int x, int y);
 
-    Sprite* sprite;
-    Vector2f position;
-    Vector2f direction;
-    float speed;
-    bool dead;
+    Sprite* m_Sprite;
+    Vector2f m_Position;
+    Vector2f m_Direction;
+    float m_Speed;
+    bool m_IsDead;
 };
 
 #endif

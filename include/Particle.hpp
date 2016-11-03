@@ -14,7 +14,7 @@ class Particle : public Object
     void Update(float deltaTime);
 
   private:
-    float lifeInterval;
+    float m_LifeInterval;
 };
 
 #endif

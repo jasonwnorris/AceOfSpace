@@ -5,14 +5,14 @@
 
 Starfield::Starfield()
 {
-  lastSpawn = 0.0f;
+  m_LastSpawn = 0.0f;
 }
 
 void Starfield::Update(float deltaTime)
 {
-  lastSpawn += deltaTime;
+  m_LastSpawn += deltaTime;
 
-  if (lastSpawn > StarfieldSpawnTime)
+  if (m_LastSpawn > StarfieldSpawnTime)
   {
     for (int i = 0; i < 3; ++i)
     {
@@ -20,10 +20,10 @@ void Starfield::Update(float deltaTime)
       snprintf(starkey, 6, "Star%d", i + 1);
 
       Star* star = new Star(starkey);
-      star->position = Vector2f(static_cast<float>(rand() % ScreenWidth), -star->sprite->origin.Y);
-      star->speed = 100.0f + i * 35.0f;
+      star->m_Position = Vector2f(static_cast<float>(rand() % ScreenWidth), -star->m_Sprite->m_Origin.Y);
+      star->m_Speed = 100.0f + i * 35.0f;
     }
 
-    lastSpawn = 0.0f;
+    m_LastSpawn = 0.0f;
   }
 }

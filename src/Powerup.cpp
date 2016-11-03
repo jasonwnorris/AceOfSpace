@@ -8,33 +8,33 @@
 
 Powerup::Powerup(const std::string& keyname) : Item(keyname)
 {
-  type = keyname;
+  m_Type = keyname;
 }
 
 void Powerup::InflictBonus(GameObject* object)
 {
-  if (type == "ItemHealth")
+  if (m_Type == "ItemHealth")
   {
-    object->health = std::min(object->health + 50, PlayerHealth);
+    object->m_Health = std::min(object->m_Health + 50, PlayerHealth);
   }
-  else if (type == "ItemSpeed")
+  else if (m_Type == "ItemSpeed")
   {
-    object->speed += 25.0f;
+    object->m_Speed += 25.0f;
   }
-  else if (type == "ItemBullets")
+  else if (m_Type == "ItemBullets")
   {
-    object->weaponType = WEAPON_BULLET;
+    object->m_WeaponType = WEAPON_BULLET;
   }
-  else if (type == "ItemMissiles")
+  else if (m_Type == "ItemMissiles")
   {
-    object->weaponType = WEAPON_MISSILE;
+    object->m_WeaponType = WEAPON_MISSILE;
   }
-  else if (type == "ItemFireball")
+  else if (m_Type == "ItemFireball")
   {
-    object->weaponType = WEAPON_FIREBALL;
+    object->m_WeaponType = WEAPON_FIREBALL;
   }
-  else if (type == "ItemPlasma")
+  else if (m_Type == "ItemPlasma")
   {
-    object->weaponType = WEAPON_PLASMA;
+    object->m_WeaponType = WEAPON_PLASMA;
   }
 }

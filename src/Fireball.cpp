@@ -5,18 +5,18 @@
 
 Fireball::Fireball(const std::string& keyname) : Projectile(keyname)
 {
-  speed = FireballSpeed;
-  health = FireballHealth;
-  lifeTimeRemaining = FireballFadeoutTime;
+  m_Speed = FireballSpeed;
+  m_Health = FireballHealth;
+  m_LifeTimeRemaining = FireballFadeoutTime;
 }
 
 void Fireball::Update(float deltaTime)
 {
   Projectile::Update(deltaTime);
 
-  lifeTimeRemaining -= deltaTime;
+  m_LifeTimeRemaining -= deltaTime;
 
-  if (lifeTimeRemaining < 0)
+  if (m_LifeTimeRemaining < 0)
   {
     Remove();
   }

@@ -5,6 +5,6 @@
 
 Bullet::Bullet(const std::string& keyname) : Projectile(keyname)
 {
-  speed = BulletSpeed;
-  health = BulletHealth;
+  m_Speed = BulletSpeed;
+  m_Health = BulletHealth;
 }

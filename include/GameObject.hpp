@@ -22,10 +22,10 @@ class GameObject : public Object
 
     GameObject* PickRandomObject(std::vector<GameObject*>* PickList);
 
-    int health;
-    float flickerInterval;
-    std::string explosionKeyname;
-    int weaponType;
+    int m_Health;
+    float m_FlickerInterval;
+    std::string m_ExplosionKeyname;
+    int m_WeaponType;
 
     std::vector<GameObject*>* CollisionList;
 };

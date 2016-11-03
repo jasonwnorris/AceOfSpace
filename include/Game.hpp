@@ -50,29 +50,26 @@ class Game
     static const SDL_Color c_Green;
     static const SDL_Color c_Red;
 
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    SDL_Event event;
-
-    bool done;
-    float interval;
-    float elapsedTime;
-    int frameCount;
-    int framesPerSecond;
-    int objectCount;
-    int gamestate;
-    bool singlePlayer;
-    bool showDebug;
-
-    Timer timer;
-    Font font10;
-    Font font14;
-    Font font16;
-    Font font20;
-    Font font25;
-    Font font35;
-
-    Starfield starfield;
+    SDL_Window* m_Window;
+    SDL_Renderer* m_Renderer;
+    SDL_Event m_Event;
+    bool m_IsDone;
+    float m_Interval;
+    float m_ElapsedTime;
+    int m_FrameCount;
+    int m_FramesPerSecond;
+    int m_ObjectCount;
+    int m_State;
+    bool m_IsSinglePlayer;
+    bool m_IsDebugShown;
+    Timer m_Timer;
+    Font m_Font10;
+    Font m_Font14;
+    Font m_Font16;
+    Font m_Font20;
+    Font m_Font25;
+    Font m_Font35;
+    Starfield m_Starfield;
 };
 
 #endif

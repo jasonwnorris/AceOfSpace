@@ -6,9 +6,9 @@
 
 Item::Item(const std::string& keyname) : GameObject(keyname)
 {
-  direction = Vector2f::Down;
-  speed = ItemSpeed;
-  explosionKeyname = "Flash";
+  m_Direction = Vector2f::Down;
+  m_Speed = ItemSpeed;
+  m_ExplosionKeyname = "Flash";
   CollisionList = &PlayerShip::PlayerShipList;
 }
 

@@ -6,29 +6,29 @@
 
 Kamikaze::Kamikaze(const std::string& keyname) : Enemy(keyname)
 {
-  pointValue = KamikazePointValue;
-  health = KamikazeHealth;
-  speed = KamikazeIdleSpeed;
-  idleDelay = KamikazeIdleDelay;
-  foundTarget = false;
+  m_PointValue = KamikazePointValue;
+  m_Health = KamikazeHealth;
+  m_Speed = KamikazeIdleSpeed;
+  m_IdleDelay = KamikazeIdleDelay;
+  m_HasFoundTarget = false;
 }
 
 void Kamikaze::Update(float deltaTime)
 {
-  if (!foundTarget)
+  if (!m_HasFoundTarget)
   {
-    idleDelay -= deltaTime;
+    m_IdleDelay -= deltaTime;
 
-    if (idleDelay < 0)
+    if (m_IdleDelay <= 0.0f)
     {
       GameObject* target = PickRandomObject(&PlayerShip::PlayerShipList);
       if (target != nullptr)
       {
-        direction = target->position - position;
+        m_Direction = target->m_Position - m_Position;
       }
 
-      speed = KamikazeAttackSpeed;
-      foundTarget = true;
+      m_Speed = KamikazeAttackSpeed;
+      m_HasFoundTarget = true;
     }
   }
 

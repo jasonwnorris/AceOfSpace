@@ -14,7 +14,7 @@ class Fireball : public Projectile
     void Update(float deltaTime);
 
   private:
-    float lifeTimeRemaining;
+    float m_LifeTimeRemaining;
 };
 
 #endif

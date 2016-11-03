@@ -20,7 +20,7 @@ class Enemy : public GameObject
     void Explode();
 
   protected:
-    int pointValue;
+    int m_PointValue;
 
   private:
     void DropItem();

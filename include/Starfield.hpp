@@ -14,7 +14,7 @@ class Starfield
     void Update(float deltaTime);
 
   private:
-    float lastSpawn;
+    float m_LastSpawn;
 };
 
 #endif

@@ -10,20 +10,21 @@
 
 Miniboss::Miniboss(const std::string& keyname) : Enemy(keyname)
 {
-  pointValue = MinibossPointValue;
-  health = MinibossHealth;
-  position = Vector2f::Up * ScreenHeight / 2.0f;
-
-  lastFired = 0.0f;
+  m_PointValue = MinibossPointValue;
+  m_Health = MinibossHealth;
+  m_Position = Vector2f::Up * ScreenHeight / 2.0f;
+  m_LastFired = 0.0f;
 }
 
 void Miniboss::Update(float deltaTime)
 {
   Enemy::Update(deltaTime);
 
-  lastFired += deltaTime;
-  if (lastFired > MinibossFireDelay)
+  m_LastFired += deltaTime;
+  if (m_LastFired > MinibossFireDelay)
+  {
     FireBullet();
+  }
 }
 
 void Miniboss::RemoveOffScreen()
@@ -43,11 +44,11 @@ void Miniboss::FireBullet()
   for (int i = 0; i < 8; i++)
   {
     Bullet* bullet = new Bullet("NeonCross");
-    bullet->position = position;
-    bullet->direction = Vector2f::CalculateDirection(static_cast<float>(i * (M_PI / 4.0f) + (M_PI / 8.0f)));
-    bullet->speed = 150.0f;
+    bullet->m_Position = m_Position;
+    bullet->m_Direction = Vector2f::CalculateDirection(static_cast<float>(i * (M_PI / 4.0f) + (M_PI / 8.0f)));
+    bullet->m_Speed = 150.0f;
     bullet->CollisionList = &PlayerShip::PlayerShipList;
   }
 
-  lastFired = 0.0f;
+  m_LastFired = 0.0f;
 }

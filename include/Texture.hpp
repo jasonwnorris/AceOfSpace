@@ -26,19 +26,18 @@ class Texture
     static void UnloadTextures();
     static SDL_Texture* LoadImage(SDL_Renderer* renderer, const std::string& filename);
 
-    SDL_Texture* textures[2];
-
-    int width;
-    int height;
-    Uint32 format;
-    int tilesX;
-    int tilesY;
-    int tileWidth;
-    int tileHeight;
-    int frameCount;
-    float frameInterval;
-    bool collidable;
-    bool* solidity;
+    SDL_Texture* m_Textures[2];
+    int m_Width;
+    int m_Height;
+    Uint32 m_Format;
+    int m_TilesX;
+    int m_TilesY;
+    int m_TileWidth;
+    int m_TileHeight;
+    int m_FrameCount;
+    float m_FrameInterval;
+    bool m_IsCollidable;
+    bool* m_IsPixelSolid;
 
   private:
     void MakeDamageTexture(SDL_Renderer* renderer, const std::string& filename);

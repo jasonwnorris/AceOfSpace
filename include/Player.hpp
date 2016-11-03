@@ -27,16 +27,16 @@ class PlayerShip : public GameObject
 
     void Collide(GameObject* object);
 
-    bool movingUp;
-    bool movingDown;
-    bool movingLeft;
-    bool movingRight;
-    bool shooting;
+    bool m_IsMovingUp;
+    bool m_IsMovingDown;
+    bool m_IsMovingLeft;
+    bool m_IsMovingRight;
+    bool m_IsShooting;
 
   private:
     void FireBullet();
 
-    float lastFired;
+    float m_LastFired;
 };
 
 class Player
@@ -57,9 +57,9 @@ class Player
 
     static void AwardPoints(int amount);
 
-        PlayerShip* ship;
-        int lives;
-        int score;
+    PlayerShip* m_Ship;
+    int m_Lives;
+    int m_Score;
 };
 
 #endif

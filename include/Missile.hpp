@@ -16,7 +16,7 @@ class Missile : public Projectile
     void RemoveOffScreen();
 
   private:
-    GameObject* target;
+    GameObject* m_Target;
 };
 
 #endif

@@ -14,7 +14,7 @@ class Powerup : public Item
     void InflictBonus(GameObject* object);
 
   private:
-    std::string type;
+    std::string m_Type;
 };
 
 #endif

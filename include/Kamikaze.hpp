@@ -14,8 +14,8 @@ class Kamikaze : public Enemy
     void Update(float deltaTime);
 
   private:
-    float idleDelay;
-    bool foundTarget;
+    float m_IdleDelay;
+    bool m_HasFoundTarget;
 };
 
 #endif

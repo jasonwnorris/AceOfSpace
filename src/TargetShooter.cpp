@@ -7,35 +7,35 @@
 
 TargetShooter::TargetShooter(const std::string& keyname) : Enemy(keyname)
 {
-  pointValue = TargetShooterPointValue;
-  health = TargetShooterHealth;
-  speed = TargetShooterSpeed;
-  target = nullptr;
-  targetDirection = Vector2f::Zero;
-  lastFired = 0.0f;
+  m_PointValue = TargetShooterPointValue;
+  m_Health = TargetShooterHealth;
+  m_Speed = TargetShooterSpeed;
+  m_Target = nullptr;
+  m_TargetDirection = Vector2f::Zero;
+  m_LastFired = 0.0f;
 }
 
 void TargetShooter::Update(float deltaTime)
 {
-  if (target == nullptr || target->dead)
+  if (m_Target == nullptr || m_Target->m_IsDead)
   {
-    target = PickRandomObject(&PlayerShip::PlayerShipList);
+    m_Target = PickRandomObject(&PlayerShip::PlayerShipList);
   }
 
-  if (target != nullptr)
+  if (m_Target != nullptr)
   {
-    targetDirection = target->position - position;
-    targetDirection.Normalize();
+    m_TargetDirection = m_Target->m_Position - m_Position;
+    m_TargetDirection.Normalize();
   }
   else
   {
-    targetDirection = Vector2f::Down;
+    m_TargetDirection = Vector2f::Down;
   }
 
   Enemy::Update(deltaTime);
 
-  lastFired += deltaTime;
-  if (lastFired > TargetShooterFireDelay)
+  m_LastFired += deltaTime;
+  if (m_LastFired > TargetShooterFireDelay)
   {
     FireBullet();
   }
@@ -44,9 +44,9 @@ void TargetShooter::Update(float deltaTime)
 void TargetShooter::FireBullet()
 {
   Bullet* bullet = new Bullet("Slime");
-  bullet->position = position;
-  bullet->direction = targetDirection;
+  bullet->m_Position = m_Position;
+  bullet->m_Direction = m_TargetDirection;
   bullet->CollisionList = &PlayerShip::PlayerShipList;
 
-  lastFired = 0.0f;
+  m_LastFired = 0.0f;
 }

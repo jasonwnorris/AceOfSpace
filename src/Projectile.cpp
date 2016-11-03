@@ -5,12 +5,12 @@
 
 Projectile::Projectile(const std::string& keyname) : GameObject(keyname)
 {
-  explosionKeyname = "Flash";
+  m_ExplosionKeyname = "Flash";
 }
 
 void Projectile::Collide(GameObject* object)
 {
-  int objectHealth = object->health;
-  object->TakeDamage(this->health);
+  int objectHealth = object->m_Health;
+  object->TakeDamage(this->m_Health);
   this->TakeDamage(objectHealth);
 }

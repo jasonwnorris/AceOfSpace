@@ -5,30 +5,28 @@
 
 Missile::Missile(const std::string& keyname) : Projectile(keyname)
 {
-  speed = MissileSpeed;
-  health = MissileHealth;
-  target = nullptr;
+  m_Speed = MissileSpeed;
+  m_Health = MissileHealth;
+  m_Target = nullptr;
 }
 
-// point the missile at its target, but very slowly
 void Missile::Update(float deltaTime)
 {
-  if (target == nullptr || target->dead)
+  if (m_Target == nullptr || m_Target->m_IsDead)
   {
-    target = PickRandomObject(CollisionList);
+    m_Target = PickRandomObject(CollisionList);
   }
 
-  if (target != nullptr)
+  if (m_Target != nullptr)
   {
-    Vector2f targetDirection = target->position - position;
-    targetDirection.Normalize();
-    direction += targetDirection * MissileHomingStrength;
+    Vector2f m_TargetDirection = m_Target->m_Position - m_Position;
+    m_TargetDirection.Normalize();
+    m_Direction += m_TargetDirection * MissileHomingStrength;
   }
 
   Projectile::Update(deltaTime);
 }
 
-// give the missile some space to go offscreen and fly back on
 void Missile::RemoveOffScreen()
 {
   SDL_Rect screenBounds = {-ScreenWidth / 2, -ScreenHeight / 2, ScreenWidth * 2, ScreenHeight * 2};

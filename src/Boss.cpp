@@ -8,29 +8,29 @@ Boss Boss::FinalBoss;
 
 Boss::Boss()
 {
-  boss = nullptr;
-  spawned = false;
-  killed = false;
+  m_Boss = nullptr;
+  m_IsSpawned = false;
+  m_IsKilled = false;
 }
 
 void Boss::RemoveBoss()
 {
-  FinalBoss.boss = nullptr;
-  FinalBoss.spawned = false;
-  FinalBoss.killed = false;
+  FinalBoss.m_Boss = nullptr;
+  FinalBoss.m_IsSpawned = false;
+  FinalBoss.m_IsKilled = false;
 }
 
 void Boss::SpawnBoss()
 {
-  FinalBoss.boss = new BossEnemy("Boss");
-  FinalBoss.spawned = true;
+  FinalBoss.m_Boss = new BossEnemy("Boss");
+  FinalBoss.m_IsSpawned = true;
   Sound::PlaySound("Boss");
 }
 
 void Boss::DestroyBoss()
 {
-  FinalBoss.boss = nullptr;
-  FinalBoss.killed = true;
+  FinalBoss.m_Boss = nullptr;
+  FinalBoss.m_IsKilled = true;
 }
 
 // BossEnemy.cpp //
@@ -40,19 +40,19 @@ void Boss::DestroyBoss()
 
 BossEnemy::BossEnemy(const std::string& keyname) : Enemy(keyname)
 {
-  pointValue = BossPointValue;
+  m_PointValue = BossPointValue;
 
-  position = Vector2f(ScreenWidth / 2, -sprite->origin.Y);
-  direction = Vector2f::Down;
-  speed = BossSpeed;
-  health = BossHealth;
+  m_Position = Vector2f(ScreenWidth / 2, -m_Sprite->m_Origin.Y);
+  m_Direction = Vector2f::Down;
+  m_Speed = BossSpeed;
+  m_Health = BossHealth;
 
-  childrenAngle = 0.0f;
-  fireAngle = 0.0f;
-  lastFired = 0.0f;
+  m_ChildrenAngle = 0.0f;
+  m_FireAngle = 0.0f;
+  m_LastFired = 0.0f;
 
-  leftHand = new Miniboss("LeftHand");
-  rightHand = new Miniboss("RightHand");
+  m_LeftHand = new Miniboss("LeftHand");
+  m_RightHand = new Miniboss("RightHand");
 }
 
 // basic movement behavior, comes part way down screen then patrols left-right
@@ -62,50 +62,50 @@ void BossEnemy::Update(float deltaTime)
 
   UpdateChildren();
 
-  if (direction.X < 0)
+  if (m_Direction.X < 0)
   {
-    if (position.X < 300)
+    if (m_Position.X < 300)
     {
-      direction = Vector2f::Right;
+      m_Direction = Vector2f::Right;
     }
   }
-  else if (direction.X > 0)
+  else if (m_Direction.X > 0)
   {
-    if (position.X > ScreenWidth - 300)
+    if (m_Position.X > ScreenWidth - 300)
     {
-      direction = Vector2f::Left;
+      m_Direction = Vector2f::Left;
     }
   }
   else
   {
-    if (position.Y > ScreenHeight / 3)
+    if (m_Position.Y > ScreenHeight / 3)
     {
       if (rand() % 2 == 0)
       {
-        direction = Vector2f::Right;
+        m_Direction = Vector2f::Right;
       }
       else
       {
-        direction = Vector2f::Left;
+        m_Direction = Vector2f::Left;
       }
     }
   }
 
-  childrenAngle += BossChildrenRotation;
+  m_ChildrenAngle += BossChildrenRotation;
 
   // increase challenge when half dead (or half alive?)
-  if (health > BossHealth / 2)
+  if (m_Health > BossHealth / 2)
   {
-    fireAngle += BossFireRotation;
-    lastFired += deltaTime;
+    m_FireAngle += BossFireRotation;
+    m_LastFired += deltaTime;
   }
   else
   {
-    fireAngle += BossFireRotation * 2;
-    lastFired += deltaTime * 2;
+    m_FireAngle += BossFireRotation * 2;
+    m_LastFired += deltaTime * 2;
   }
 
-  if (lastFired > BossFireDelay)
+  if (m_LastFired > BossFireDelay)
   {
     FireBullet();
   }
@@ -114,27 +114,27 @@ void BossEnemy::Update(float deltaTime)
 // helper function to update objects that this parent controls
 void BossEnemy::UpdateChildren()
 {
-  if (leftHand != nullptr)
+  if (m_LeftHand != nullptr)
   {
-    if (leftHand->health > 0)
+    if (m_LeftHand->m_Health > 0)
     {
-      leftHand->position = position + Vector2f::Left * 200.0f + Vector2f::Down * 75.0f + Vector2f::CalculateDirection(-childrenAngle) * 25.0f;
+      m_LeftHand->m_Position = m_Position + Vector2f::Left * 200.0f + Vector2f::Down * 75.0f + Vector2f::CalculateDirection(-m_ChildrenAngle) * 25.0f;
     }
     else
     {
-      leftHand = nullptr;
+      m_LeftHand = nullptr;
     }
   }
 
-  if (rightHand != nullptr)
+  if (m_RightHand != nullptr)
   {
-    if (rightHand->health > 0)
+    if (m_RightHand->m_Health > 0)
     {
-      rightHand->position = position + Vector2f::Right * 200.0f + Vector2f::Down * 75.0f + Vector2f::CalculateDirection(childrenAngle) * -25.0f;
+      m_RightHand->m_Position = m_Position + Vector2f::Right * 200.0f + Vector2f::Down * 75.0f + Vector2f::CalculateDirection(m_ChildrenAngle) * -25.0f;
     }
     else
     {
-      rightHand = nullptr;
+      m_RightHand = nullptr;
     }
   }
 }
@@ -162,10 +162,10 @@ void BossEnemy::Remove()
 void BossEnemy::FireBullet()
 {
   Bullet* bullet = new Bullet("NeonOrb");
-  bullet->position = position;
-  bullet->direction = Vector2f::CalculateDirection(fireAngle);
-  bullet->speed = 100.0f;
+  bullet->m_Position = m_Position;
+  bullet->m_Direction = Vector2f::CalculateDirection(m_FireAngle);
+  bullet->m_Speed = 100.0f;
   bullet->CollisionList = &PlayerShip::PlayerShipList;
 
-  lastFired = 0.0f;
+  m_LastFired = 0.0f;
 }

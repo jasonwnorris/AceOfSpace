@@ -12,11 +12,11 @@ class Timer
    Timer();
    ~Timer();
 
-   float getStartTime();
-   float getDeltaTime();
+   float GetStartTime();
+   float GetDeltaTime();
 
   private:
-   float previousTime;
+   float m_PreviousTime;
 };
 
 #endif

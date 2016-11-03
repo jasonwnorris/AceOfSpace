@@ -16,9 +16,9 @@
 
 struct LevelObject
 {
-  std::string type;
-  float positionX;
-  float time;
+  std::string Type;
+  float PositionX;
+  float Time;
 };
 
 class Level
@@ -37,8 +37,8 @@ class Level
 
     void Update(float deltaTime);
 
-    float timeElapsed;
-    int objectIndex;
+    float m_TimeElapsed;
+    int m_ObjectIndex;
 };
 
 #endif

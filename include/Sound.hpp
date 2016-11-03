@@ -24,8 +24,8 @@ class Sound
 
     static void PlaySound(const std::string& keyname);
 
-    Mix_Music* mixMusic;
-    bool loop;
+    Mix_Music* m_MixMusic;
+    bool m_IsLoop;
 };
 
 #endif

@@ -5,25 +5,23 @@
 
 Timer::Timer()
 {
-   previousTime = 0.0f;
+   m_PreviousTime = 0.0f;
 }
 
 Timer::~Timer()
 {
 }
 
-// gets time since SDL was initialized (milliseconds)
-float Timer::getStartTime()
+float Timer::GetStartTime()
 {
    return SDL_GetTicks() / 1000.0f;
 }
 
-// gets time from last time this was called (milliseconds)
-float Timer::getDeltaTime()
+float Timer::GetDeltaTime()
 {
-   float thisTime = getStartTime();
-   float deltaTime = thisTime - previousTime;
-   previousTime = thisTime;
+   float currentTime = GetStartTime();
+   float deltaTime = currentTime - m_PreviousTime;
+   m_PreviousTime = currentTime;
 
    return deltaTime;
 }

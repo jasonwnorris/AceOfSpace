@@ -18,7 +18,7 @@ class Miniboss : public Enemy
   private:
     void FireBullet();
 
-    float lastFired;
+    float m_LastFired;
 };
 
 #endif

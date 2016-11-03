@@ -5,14 +5,14 @@
 
 Star::Star(const std::string& keyname) : Object(keyname)
 {
-  direction = Vector2f(0, 1);
+  m_Direction = Vector2f::Down;
 }
 
 void Star::Update(float deltaTime)
 {
   Object::Update(deltaTime);
 
-  if (position.Y > ScreenHeight)
+  if (m_Position.Y > ScreenHeight)
   {
     Remove();
   }

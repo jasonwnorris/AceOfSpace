@@ -9,36 +9,35 @@ std::map<std::string, Texture*> Texture::TextureList;
 
 Texture::Texture(SDL_Renderer* renderer, const std::string& filename, int tilesX, int tilesY, int frameCount, float frameRate, bool collidable)
 {
-  textures[0] = LoadImage(renderer, filename);
+  m_Textures[0] = LoadImage(renderer, filename);
 
-  SDL_QueryTexture(textures[0], &this->format, nullptr, &this->width, &this->height);
+  SDL_QueryTexture(m_Textures[0], &m_Format, nullptr, &m_Width, &m_Height);
 
   if (collidable)
   {
     MakeDamageTexture(renderer, filename);
   }
 
-  this->tilesX = tilesX;
-  this->tilesY = tilesY;
-  this->tileWidth = this->width / tilesX;
-  this->tileHeight = this->height / tilesY;
-  this->frameCount = frameCount;
-  this->frameInterval = 1 / frameRate;
-  this->collidable = collidable;
+  m_TilesX = tilesX;
+  m_TilesY = tilesY;
+  m_TileWidth = m_Width / tilesX;
+  m_TileHeight = m_Height / tilesY;
+  m_FrameCount = frameCount;
+  m_FrameInterval = 1.0f / frameRate;
+  m_IsCollidable = collidable;
 }
 
 Texture::~Texture()
 {
-  SDL_DestroyTexture(textures[0]);
+  SDL_DestroyTexture(m_Textures[0]);
 
-  if (collidable)
+  if (m_IsCollidable)
   {
-    delete[] solidity;
-    SDL_DestroyTexture(textures[1]);
+    delete[] m_IsPixelSolid;
+    SDL_DestroyTexture(m_Textures[1]);
   }
 }
 
-// load in texture files from text document
 void Texture::LoadTextures(SDL_Renderer* renderer)
 {
   std::ifstream file;
@@ -65,8 +64,8 @@ void Texture::LoadTextures(SDL_Renderer* renderer)
     file >> frameRate;
     file >> collidable;
 
-    Texture* texture = new Texture(renderer, filename, tilesX, tilesY, frameCount, frameRate, (collidable == "yes"));
-    TextureList[keyname] = texture;
+    Texture* m_Texture = new Texture(renderer, filename, tilesX, tilesY, frameCount, frameRate, (collidable == "yes"));
+    TextureList[keyname] = m_Texture;
     SDL_Log("Loaded texture: %s", keyname.c_str());
   }
 
@@ -88,10 +87,10 @@ SDL_Texture* Texture::LoadImage(SDL_Renderer* renderer, const std::string& filen
 {
   std::string filepath = "resources/" + filename;
   SDL_Surface* surface = IMG_Load(filepath.c_str());
-  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+  SDL_Texture* m_Texture = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
 
-  return texture;
+  return m_Texture;
 }
 
 void Texture::MakeDamageTexture(SDL_Renderer* renderer, const std::string& filename)
@@ -110,7 +109,7 @@ void Texture::MakeDamageTexture(SDL_Renderer* renderer, const std::string& filen
   Uint8 blue;
   Uint8 alpha;
 
-  solidity = new bool[width * height];
+  m_IsPixelSolid = new bool[surface->w * surface->h];
 
   for (int x = 0; x < surface->w; ++x)
   {
@@ -122,7 +121,7 @@ void Texture::MakeDamageTexture(SDL_Renderer* renderer, const std::string& filen
       green = std::min(green + 100, 255);
       blue = std::min(blue + 100, 255);
       pixels[index] = SDL_MapRGBA(surface->format, red, green, blue, alpha);
-      solidity[index] = (alpha == 255);
+      m_IsPixelSolid[index] = (alpha == 255);
     }
   }
 
@@ -131,6 +130,6 @@ void Texture::MakeDamageTexture(SDL_Renderer* renderer, const std::string& filen
     SDL_UnlockSurface(surface);
   }
 
-  textures[1] = SDL_CreateTextureFromSurface(renderer, surface);
+  m_Textures[1] = SDL_CreateTextureFromSurface(renderer, surface);
   SDL_FreeSurface(surface);
 }

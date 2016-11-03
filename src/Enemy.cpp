@@ -9,8 +9,8 @@ std::vector<GameObject*> Enemy::EnemyList;
 
 Enemy::Enemy(const std::string& keyname) : GameObject(keyname)
 {
-  direction = Vector2f::Down;
-  explosionKeyname = "Explosion";
+  m_Direction = Vector2f::Down;
+  m_ExplosionKeyname = "Explosion";
 
   EnemyList.push_back(this);
 }
@@ -23,7 +23,7 @@ void Enemy::RemoveKilled()
 {
   for (std::vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
   {
-    if ((*Iter)->dead)
+    if ((*Iter)->m_IsDead)
     {
       Iter = EnemyList.erase(Iter);
     }
@@ -46,7 +46,7 @@ void Enemy::Explode()
 {
   GameObject::Explode();
 
-  Player::AwardPoints(pointValue);
+  Player::AwardPoints(m_PointValue);
   DropItem();
 }
 
@@ -79,6 +79,6 @@ void Enemy::DropItem()
       item = new Powerup("ItemPlasma");
     }
 
-    item->position = position;
+    item->m_Position = m_Position;
   }
 }

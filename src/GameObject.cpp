@@ -6,8 +6,8 @@
 
 GameObject::GameObject(const std::string& keyname) : Object(keyname)
 {
-  health = 0;
-  flickerInterval = 0.0f;
+  m_Health = 0;
+  m_FlickerInterval = 0.0f;
   CollisionList = nullptr;
 }
 
@@ -29,13 +29,13 @@ void GameObject::Update(float deltaTime)
     }
   }
 
-  if (flickerInterval > 0)
+  if (m_FlickerInterval > 0)
   {
-    flickerInterval -= deltaTime;
+    m_FlickerInterval -= deltaTime;
   }
   else
   {
-    sprite->SetTextureIndex(0);
+    m_Sprite->SetTextureIndex(0);
   }
 
   Object::Update(deltaTime);
@@ -45,19 +45,19 @@ void GameObject::Update(float deltaTime)
 
 void GameObject::TakeDamage(int amount)
 {
-  if (health > 0)
+  if (m_Health > 0)
   {
-    health -= amount;
+    m_Health -= amount;
 
-    if (health <= 0)
+    if (m_Health <= 0)
     {
       Explode();
       Remove();
     }
     else
     {
-      sprite->SetTextureIndex(1);
-      flickerInterval = DamageEffectTime;
+      m_Sprite->SetTextureIndex(1);
+      m_FlickerInterval = DamageEffectTime;
     }
   }
 }
@@ -65,10 +65,10 @@ void GameObject::TakeDamage(int amount)
 // spawn a particle object when something dies
 void GameObject::Explode()
 {
-  if (explosionKeyname != "")
+  if (m_ExplosionKeyname != "")
   {
-    Particle* explosion = new Particle(explosionKeyname);
-    explosion->position = position;
+    Particle* explosion = new Particle(m_ExplosionKeyname);
+    explosion->m_Position = m_Position;
   }
 }
 

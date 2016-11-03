@@ -19,14 +19,13 @@ class Sprite
 
     void SetTextureIndex(int index);
 
-    Texture* texture;
-    Vector2f origin;
+    Texture* m_Texture;
+    Vector2f m_Origin;
 
   private:
-    int frame;
-    float frameTimeRemaining;
-
-    int textureIndex;
+    int m_Frame;
+    float m_FrameTimeRemaining;
+    int m_TextureIndex;
 };
 
 #endif

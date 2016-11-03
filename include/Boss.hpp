@@ -21,12 +21,11 @@ class BossEnemy : public Enemy
   private:
     void FireBullet();
 
-    Miniboss* leftHand;
-    Miniboss* rightHand;
-
-    float childrenAngle;
-    float fireAngle;
-    float lastFired;
+    Miniboss* m_LeftHand;
+    Miniboss* m_RightHand;
+    float m_ChildrenAngle;
+    float m_FireAngle;
+    float m_LastFired;
 };
 
 class Boss
@@ -40,9 +39,9 @@ class Boss
     static void SpawnBoss();
     static void DestroyBoss();
 
-    BossEnemy* boss;
-    bool spawned;
-    bool killed;
+    BossEnemy* m_Boss;
+    bool m_IsSpawned;
+    bool m_IsKilled;
 };
 
 #endif

@@ -21,9 +21,9 @@ Player* Player::Players = nullptr;
 
 Player::Player()
 {
-  ship = nullptr;
-  lives = PlayerLives;
-  score = 0;
+  m_Ship = nullptr;
+  m_Lives = PlayerLives;
+  m_Score = 0;
 }
 
 void Player::AddPlayers()
@@ -44,22 +44,22 @@ void Player::RemovePlayers()
 
 void Player::SpawnPlayer(int index)
 {
-  if (Players[index].ship == nullptr && Players[index].lives > 0)
+  if (Players[index].m_Ship == nullptr && Players[index].m_Lives > 0)
   {
     char player[8];
     snprintf(player, 8, "Player%d", index + 1);
-    Players[index].ship = new PlayerShip(player);
+    Players[index].m_Ship = new PlayerShip(player);
   }
 }
 
-void Player::DestroyPlayer(PlayerShip* ship)
+void Player::DestroyPlayer(PlayerShip* m_Ship)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
   {
-    if (Players[i].ship == ship)
+    if (Players[i].m_Ship == m_Ship)
     {
-      Players[i].ship = nullptr;
-      Players[i].lives--;
+      Players[i].m_Ship = nullptr;
+      Players[i].m_Lives--;
     }
   }
 }
@@ -74,7 +74,7 @@ void Player::ProcessInput(SDL_Event& event)
 
 void Player::ProcessInput(SDL_Event& event, int index)
 {
-  if (ship == nullptr)
+  if (m_Ship == nullptr)
   {
     if (event.type == SDL_KEYDOWN)
     {
@@ -90,46 +90,46 @@ void Player::ProcessInput(SDL_Event& event, int index)
     {
       if (event.key.keysym.sym == UpKey[index])
       {
-        ship->movingUp = true;
+        m_Ship->m_IsMovingUp = true;
       }
       if (event.key.keysym.sym == DownKey[index])
       {
-        ship->movingDown = true;
+        m_Ship->m_IsMovingDown = true;
       }
       if (event.key.keysym.sym == LeftKey[index])
       {
-        ship->movingLeft = true;
+        m_Ship->m_IsMovingLeft = true;
       }
       if (event.key.keysym.sym == RightKey[index])
       {
-        ship->movingRight = true;
+        m_Ship->m_IsMovingRight = true;
       }
       if (event.key.keysym.sym == FireKey[index])
       {
-        ship->shooting = true;
+        m_Ship->m_IsShooting = true;
       }
     }
     else if (event.type == SDL_KEYUP)
     {
       if (event.key.keysym.sym == UpKey[index])
       {
-        ship->movingUp = false;
+        m_Ship->m_IsMovingUp = false;
       }
       if (event.key.keysym.sym == DownKey[index])
       {
-        ship->movingDown = false;
+        m_Ship->m_IsMovingDown = false;
       }
       if (event.key.keysym.sym == LeftKey[index])
       {
-        ship->movingLeft = false;
+        m_Ship->m_IsMovingLeft = false;
       }
       if (event.key.keysym.sym == RightKey[index])
       {
-        ship->movingRight = false;
+        m_Ship->m_IsMovingRight = false;
       }
       if (event.key.keysym.sym == FireKey[index])
       {
-        ship->shooting = false;
+        m_Ship->m_IsShooting = false;
       }
     }
   }
@@ -139,7 +139,7 @@ void Player::AwardPoints(int amount)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
   {
-    Players[i].score += amount;
+    Players[i].m_Score += amount;
   }
 }
 
@@ -149,66 +149,65 @@ std::vector<GameObject*> PlayerShip::PlayerShipList;
 
 PlayerShip::PlayerShip(const std::string& keyname) : GameObject(keyname)
 {
-  position = Vector2f(ScreenWidth / 2.0f, static_cast<float>(ScreenHeight - sprite->texture->tileHeight - PlayerSpawnOffset));
-  speed = PlayerSpeed;
-  health = PlayerHealth;
-  explosionKeyname = "Explosion";
-  weaponType = WEAPON_BULLET;
+  m_Position = Vector2f(ScreenWidth / 2.0f, static_cast<float>(ScreenHeight - m_Sprite->m_Texture->m_TileHeight - PlayerSpawnOffset));
+  m_Speed = PlayerSpeed;
+  m_Health = PlayerHealth;
+  m_ExplosionKeyname = "Explosion";
+  m_WeaponType = WEAPON_BULLET;
   CollisionList = &Enemy::EnemyList;
 
-  movingUp = false;
-  movingDown = false;
-  movingLeft = false;
-  movingRight = false;
-  shooting = false;
-
-  lastFired = 0.0f;
+  m_IsMovingUp = false;
+  m_IsMovingDown = false;
+  m_IsMovingLeft = false;
+  m_IsMovingRight = false;
+  m_IsShooting = false;
+  m_LastFired = 0.0f;
 
   PlayerShipList.push_back(this);
 }
 
 void PlayerShip::Update(float deltaTime)
 {
-  direction = Vector2f::Zero;
+  m_Direction = Vector2f::Zero;
 
-  if (movingUp)
+  if (m_IsMovingUp)
   {
-    direction.Y -= 1;
+    m_Direction.Y -= 1;
   }
-  if (movingDown)
+  if (m_IsMovingDown)
   {
-    direction.Y += 1;
+    m_Direction.Y += 1;
   }
-  if (movingLeft)
+  if (m_IsMovingLeft)
   {
-    direction.X -= 1;
+    m_Direction.X -= 1;
   }
-  if (movingRight)
+  if (m_IsMovingRight)
   {
-    direction.X += 1;
+    m_Direction.X += 1;
   }
 
-  lastFired += deltaTime;
+  m_LastFired += deltaTime;
   FireBullet();
 
   GameObject::Update(deltaTime);
 
-  if (position.X < sprite->origin.X)
+  if (m_Position.X < m_Sprite->m_Origin.X)
   {
-    position.X = sprite->origin.X;
+    m_Position.X = m_Sprite->m_Origin.X;
   }
-  else if (position.X > ScreenWidth - sprite->origin.X)
+  else if (m_Position.X > ScreenWidth - m_Sprite->m_Origin.X)
   {
-    position.X = ScreenWidth - sprite->origin.X;
+    m_Position.X = ScreenWidth - m_Sprite->m_Origin.X;
   }
 
-  if (position.Y < sprite->origin.Y)
+  if (m_Position.Y < m_Sprite->m_Origin.Y)
   {
-    position.Y = sprite->origin.Y;
+    m_Position.Y = m_Sprite->m_Origin.Y;
   }
-  else if (position.Y > ScreenHeight - sprite->origin.Y)
+  else if (m_Position.Y > ScreenHeight - m_Sprite->m_Origin.Y)
   {
-    position.Y = ScreenHeight - sprite->origin.Y;
+    m_Position.Y = ScreenHeight - m_Sprite->m_Origin.Y;
   }
 }
 
@@ -216,7 +215,7 @@ void PlayerShip::RemoveKilled()
 {
   for (std::vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
   {
-    if ((*Iter)->dead)
+    if ((*Iter)->m_IsDead)
     {
       Iter = PlayerShipList.erase(Iter);
     }
@@ -244,67 +243,67 @@ void PlayerShip::Remove()
 
 void PlayerShip::Collide(GameObject* object)
 {
-  int objectHealth = object->health;
-  object->TakeDamage(this->health);
+  int objectHealth = object->m_Health;
+  object->TakeDamage(this->m_Health);
   this->TakeDamage(objectHealth);
 }
 
 void PlayerShip::FireBullet()
 {
-  if (shooting)
+  if (m_IsShooting)
   {
-    if (weaponType == WEAPON_BULLET)
+    if (m_WeaponType == WEAPON_BULLET)
     {
-      if (lastFired > PlayerFireDelay)
+      if (m_LastFired > PlayerFireDelay)
       {
         int total = 3;
         for (int i = 0; i < total; ++i)
         {
           Projectile* projectile = new Bullet("Bullet");
-          projectile->position = position + Vector2f::Left * (1 - i) * 5.0f + Vector2f::Up * 20.0f;
-          projectile->direction = Vector2f::Up;
+          projectile->m_Position = m_Position + Vector2f::Left * (1 - i) * 5.0f + Vector2f::Up * 20.0f;
+          projectile->m_Direction = Vector2f::Up;
           projectile->CollisionList = &Enemy::EnemyList;
         }
 
-        lastFired = 0.0f;
+        m_LastFired = 0.0f;
       }
     }
-    else if (weaponType == WEAPON_MISSILE || weaponType == WEAPON_PLASMA)
+    else if (m_WeaponType == WEAPON_MISSILE || m_WeaponType == WEAPON_PLASMA)
     {
-      if (lastFired > PlayerFireDelay)
+      if (m_LastFired > PlayerFireDelay)
       {
         int total = 5;
         for (int i = 0; i < total; ++i)
         {
           Projectile* projectile = nullptr;
 
-          if (weaponType == WEAPON_MISSILE)
+          if (m_WeaponType == WEAPON_MISSILE)
           {
             projectile = new Missile("Missile");
           }
-          else if (weaponType == WEAPON_PLASMA)
+          else if (m_WeaponType == WEAPON_PLASMA)
           {
             projectile = new Bullet("Plasma");
           }
 
-          projectile->position = position + Vector2f::Up * 20.0f;
-          projectile->direction = Vector2f::Right * (i - (total / 2)) / 10.0f + Vector2f::Up;
+          projectile->m_Position = m_Position + Vector2f::Up * 20.0f;
+          projectile->m_Direction = Vector2f::Right * (i - (total / 2)) / 10.0f + Vector2f::Up;
           projectile->CollisionList = &Enemy::EnemyList;
         }
 
-        lastFired = 0.0f;
+        m_LastFired = 0.0f;
       }
     }
-    else if (weaponType == WEAPON_FIREBALL)
+    else if (m_WeaponType == WEAPON_FIREBALL)
     {
-      if (lastFired > FireballFireDelay)
+      if (m_LastFired > FireballFireDelay)
       {
         Projectile* projectile = new Fireball("Flames");
-        projectile->position = position + Vector2f::Up * 28.0f;
-        projectile->direction = Vector2f::Right * (rand() % 101 - 50) / 100.0f + Vector2f::Up;
+        projectile->m_Position = m_Position + Vector2f::Up * 28.0f;
+        projectile->m_Direction = Vector2f::Right * (rand() % 101 - 50) / 100.0f + Vector2f::Up;
         projectile->CollisionList = &Enemy::EnemyList;
 
-        lastFired = 0.0f;
+        m_LastFired = 0.0f;
       }
     }
   }

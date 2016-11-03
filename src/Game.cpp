@@ -44,9 +44,9 @@ Game::Game()
   SDL_Log("complete!");
 
   SDL_Log("Initializing window... ");
-  window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
+  m_Window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
 
-  if (window == nullptr)
+  if (m_Window == nullptr)
   {
     SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to initialize the window.");
     exit(1);
@@ -54,24 +54,24 @@ Game::Game()
   SDL_Log("complete!");
 
   SDL_Log("Initializing renderer... ");
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+  m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED);
 
-  if (renderer == nullptr)
+  if (m_Renderer == nullptr)
   {
     SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to initialize the renderer.");
     exit(1);
   }
   SDL_Log("complete!");
 
-  done = false;
-  interval = 0.25f;
-  elapsedTime = 0.0f;
-  frameCount = 0;
-  framesPerSecond = 0;
-  objectCount = 0;
-  gamestate = STATE_MENU;
-  singlePlayer = true;
-  showDebug = false;
+  m_IsDone = false;
+  m_Interval = 0.25f;
+  m_ElapsedTime = 0.0f;
+  m_FrameCount = 0;
+  m_FramesPerSecond = 0;
+  m_ObjectCount = 0;
+  m_State = STATE_MENU;
+  m_IsSinglePlayer = true;
+  m_IsDebugShown = false;
 }
 
 Game::~Game()
@@ -85,8 +85,8 @@ Game::~Game()
   SDL_Log("complete!");
 
   SDL_Log("Closing SDL... ");
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
+  SDL_DestroyRenderer(m_Renderer);
+  SDL_DestroyWindow(m_Window);
   SDL_Quit();
   SDL_Log("complete!");
 
@@ -97,7 +97,7 @@ void Game::OnExecute()
 {
   OnStart();
 
-  while (!done)
+  while (!m_IsDone)
   {
     OnThink();
     OnUpdate();
@@ -110,26 +110,26 @@ void Game::OnExecute()
 void Game::OnStart()
 {
   const std::string filename = "resources/framd.ttf";
-  font10.Load(renderer, filename, 10, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  font14.Load(renderer, filename, 14, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  font16.Load(renderer, filename, 16, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  font20.Load(renderer, filename, 20, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  font25.Load(renderer, filename, 25, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  font35.Load(renderer, filename, 35, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  m_Font10.Load(m_Renderer, filename, 10, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  m_Font14.Load(m_Renderer, filename, 14, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  m_Font16.Load(m_Renderer, filename, 16, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  m_Font20.Load(m_Renderer, filename, 20, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  m_Font25.Load(m_Renderer, filename, 25, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  m_Font35.Load(m_Renderer, filename, 35, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
 
-  Texture::LoadTextures(renderer);
+  Texture::LoadTextures(m_Renderer);
   Sound::LoadSounds();
   Sound::PlaySound("Intro");
 }
 
 void Game::OnEnd()
 {
-  font10.Unload();
-  font14.Unload();
-  font16.Unload();
-  font20.Unload();
-  font25.Unload();
-  font35.Unload();
+  m_Font10.Unload();
+  m_Font14.Unload();
+  m_Font16.Unload();
+  m_Font20.Unload();
+  m_Font25.Unload();
+  m_Font35.Unload();
 
   Texture::UnloadTextures();
   Sound::UnloadSounds();
@@ -139,53 +139,55 @@ void Game::OnEnd()
 
 void Game::OnThink()
 {
-  while (SDL_PollEvent(&event))
+  while (SDL_PollEvent(&m_Event))
   {
-    if (gamestate == STATE_MENU)
+    if (m_State == STATE_MENU)
     {
-      if (event.type == SDL_KEYDOWN)
+      if (m_Event.type == SDL_KEYDOWN)
       {
-        if (event.key.keysym.sym == SDLK_RETURN)
+        if (m_Event.key.keysym.sym == SDLK_RETURN)
         {
-          gamestate = STATE_PLAYING;
+          m_State = STATE_PLAYING;
           Level::LevelOne.BuildLevel();
           Player::AddPlayers();
           Player::SpawnPlayer(PLAYER_ONE);
-          if (!singlePlayer)
+          if (!m_IsSinglePlayer)
+          {
             Player::SpawnPlayer(PLAYER_TWO);
+          }
           Sound::PlaySound("Theme");
         }
-        else if (event.key.keysym.sym == SDLK_1)
+        else if (m_Event.key.keysym.sym == SDLK_1)
         {
-          singlePlayer = !singlePlayer;
+          m_IsSinglePlayer = !m_IsSinglePlayer;
         }
-        else if (event.key.keysym.sym == SDLK_2)
+        else if (m_Event.key.keysym.sym == SDLK_2)
         {
-          gamestate = STATE_CONTROLS;
+          m_State = STATE_CONTROLS;
         }
-        else if (event.key.keysym.sym == SDLK_3)
+        else if (m_Event.key.keysym.sym == SDLK_3)
         {
-          gamestate = STATE_CREDITS;
-        }
-      }
-    }
-    else if (gamestate == STATE_CONTROLS || gamestate == STATE_CREDITS)
-    {
-      if (event.type == SDL_KEYDOWN)
-      {
-        if (event.key.keysym.sym == SDLK_RETURN)
-        {
-          gamestate = STATE_MENU;
+          m_State = STATE_CREDITS;
         }
       }
     }
-    else if (gamestate == STATE_GAMEOVER || gamestate == STATE_VICTORY)
+    else if (m_State == STATE_CONTROLS || m_State == STATE_CREDITS)
     {
-      if (event.type == SDL_KEYDOWN)
+      if (m_Event.type == SDL_KEYDOWN)
       {
-        if (event.key.keysym.sym == SDLK_RETURN)
+        if (m_Event.key.keysym.sym == SDLK_RETURN)
         {
-          gamestate = STATE_MENU;
+          m_State = STATE_MENU;
+        }
+      }
+    }
+    else if (m_State == STATE_GAMEOVER || m_State == STATE_VICTORY)
+    {
+      if (m_Event.type == SDL_KEYDOWN)
+      {
+        if (m_Event.key.keysym.sym == SDLK_RETURN)
+        {
+          m_State = STATE_MENU;
           Player::RemovePlayers();
           Boss::RemoveBoss();
           Object::RemoveAll();
@@ -193,209 +195,209 @@ void Game::OnThink()
         }
       }
     }
-    else if (gamestate == STATE_PLAYING)
+    else if (m_State == STATE_PLAYING)
     {
-      Player::ProcessInput(event);
+      Player::ProcessInput(m_Event);
 
-      if (event.type == SDL_KEYDOWN)
+      if (m_Event.type == SDL_KEYDOWN)
       {
-        if (event.key.keysym.sym == SDLK_RSHIFT)
+        if (m_Event.key.keysym.sym == SDLK_RSHIFT)
         {
-          singlePlayer = false;
+          m_IsSinglePlayer = false;
         }
-        if (event.key.keysym.sym == SDLK_RETURN)
+        if (m_Event.key.keysym.sym == SDLK_RETURN)
         {
-          gamestate = STATE_PAUSED;
-        }
-      }
-    }
-    else if (gamestate == STATE_PAUSED)
-    {
-      if (event.type == SDL_KEYDOWN)
-      {
-        if (event.key.keysym.sym == SDLK_RETURN)
-        {
-          gamestate = STATE_PLAYING;
+          m_State = STATE_PAUSED;
         }
       }
     }
-
-    if (event.type == SDL_KEYDOWN)
+    else if (m_State == STATE_PAUSED)
     {
-      if (event.key.keysym.sym == SDLK_ESCAPE)
+      if (m_Event.type == SDL_KEYDOWN)
       {
-        done = true;
-      }
-      if (event.key.keysym.sym == SDLK_TAB)
-      {
-        showDebug = !showDebug;
+        if (m_Event.key.keysym.sym == SDLK_RETURN)
+        {
+          m_State = STATE_PLAYING;
+        }
       }
     }
 
-    if (event.type == SDL_QUIT)
+    if (m_Event.type == SDL_KEYDOWN)
     {
-      done = true;
+      if (m_Event.key.keysym.sym == SDLK_ESCAPE)
+      {
+        m_IsDone = true;
+      }
+      if (m_Event.key.keysym.sym == SDLK_TAB)
+      {
+        m_IsDebugShown = !m_IsDebugShown;
+      }
+    }
+
+    if (m_Event.type == SDL_QUIT)
+    {
+      m_IsDone = true;
     }
   }
 }
 
 void Game::OnUpdate()
 {
-  float deltaTime = timer.getDeltaTime();
+  float deltaTime = m_Timer.GetDeltaTime();
 
-  if (gamestate == STATE_PLAYING)
+  if (m_State == STATE_PLAYING)
   {
     Object::UpdateObjects(deltaTime);
     Level::LevelOne.Update(deltaTime);
-    starfield.Update(deltaTime);
+    m_Starfield.Update(deltaTime);
 
-    if (singlePlayer)
+    if (m_IsSinglePlayer)
     {
-      if (Player::Players[0].lives <= 0)
+      if (Player::Players[0].m_Lives <= 0)
       {
-        gamestate = STATE_GAMEOVER;
+        m_State = STATE_GAMEOVER;
         Sound::PlaySound("GameOver");
       }
     }
     else
     {
-      if (Player::Players[0].lives + Player::Players[1].lives <= 0)
+      if (Player::Players[0].m_Lives + Player::Players[1].m_Lives <= 0)
       {
-        gamestate = STATE_GAMEOVER;
+        m_State = STATE_GAMEOVER;
         Sound::PlaySound("GameOver");
       }
     }
 
-    if (Boss::FinalBoss.spawned && Boss::FinalBoss.killed)
+    if (Boss::FinalBoss.m_IsSpawned && Boss::FinalBoss.m_IsKilled)
     {
-      gamestate = STATE_VICTORY;
+      m_State = STATE_VICTORY;
       Sound::PlaySound("Victory");
     }
   }
 
-  ++frameCount;
-  elapsedTime += deltaTime;
-  if (elapsedTime >= interval)
+  ++m_FrameCount;
+  m_ElapsedTime += deltaTime;
+  if (m_ElapsedTime >= m_Interval)
   {
-    framesPerSecond = (int)(frameCount / interval);
-    objectCount = (int)Object::ObjectList.size();
-    elapsedTime = 0.0f;
-    frameCount = 0;
+    m_FramesPerSecond = (int)(m_FrameCount / m_Interval);
+    m_ObjectCount = (int)Object::ObjectList.size();
+    m_ElapsedTime = 0.0f;
+    m_FrameCount = 0;
   }
 }
 
 void Game::OnRender()
 {
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-  SDL_RenderClear(renderer);
+  SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
+  SDL_RenderClear(m_Renderer);
 
-  if (gamestate == STATE_MENU)
+  if (m_State == STATE_MENU)
   {
     DrawTitle();
   }
-  else if (gamestate == STATE_CONTROLS)
+  else if (m_State == STATE_CONTROLS)
   {
     DrawControls();
   }
-  else if (gamestate == STATE_CREDITS)
+  else if (m_State == STATE_CREDITS)
   {
     DrawCredits();
   }
-  else if (gamestate == STATE_PLAYING)
+  else if (m_State == STATE_PLAYING)
   {
-    Object::RenderObjects(renderer);
+    Object::RenderObjects(m_Renderer);
     DrawHUD();
   }
-  else if (gamestate == STATE_PAUSED)
+  else if (m_State == STATE_PAUSED)
   {
-    Object::RenderObjects(renderer);
+    Object::RenderObjects(m_Renderer);
     DrawHUD();
     DrawPaused();
   }
-  else if (gamestate == STATE_GAMEOVER)
+  else if (m_State == STATE_GAMEOVER)
   {
-    Object::RenderObjects(renderer);
+    Object::RenderObjects(m_Renderer);
     DrawHUD();
     DrawGameOver();
   }
-  else if (gamestate == STATE_VICTORY)
+  else if (m_State == STATE_VICTORY)
   {
-    Object::RenderObjects(renderer);
+    Object::RenderObjects(m_Renderer);
     DrawHUD();
     DrawVictory();
   }
 
-  if (showDebug)
+  if (m_IsDebugShown)
   {
     DrawDebug();
   }
 
-  SDL_RenderPresent(renderer);
+  SDL_RenderPresent(m_Renderer);
 }
 
 void Game::DrawHUD()
 {
   // player 1 HUD
   SDL_Rect health1 = {20, ScreenHeight - 25, 200, 10};
-  SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
-  SDL_RenderFillRect(renderer, &health1);
+  SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
+  SDL_RenderFillRect(m_Renderer, &health1);
 
-  if (Player::Players[0].ship != nullptr)
+  if (Player::Players[0].m_Ship != nullptr)
   {
-    health1.w = Player::Players[0].ship->health * 2;
-    SDL_SetRenderDrawColor(renderer, 200, 50, 50, 255);
-    SDL_RenderFillRect(renderer, &health1);
+    health1.w = Player::Players[0].m_Ship->m_Health * 2;
+    SDL_SetRenderDrawColor(m_Renderer, 200, 50, 50, 255);
+    SDL_RenderFillRect(m_Renderer, &health1);
   }
 
-  for (int i = 0; i < Player::Players[0].lives; ++i)
+  for (int i = 0; i < Player::Players[0].m_Lives; ++i)
   {
     SDL_Rect box = {(i + 1) * 20, ScreenHeight - 45, 10, 10};
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &box);
+    SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
+    SDL_RenderFillRect(m_Renderer, &box);
   }
 
   // player 2 HUD
-  if (!singlePlayer)
+  if (!m_IsSinglePlayer)
   {
     SDL_Rect health2 = {ScreenWidth - 220, ScreenHeight - 25, 200, 10};
-    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
-    SDL_RenderFillRect(renderer, &health2);
+    SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
+    SDL_RenderFillRect(m_Renderer, &health2);
 
-    if (Player::Players[1].ship != nullptr)
+    if (Player::Players[1].m_Ship != nullptr)
     {
-      health2.x = ScreenWidth - 220 + (PlayerHealth - Player::Players[1].ship->health) * 2;
-      health2.w = Player::Players[1].ship->health * 2;
-      SDL_SetRenderDrawColor(renderer, 50, 50, 200, 255);
-      SDL_RenderFillRect(renderer, &health2);
+      health2.x = ScreenWidth - 220 + (PlayerHealth - Player::Players[1].m_Ship->m_Health) * 2;
+      health2.w = Player::Players[1].m_Ship->m_Health * 2;
+      SDL_SetRenderDrawColor(m_Renderer, 50, 50, 200, 255);
+      SDL_RenderFillRect(m_Renderer, &health2);
     }
 
-    for (int i = 0; i < Player::Players[1].lives; ++i)
+    for (int i = 0; i < Player::Players[1].m_Lives; ++i)
     {
       SDL_Rect box = {ScreenWidth - 10 - (i + 1) * 20, ScreenHeight - 45, 10, 10};
-      SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-      SDL_RenderFillRect(renderer, &box);
+      SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
+      SDL_RenderFillRect(m_Renderer, &box);
     }
   }
 
   // display score
   std::stringstream ss;
-  ss << Player::Players[0].score;
-  Graphics::DrawText(renderer, font10, "SCORE", ScreenWidth / 2, ScreenHeight - 35, c_White);
-  Graphics::DrawText(renderer, font16, ss.str(), ScreenWidth / 2, ScreenHeight - 20, c_White);
+  ss << Player::Players[0].m_Score;
+  Graphics::DrawText(m_Renderer, m_Font10, "SCORE", ScreenWidth / 2, ScreenHeight - 35, c_White);
+  Graphics::DrawText(m_Renderer, m_Font16, ss.str(), ScreenWidth / 2, ScreenHeight - 20, c_White);
 
   // boss HUD
-  if (Boss::FinalBoss.spawned && !Boss::FinalBoss.killed)
+  if (Boss::FinalBoss.m_IsSpawned && !Boss::FinalBoss.m_IsKilled)
   {
     int barWidth = ScreenWidth - 40;
     SDL_Rect boss = {20, 20, barWidth, 10};
-    SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
-    SDL_RenderFillRect(renderer, &boss);
+    SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
+    SDL_RenderFillRect(m_Renderer, &boss);
 
-    if (Boss::FinalBoss.boss != nullptr)
+    if (Boss::FinalBoss.m_Boss != nullptr)
     {
-      boss.w = (Sint16)(1.0f * Boss::FinalBoss.boss->health / BossHealth * barWidth);
-      SDL_SetRenderDrawColor(renderer, 50, 200, 50, 255);
-      SDL_RenderFillRect(renderer, &boss);
+      boss.w = (Sint16)(1.0f * Boss::FinalBoss.m_Boss->m_Health / BossHealth * barWidth);
+      SDL_SetRenderDrawColor(m_Renderer, 50, 200, 50, 255);
+      SDL_RenderFillRect(m_Renderer, &boss);
     }
   }
 }
@@ -403,83 +405,83 @@ void Game::DrawHUD()
 void Game::DrawTitle()
 {
   Texture* titleTexture = Texture::TextureList["Title"];
-  SDL_Rect titleRect = { ScreenWidth / 2 - titleTexture->width / 2, ScreenHeight / 2 - titleTexture->height / 2 - 100, titleTexture->width, titleTexture->height };
-  SDL_RenderCopy(renderer, titleTexture->textures[0], nullptr, &titleRect);
+  SDL_Rect titleRect = { ScreenWidth / 2 - titleTexture->m_Width / 2, ScreenHeight / 2 - titleTexture->m_Height / 2 - 100, titleTexture->m_Width, titleTexture->m_Height };
+  SDL_RenderCopy(m_Renderer, titleTexture->m_Textures[0], nullptr, &titleRect);
 
-  Graphics::DrawText(renderer, font25, "Press ENTER to Start", ScreenWidth / 2, ScreenHeight / 2 + 75, c_White);
-  Graphics::DrawText(renderer, font20, (singlePlayer ? "1-Player" : "2-Player"), ScreenWidth / 2, ScreenHeight / 2 + 100, c_White);
+  Graphics::DrawText(m_Renderer, m_Font25, "Press ENTER to Start", ScreenWidth / 2, ScreenHeight / 2 + 75, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, (m_IsSinglePlayer ? "1-Player" : "2-Player"), ScreenWidth / 2, ScreenHeight / 2 + 100, c_White);
 
-  Graphics::DrawText(renderer, font20, "Players", ScreenWidth / 2 - 100, ScreenHeight / 2 + 150, c_White);
-  Graphics::DrawText(renderer, font20, "(1)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 150, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Players", ScreenWidth / 2 - 100, ScreenHeight / 2 + 150, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(1)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 150, c_White);
 
-  Graphics::DrawText(renderer, font20, "Controls", ScreenWidth / 2 - 100, ScreenHeight / 2 + 175, c_White);
-  Graphics::DrawText(renderer, font20, "(2)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 175, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Controls", ScreenWidth / 2 - 100, ScreenHeight / 2 + 175, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(2)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 175, c_White);
 
-  Graphics::DrawText(renderer, font20, "Credits", ScreenWidth / 2 - 100, ScreenHeight / 2 + 200, c_White);
-  Graphics::DrawText(renderer, font20, "(3)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 200, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Credits", ScreenWidth / 2 - 100, ScreenHeight / 2 + 200, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(3)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 200, c_White);
 
-  Graphics::DrawText(renderer, font20, "Debug", ScreenWidth / 2 - 100, ScreenHeight / 2 + 225, c_White);
-  Graphics::DrawText(renderer, font20, "(Tab)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 225, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Debug", ScreenWidth / 2 - 100, ScreenHeight / 2 + 225, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(Tab)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 225, c_White);
 
-  Graphics::DrawText(renderer, font20, "Exit", ScreenWidth / 2 - 100, ScreenHeight / 2 + 250, c_White);
-  Graphics::DrawText(renderer, font20, "(Esc)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 250, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Exit", ScreenWidth / 2 - 100, ScreenHeight / 2 + 250, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(Esc)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 250, c_White);
 }
 
 void Game::DrawControls()
 {
   Texture* keyTexture = Texture::TextureList["Keyboard"];
-  SDL_Rect keyRect = { ScreenWidth / 2 - keyTexture->width / 2, ScreenHeight / 2 - keyTexture->height / 2, keyTexture->width, keyTexture->height };
-  SDL_RenderCopy(renderer, keyTexture->textures[0], nullptr, &keyRect);
+  SDL_Rect keyRect = { ScreenWidth / 2 - keyTexture->m_Width / 2, ScreenHeight / 2 - keyTexture->m_Height / 2, keyTexture->m_Width, keyTexture->m_Height };
+  SDL_RenderCopy(m_Renderer, keyTexture->m_Textures[0], nullptr, &keyRect);
 
-  Graphics::DrawText(renderer, font35, "CONTROLS", ScreenWidth / 2, 40, c_White);
-  Graphics::DrawText(renderer, font16, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight - 40, c_White);
+  Graphics::DrawText(m_Renderer, m_Font35, "CONTROLS", ScreenWidth / 2, 40, c_White);
+  Graphics::DrawText(m_Renderer, m_Font16, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight - 40, c_White);
 }
 
 void Game::DrawCredits()
 {
-  Graphics::DrawText(renderer, font35, "CREDITS", ScreenWidth / 2, 40, c_White);
+  Graphics::DrawText(m_Renderer, m_Font35, "CREDITS", ScreenWidth / 2, 40, c_White);
 
-  Graphics::DrawText(renderer, font14, "Programming", ScreenWidth / 2, 150, c_White);
-  Graphics::DrawText(renderer, font25, "Jason Norris", ScreenWidth / 2, 170, c_White);
+  Graphics::DrawText(m_Renderer, m_Font14, "Programming", ScreenWidth / 2, 150, c_White);
+  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", ScreenWidth / 2, 170, c_White);
 
-  Graphics::DrawText(renderer, font14, "Programming", ScreenWidth / 2, 250, c_White);
-  Graphics::DrawText(renderer, font25, "Jason Norris", ScreenWidth / 2, 270, c_White);
+  Graphics::DrawText(m_Renderer, m_Font14, "Programming", ScreenWidth / 2, 250, c_White);
+  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", ScreenWidth / 2, 270, c_White);
 
-  Graphics::DrawText(renderer, font14, "Programming", ScreenWidth / 2, 350, c_White);
-  Graphics::DrawText(renderer, font25, "Jason Norris", ScreenWidth / 2, 370, c_White);
+  Graphics::DrawText(m_Renderer, m_Font14, "Programming", ScreenWidth / 2, 350, c_White);
+  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", ScreenWidth / 2, 370, c_White);
 
-  Graphics::DrawText(renderer, font16, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight - 40, c_White);
+  Graphics::DrawText(m_Renderer, m_Font16, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight - 40, c_White);
 }
 
 void Game::DrawPaused()
 {
   SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
-  Graphics::FillAlphaRect(renderer, rect, 0, 0, 0, 128);
-  Graphics::DrawText(renderer, font35, "PAUSED", ScreenWidth / 2, ScreenHeight / 2, c_White);
+  Graphics::FillAlphaRect(m_Renderer, rect, 0, 0, 0, 128);
+  Graphics::DrawText(m_Renderer, m_Font35, "PAUSED", ScreenWidth / 2, ScreenHeight / 2, c_White);
 }
 
 void Game::DrawGameOver()
 {
   SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
-  Graphics::FillAlphaRect(renderer, rect, 255, 0, 0, 128);
-  Graphics::DrawText(renderer, font35, "FAILURE", ScreenWidth / 2, ScreenHeight / 2, c_Red);
-  Graphics::DrawText(renderer, font14, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight / 2 + 50, c_Red);
+  Graphics::FillAlphaRect(m_Renderer, rect, 255, 0, 0, 128);
+  Graphics::DrawText(m_Renderer, m_Font35, "FAILURE", ScreenWidth / 2, ScreenHeight / 2, c_Red);
+  Graphics::DrawText(m_Renderer, m_Font14, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight / 2 + 50, c_Red);
 }
 
 void Game::DrawVictory()
 {
   SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
-  Graphics::FillAlphaRect(renderer, rect, 0, 255, 0, 128);
-  Graphics::DrawText(renderer, font35, "SUCCESS", ScreenWidth / 2, ScreenHeight / 2, c_Green);
-  Graphics::DrawText(renderer, font14, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight / 2 + 50, c_Green);
+  Graphics::FillAlphaRect(m_Renderer, rect, 0, 255, 0, 128);
+  Graphics::DrawText(m_Renderer, m_Font35, "SUCCESS", ScreenWidth / 2, ScreenHeight / 2, c_Green);
+  Graphics::DrawText(m_Renderer, m_Font14, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight / 2 + 50, c_Green);
 }
 
 void Game::DrawDebug()
 {
   std::stringstream ss1;
-  ss1 << "FPS: " << framesPerSecond;
-  Graphics::DrawText(renderer, font14, ss1.str(), 10, 10, c_White, false);
+  ss1 << "FPS: " << m_FramesPerSecond;
+  Graphics::DrawText(m_Renderer, m_Font14, ss1.str(), 10, 10, c_White, false);
   std::stringstream ss2;
-  ss2 << "Objects: " << objectCount;
-  Graphics::DrawText(renderer, font14, ss2.str(), 10, 30, c_White, false);
+  ss2 << "Objects: " << m_ObjectCount;
+  Graphics::DrawText(m_Renderer, m_Font14, ss2.str(), 10, 30, c_White, false);
 }

@@ -7,8 +7,8 @@ Level Level::LevelOne;
 
 Level::Level()
 {
-  timeElapsed = 0.0f;
-  objectIndex = 0;
+  m_TimeElapsed = 0.0f;
+  m_ObjectIndex = 0;
 }
 
 // open the text file and read in monster spawn information
@@ -50,9 +50,9 @@ void Level::BuildLevel()
 void Level::AddObject(const std::string& type, float positionX, float spawnTime)
 {
   LevelObject object;
-  object.type = type;
-  object.positionX = positionX;
-  object.time = spawnTime;
+  object.Type = type;
+  object.PositionX = positionX;
+  object.Time = spawnTime;
 
   LevelObjects.push_back(object);
 }
@@ -61,7 +61,7 @@ void Level::AddObject(const std::string& type, float positionX, float spawnTime)
 // each LevelObject object
 void Level::SpawnObject(LevelObject object)
 {
-  if (object.type == "Boss")
+  if (object.Type == "Boss")
   {
     Boss::SpawnBoss();
   }
@@ -69,31 +69,31 @@ void Level::SpawnObject(LevelObject object)
   {
     Enemy* enemy = nullptr;
 
-    if (object.type == "Asteroid")
+    if (object.Type == "Asteroid")
     {
       enemy = new Asteroid("Asteroid");
     }
-    else if (object.type == "StraightShooter")
+    else if (object.Type == "StraightShooter")
     {
       enemy = new StraightShooter("StraightShooter");
     }
-    else if (object.type == "TargetShooter")
+    else if (object.Type == "TargetShooter")
     {
       enemy = new TargetShooter("TargetShooter");
     }
-    else if (object.type == "Kamikaze")
+    else if (object.Type == "Kamikaze")
     {
       enemy = new Kamikaze("Kamikaze");
     }
 
-    enemy->position = Vector2f(object.positionX, -enemy->sprite->origin.Y);
+    enemy->m_Position = Vector2f(object.PositionX, -enemy->m_Sprite->m_Origin.Y);
   }
 }
 
 void Level::Reset()
 {
-  timeElapsed = 0.0f;
-  objectIndex = 0;
+  m_TimeElapsed = 0.0f;
+  m_ObjectIndex = 0;
 
   LevelObjects.clear();
 }
@@ -103,16 +103,16 @@ void Level::Reset()
 // spawn again
 void Level::Update(float deltaTime)
 {
-  timeElapsed += deltaTime;
+  m_TimeElapsed += deltaTime;
 
-  for (int i = objectIndex; i < LevelObjects.size(); ++i)
+  for (int i = m_ObjectIndex; i < LevelObjects.size(); ++i)
   {
-    if (LevelObjects[i].time > timeElapsed)
+    if (LevelObjects[i].Time > m_TimeElapsed)
     {
       break;
     }
 
     SpawnObject(LevelObjects[i]);
-    objectIndex++;
+    m_ObjectIndex++;
   }
 }

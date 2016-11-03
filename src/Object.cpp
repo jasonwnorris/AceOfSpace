@@ -10,22 +10,20 @@ std::vector<Object*> Object::ObjectAddList;
 
 Object::Object(const std::string& keyname)
 {
-  sprite = new Sprite(keyname);
-  position = Vector2f::Zero;
-  direction = Vector2f::Zero;
-  speed = 0.0f;
-  dead = false;
+  m_Sprite = new Sprite(keyname);
+  m_Position = Vector2f::Zero;
+  m_Direction = Vector2f::Zero;
+  m_Speed = 0.0f;
+  m_IsDead = false;
 
   ObjectAddList.push_back(this);
 }
 
 Object::~Object()
 {
-  delete sprite;
+  delete m_Sprite;
 }
 
-// objects can't be removed or added to a std::vector during iteration
-// so we do that afterwards
 void Object::UpdateObjects(float deltaTime)
 {
   for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
@@ -39,9 +37,9 @@ void Object::UpdateObjects(float deltaTime)
 
 void Object::Update(float deltaTime)
 {
-  sprite->Update(deltaTime);
-  direction.Normalize();
-  Move(direction * speed * deltaTime);
+  m_Sprite->Update(deltaTime);
+  m_Direction.Normalize();
+  Move(m_Direction * m_Speed * deltaTime);
 }
 
 void Object::RenderObjects(SDL_Renderer* renderer)
@@ -54,12 +52,9 @@ void Object::RenderObjects(SDL_Renderer* renderer)
 
 void Object::Render(SDL_Renderer* renderer)
 {
-  sprite->Render(renderer, position);
+  m_Sprite->Render(renderer, m_Position);
 }
 
-// we want to add objects during the main iteration
-// so we temporarily store them in an auxiliary std::vector
-// then push them on after we're done updating
 void Object::AddNew()
 {
   for (std::vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
@@ -77,7 +72,7 @@ void Object::RemoveDead()
 
   for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
   {
-    if ((*Iter)->dead)
+    if ((*Iter)->m_IsDead)
     {
       Object* temp = (*Iter);
       Iter = ObjectList.erase(Iter);
@@ -105,36 +100,32 @@ void Object::RemoveAll()
   ObjectList.clear();
 }
 
-// make an object as dead so we can remove it after we finish updating
 void Object::Remove()
 {
-  dead = true;
+  m_IsDead = true;
 }
 
 void Object::Move(Vector2f amount)
 {
-  position += amount;
+  m_Position += amount;
 }
 
-// return an SDL_Rect surrounding our object
 SDL_Rect Object::GetBounds()
 {
   SDL_Rect bounds;
-  bounds.x = (Sint16)(position.X - sprite->origin.X);
-  bounds.y = (Sint16)(position.Y - sprite->origin.Y);
-  bounds.w = (Sint16)(sprite->texture->tileWidth);
-  bounds.h = (Sint16)(sprite->texture->tileWidth);
+  bounds.x = (Sint16)(m_Position.X - m_Sprite->m_Origin.X);
+  bounds.y = (Sint16)(m_Position.Y - m_Sprite->m_Origin.Y);
+  bounds.w = (Sint16)(m_Sprite->m_Texture->m_TileWidth);
+  bounds.h = (Sint16)(m_Sprite->m_Texture->m_TileWidth);
 
   return bounds;
 }
 
-// helps with pixel collision, this is a little tricky
-// this returns an SDL_Rect that covers the area of the frame intersecting with the provided "rect"
 SDL_Rect Object::NormalizeBounds(const SDL_Rect& rect)
 {
   SDL_Rect normalizeRect;
-  normalizeRect.x = (Sint16)(rect.x + sprite->GetFrameBounds().x + sprite->origin.X - position.X);
-  normalizeRect.y = (Sint16)(rect.y + sprite->GetFrameBounds().y + sprite->origin.Y - position.Y);
+  normalizeRect.x = (Sint16)(rect.x + m_Sprite->GetFrameBounds().x + m_Sprite->m_Origin.X - m_Position.X);
+  normalizeRect.y = (Sint16)(rect.y + m_Sprite->GetFrameBounds().y + m_Sprite->m_Origin.Y - m_Position.Y);
   normalizeRect.w = rect.w;
   normalizeRect.h = rect.h;
 
@@ -155,8 +146,8 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
   SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
   SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
 
-  Texture* textureA = objectA->sprite->texture;
-  Texture* textureB = objectB->sprite->texture;
+  Texture* textureA = objectA->m_Sprite->m_Texture;
+  Texture* textureB = objectB->m_Sprite->m_Texture;
 
   for (int y = 0; y <= collisionRect.h; ++y)
   {
@@ -174,5 +165,5 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
 
 bool Object::GetAlphaXY(Texture* texture, int x, int y)
 {
-  return texture->solidity[x + y * texture->width];
+  return texture->m_IsPixelSolid[x + y * texture->m_Width];
 }

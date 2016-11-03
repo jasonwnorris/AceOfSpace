@@ -9,13 +9,13 @@ Sound::Sound(const std::string& filename, bool loop)
 {
   std::string filepath = "resources/" + filename;
 
-  this->mixMusic = Mix_LoadMUS(filepath.c_str());
-  this->loop = loop;
+  this->m_MixMusic = Mix_LoadMUS(filepath.c_str());
+  this->m_IsLoop = loop;
 }
 
 Sound::~Sound()
 {
-  Mix_FreeMusic(mixMusic);
+  Mix_FreeMusic(m_MixMusic);
 }
 
 // load in sound files from text document
@@ -70,12 +70,12 @@ void Sound::PlaySound(const std::string& keyname)
 {
   Sound* sound = SoundList[keyname];
 
-  if (sound->loop)
+  if (sound->m_IsLoop)
   {
-    Mix_PlayMusic(sound->mixMusic, -1);
+    Mix_PlayMusic(sound->m_MixMusic, -1);
   }
   else
   {
-    Mix_PlayMusic(sound->mixMusic, 0);
+    Mix_PlayMusic(sound->m_MixMusic, 0);
   }
 }

@@ -5,14 +5,14 @@
 
 Particle::Particle(const std::string& keyname) : Object(keyname)
 {
-  lifeInterval = sprite->texture->frameCount * sprite->texture->frameInterval;
+  m_LifeInterval = m_Sprite->m_Texture->m_FrameCount * m_Sprite->m_Texture->m_FrameInterval;
 }
 
 void Particle::Update(float deltaTime)
 {
-  lifeInterval -= deltaTime;
+  m_LifeInterval -= deltaTime;
 
-  if (lifeInterval < 0)
+  if (m_LifeInterval < 0.0f)
   {
     Remove();
   }
