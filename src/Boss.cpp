@@ -43,7 +43,7 @@ BossEnemy::BossEnemy(const std::string& keyname) : Enemy(keyname)
   pointValue = BossPointValue;
 
   position = Vector(ScreenWidth / 2, -sprite->origin.Y);
-  direction = Vector(0, 1);
+  direction = Vector::Down;
   speed = BossSpeed;
   health = BossHealth;
 
@@ -66,14 +66,14 @@ void BossEnemy::Update(float deltaTime)
   {
     if (position.X < 300)
     {
-      direction = Vector(1, 0);
+      direction = Vector::Right;
     }
   }
   else if (direction.X > 0)
   {
     if (position.X > ScreenWidth - 300)
     {
-      direction = Vector(-1, 0);
+      direction = Vector::Left;
     }
   }
   else
@@ -82,11 +82,11 @@ void BossEnemy::Update(float deltaTime)
     {
       if (rand() % 2 == 0)
       {
-        direction = Vector(1, 0);
+        direction = Vector::Right;
       }
       else
       {
-        direction = Vector(-1, 0);
+        direction = Vector::Left;
       }
     }
   }
@@ -118,7 +118,7 @@ void BossEnemy::UpdateChildren()
   {
     if (leftHand->health > 0)
     {
-      leftHand->position = position + Vector(-200, 75) + Vector::CalculateDirection(-childrenAngle) * 25;
+      leftHand->position = position + Vector::Left * 200.0f + Vector::Down * 75.0f + Vector::CalculateDirection(-childrenAngle) * 25.0f;
     }
     else
     {
@@ -130,7 +130,7 @@ void BossEnemy::UpdateChildren()
   {
     if (rightHand->health > 0)
     {
-      rightHand->position = position + Vector(200, 75) + Vector::CalculateDirection(childrenAngle) * -25;
+      rightHand->position = position + Vector::Right * 200.0f + Vector::Down * 75.0f + Vector::CalculateDirection(childrenAngle) * -25.0f;
     }
     else
     {

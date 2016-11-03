@@ -169,7 +169,7 @@ PlayerShip::PlayerShip(const std::string& keyname) : GameObject(keyname)
 
 void PlayerShip::Update(float deltaTime)
 {
-  direction = Vector(0, 0);
+  direction = Vector::Zero;
 
   if (movingUp)
   {
@@ -261,8 +261,8 @@ void PlayerShip::FireBullet()
         for (int i = 0; i < total; ++i)
         {
           Projectile* projectile = new Bullet("Bullet");
-          projectile->position = position - Vector(5.0f + i * -5.0f, 20.0f);
-          projectile->direction = Vector(0, -1);
+          projectile->position = position + Vector::Left * (1 - i) * 5.0f + Vector::Up * 20.0f;
+          projectile->direction = Vector::Up;
           projectile->CollisionList = &Enemy::EnemyList;
         }
 
@@ -287,8 +287,8 @@ void PlayerShip::FireBullet()
             projectile = new Bullet("Plasma");
           }
 
-          projectile->position = position - Vector(0, 20.0f);
-          projectile->direction = Vector((i - (total / 2)) / 10.0f, -1);
+          projectile->position = position + Vector::Up * 20.0f;
+          projectile->direction = Vector::Right * (i - (total / 2)) / 10.0f + Vector::Up;
           projectile->CollisionList = &Enemy::EnemyList;
         }
 
@@ -300,8 +300,8 @@ void PlayerShip::FireBullet()
       if (lastFired > FireballFireDelay)
       {
         Projectile* projectile = new Fireball("Flames");
-        projectile->position = position - Vector(0, 28.0f);
-        projectile->direction = Vector((rand() % 101 - 50) / 100.0f, -1);
+        projectile->position = position + Vector::Up * 28.0f;
+        projectile->direction = Vector::Right * (rand() % 101 - 50) / 100.0f + Vector::Up;
         projectile->CollisionList = &Enemy::EnemyList;
 
         lastFired = 0.0f;

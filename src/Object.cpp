@@ -11,8 +11,8 @@ std::vector<Object*> Object::ObjectAddList;
 Object::Object(const std::string& keyname)
 {
   sprite = new Sprite(keyname);
-  position = Vector(0, 0);
-  direction = Vector(0, 0);
+  position = Vector::Zero;
+  direction = Vector::Zero;
   speed = 0.0f;
   dead = false;
 

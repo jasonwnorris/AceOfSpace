@@ -12,7 +12,7 @@ Miniboss::Miniboss(const std::string& keyname) : Enemy(keyname)
 {
   pointValue = MinibossPointValue;
   health = MinibossHealth;
-  position = Vector(0, -ScreenHeight / 2);
+  position = Vector::Up * ScreenHeight / 2.0f;
 
   lastFired = 0.0f;
 }

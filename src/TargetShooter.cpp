@@ -11,7 +11,7 @@ TargetShooter::TargetShooter(const std::string& keyname) : Enemy(keyname)
   health = TargetShooterHealth;
   speed = TargetShooterSpeed;
   target = nullptr;
-  targetDirection = Vector(0, 0);
+  targetDirection = Vector::Zero;
   lastFired = 0.0f;
 }
 
@@ -29,7 +29,7 @@ void TargetShooter::Update(float deltaTime)
   }
   else
   {
-    targetDirection = Vector(0, 1);
+    targetDirection = Vector::Down;
   }
 
   Enemy::Update(deltaTime);

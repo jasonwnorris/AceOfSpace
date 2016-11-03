@@ -9,7 +9,7 @@ std::vector<GameObject*> Enemy::EnemyList;
 
 Enemy::Enemy(const std::string& keyname) : GameObject(keyname)
 {
-  direction = Vector(0, 1);
+  direction = Vector::Down;
   explosionKeyname = "Explosion";
 
   EnemyList.push_back(this);

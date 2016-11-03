@@ -6,27 +6,30 @@
 // AOS Includes
 #include "Vector.hpp"
 
+const Vector Vector::Zero = Vector(0.0f, 0.0f);
+const Vector Vector::One = Vector(1.0f, 1.0f);
+const Vector Vector::Up = Vector(0.0f, -1.0f);
+const Vector Vector::Down = Vector(0.0f, 1.0f);
+const Vector Vector::Left = Vector(-1.0f, 0.0f);
+const Vector Vector::Right = Vector(1.0f, 0.0f);
+
 Vector::Vector(float x, float y)
 {
   X = x;
   Y = y;
 }
 
-// trims vector down to a unit vector
 void Vector::Normalize()
 {
   float length = Length();
-  if (length <= 0)
+  if (length > 0.0f)
   {
-    return;
+    X /= length;
+    Y /= length;
   }
-
-  X /= length;
-  Y /= length;
 }
 
-// finds the angle of a given vector (radians)
-float Vector::Angle()
+float Vector::Angle() const
 {
   if (X == 0.0f)
   {
@@ -40,13 +43,7 @@ float Vector::Angle()
     }
   }
 
-  float omega = Y / X;
-
-  if (omega < 0.0f)
-  {
-    omega *= -1;
-  }
-
+  float omega = fabsf(Y / X);
   float angle = atanf(omega);
 
   if (X < 0.0f && Y >= 0.0f)
@@ -67,13 +64,11 @@ float Vector::Angle()
   return angle;
 }
 
-// find magnitude
-float Vector::Length()
+float Vector::Length() const
 {
   return sqrtf(X * X + Y * Y);
 }
 
-// find a std::vector of the given angle
 Vector Vector::CalculateDirection(float angle)
 {
   Vector vector;
@@ -83,24 +78,26 @@ Vector Vector::CalculateDirection(float angle)
   return vector;
 }
 
-// was ganna use this to make the enemies dodge around you
-// didn't get around to it
 Vector Vector::LinearInterp(const Vector& v1, const Vector& v2, const float& weight)
 {
-  Vector vector;
-
-  if (weight < 0 || weight > 1)
+  if (weight <= 0.0f)
   {
-    return vector;
+    return v1;
   }
 
+  if (weight >= 1.0f)
+  {
+    return v2;
+  }
+
+  Vector vector;
   vector.X = v1.X * (1.0f - weight) + v2.X * weight;
   vector.Y = v1.Y * (1.0f - weight) + v2.Y * weight;
 
   return vector;
 }
 
-Vector Vector::operator +(const Vector& v)
+Vector Vector::operator+(const Vector& v) const
 {
   Vector vector;
   vector.X = X + v.X;
@@ -109,7 +106,7 @@ Vector Vector::operator +(const Vector& v)
   return vector;
 }
 
-Vector Vector::operator -(const Vector& v)
+Vector Vector::operator-(const Vector& v) const
 {
   Vector vector;
   vector.X = X - v.X;
@@ -118,7 +115,16 @@ Vector Vector::operator -(const Vector& v)
   return vector;
 }
 
-Vector Vector::operator *(const float& mag)
+Vector Vector::operator*(int mag) const
+{
+  Vector vector;
+  vector.X = X * static_cast<float>(mag);
+  vector.Y = Y * static_cast<float>(mag);
+
+  return vector;
+}
+
+Vector Vector::operator*(float mag) const
 {
   Vector vector;
   vector.X = X * mag;
@@ -127,7 +133,16 @@ Vector Vector::operator *(const float& mag)
   return vector;
 }
 
-Vector Vector::operator /(const float& mag)
+Vector Vector::operator/(int mag) const
+{
+  Vector vector;
+  vector.X = X / static_cast<float>(mag);
+  vector.Y = Y / static_cast<float>(mag);
+
+  return vector;
+}
+
+Vector Vector::operator/(float mag) const
 {
   Vector vector;
   vector.X = X / mag;
@@ -136,26 +151,34 @@ Vector Vector::operator /(const float& mag)
   return vector;
 }
 
-void Vector::operator =(const Vector& v)
+void Vector::operator=(const Vector& v)
 {
   X = v.X;
   Y = v.Y;
 }
 
-void Vector::operator +=(const Vector& v)
+void Vector::operator+=(const Vector& v)
 {
   X += v.X;
   Y += v.Y;
 }
 
-void Vector::operator -=(const Vector& v)
+void Vector::operator-=(const Vector& v)
 {
   X -= v.X;
   Y -= v.Y;
 }
 
-// ex: Vector(5, 2) * 2.5f
-Vector operator *(const float& mag, const Vector& v)
+Vector operator*(int mag, const Vector& v)
+{
+  Vector vector;
+  vector.X = v.X * static_cast<float>(mag);
+  vector.Y = v.Y * static_cast<float>(mag);
+
+  return vector;
+}
+
+Vector operator*(float mag, const Vector& v)
 {
   Vector vector;
   vector.X = v.X * mag;
