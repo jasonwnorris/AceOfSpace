@@ -110,12 +110,12 @@ void Game::OnExecute()
 void Game::OnStart()
 {
   const std::string filename = "resources/framd.ttf";
-  font10.Load(renderer, filename, 10);
-  font14.Load(renderer, filename, 14);
-  font16.Load(renderer, filename, 16);
-  font20.Load(renderer, filename, 20);
-  font25.Load(renderer, filename, 25);
-  font35.Load(renderer, filename, 35);
+  font10.Load(renderer, filename, 10, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  font14.Load(renderer, filename, 14, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  font16.Load(renderer, filename, 16, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  font20.Load(renderer, filename, 20, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  font25.Load(renderer, filename, 25, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  font35.Load(renderer, filename, 35, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
 
   Texture::LoadTextures(renderer);
   Sound::LoadSounds();
@@ -381,7 +381,7 @@ void Game::DrawHUD()
   std::stringstream ss;
   ss << Player::Players[0].score;
   Graphics::DrawText(renderer, font10, "SCORE", ScreenWidth / 2, ScreenHeight - 35, c_White);
-  Graphics::DrawText(renderer, font14, ss.str(), ScreenWidth / 2, ScreenHeight - 20, c_White);
+  Graphics::DrawText(renderer, font16, ss.str(), ScreenWidth / 2, ScreenHeight - 20, c_White);
 
   // boss HUD
   if (Boss::FinalBoss.spawned && !Boss::FinalBoss.killed)
