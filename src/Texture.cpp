@@ -1,7 +1,10 @@
 // Texture.cpp
 
+// SDL Includes
+#include <SDL_image.h>
 // STL Includes
 #include <algorithm>
+#include <fstream>
 // AOS Includes
 #include "Texture.hpp"
 
@@ -9,14 +12,9 @@ std::map<std::string, Texture*> Texture::TextureList;
 
 Texture::Texture(SDL_Renderer* p_Renderer, const std::string& p_Filename, int p_TilesX, int p_TilesY, int p_FrameCount, float p_FrameRate, bool p_IsCollidable)
 {
-  m_Textures[0] = LoadImage(p_Renderer, p_Filename);
+  m_IsCollidable = p_IsCollidable;
 
-  SDL_QueryTexture(m_Textures[0], &m_Format, nullptr, &m_Width, &m_Height);
-
-  if (p_IsCollidable)
-  {
-    MakeDamageTexture(p_Renderer, p_Filename);
-  }
+  MakeTextures(p_Renderer, c_ResourcesPath + p_Filename);
 
   m_TilesX = p_TilesX;
   m_TilesY = p_TilesY;
@@ -24,7 +22,6 @@ Texture::Texture(SDL_Renderer* p_Renderer, const std::string& p_Filename, int p_
   m_TileHeight = m_Height / p_TilesY;
   m_FrameCount = p_FrameCount;
   m_FrameInterval = 1.0f / p_FrameRate;
-  m_IsCollidable = p_IsCollidable;
 }
 
 Texture::~Texture()
@@ -156,53 +153,59 @@ void Texture::UnloadTextures()
   TextureList.clear();
 }
 
-SDL_Texture* Texture::LoadImage(SDL_Renderer* p_Renderer, const std::string& p_Filename)
+void Texture::MakeTextures(SDL_Renderer* p_Renderer, const std::string& p_Filename)
 {
-  std::string filepath = c_ResourcesPath + p_Filename;
-  SDL_Surface* surface = IMG_Load(filepath.c_str());
-  SDL_Texture* m_Texture = SDL_CreateTextureFromSurface(p_Renderer, surface);
-  SDL_FreeSurface(surface);
+  SDL_Surface* surface = IMG_Load(p_Filename.c_str());
 
-  return m_Texture;
-}
-
-void Texture::MakeDamageTexture(SDL_Renderer* p_Renderer, const std::string& p_Filename)
-{
-  std::string filepath = c_ResourcesPath + p_Filename;
-  SDL_Surface* surface = IMG_Load(filepath.c_str());
-
-  if (SDL_MUSTLOCK(surface))
+  MakeStandardTexture(p_Renderer, surface);
+  if (m_IsCollidable)
   {
-    SDL_LockSurface(surface);
+    MakeDamageTexture(p_Renderer, surface);
   }
 
-  Uint32* pixels = (Uint32*)surface->pixels;
+  SDL_FreeSurface(surface);
+}
+
+void Texture::MakeStandardTexture(SDL_Renderer* p_Renderer, SDL_Surface* p_Surface)
+{
+  m_Textures[0] = SDL_CreateTextureFromSurface(p_Renderer, p_Surface);
+
+  SDL_QueryTexture(m_Textures[0], &m_Format, nullptr, &m_Width, &m_Height);
+}
+
+void Texture::MakeDamageTexture(SDL_Renderer* p_Renderer, SDL_Surface* p_Surface)
+{
+  if (SDL_MUSTLOCK(p_Surface))
+  {
+    SDL_LockSurface(p_Surface);
+  }
+
+  Uint32* pixels = (Uint32*)p_Surface->pixels;
   Uint8 red;
   Uint8 green;
   Uint8 blue;
   Uint8 alpha;
 
-  m_IsPixelSolid = new bool[surface->w * surface->h];
+  m_IsPixelSolid = new bool[p_Surface->w * p_Surface->h];
 
-  for (int x = 0; x < surface->w; ++x)
+  for (int x = 0; x < p_Surface->w; ++x)
   {
-    for (int y = 0; y < surface->h; ++y)
+    for (int y = 0; y < p_Surface->h; ++y)
     {
-      int index = x + y * surface->w;
-      SDL_GetRGBA(pixels[index], surface->format, &red, &green, &blue, &alpha);
+      int index = x + y * p_Surface->w;
+      SDL_GetRGBA(pixels[index], p_Surface->format, &red, &green, &blue, &alpha);
       red = std::min(red + 100, 255);
       green = std::min(green + 100, 255);
       blue = std::min(blue + 100, 255);
-      pixels[index] = SDL_MapRGBA(surface->format, red, green, blue, alpha);
+      pixels[index] = SDL_MapRGBA(p_Surface->format, red, green, blue, alpha);
       m_IsPixelSolid[index] = (alpha == 255);
     }
   }
 
-  if (SDL_MUSTLOCK(surface))
+  if (SDL_MUSTLOCK(p_Surface))
   {
-    SDL_UnlockSurface(surface);
+    SDL_UnlockSurface(p_Surface);
   }
 
-  m_Textures[1] = SDL_CreateTextureFromSurface(p_Renderer, surface);
-  SDL_FreeSurface(surface);
+  m_Textures[1] = SDL_CreateTextureFromSurface(p_Renderer, p_Surface);
 }

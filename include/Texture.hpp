@@ -5,10 +5,7 @@
 
 // SDL Includes
 #include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
 // STL Includes
-#include <fstream>
 #include <string>
 #include <map>
 // AOS Includes
@@ -37,10 +34,11 @@ class Texture
 
     static bool LoadTextures(SDL_Renderer* p_Renderer);
     static void UnloadTextures();
-    static SDL_Texture* LoadImage(SDL_Renderer* p_Renderer, const std::string& p_Filename);
 
   private:
-    void MakeDamageTexture(SDL_Renderer* p_Renderer, const std::string& p_Filename);
+    void MakeTextures(SDL_Renderer* p_Renderer, const std::string& p_Filename);
+    void MakeStandardTexture(SDL_Renderer* p_Renderer, SDL_Surface* p_Surface);
+    void MakeDamageTexture(SDL_Renderer* p_Renderer, SDL_Surface* p_Surface);
 
     SDL_Texture* m_Textures[2];
     int m_Width;
