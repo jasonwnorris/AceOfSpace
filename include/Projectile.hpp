@@ -19,7 +19,7 @@ class Projectile : public GameObject
   public:
     Projectile(const std::string& p_Keyname);
 
-    void Collide(GameObject* p_Object);
+    void Collide(GameObject* p_GameObject);
 };
 
 #endif

@@ -11,9 +11,9 @@ class Item : public GameObject
   public:
     Item(const std::string& p_Keyname);
 
-    void Collide(GameObject* p_Object);
+    void Collide(GameObject* p_GameObject);
 
-    virtual void InflictBonus(GameObject* p_Object) { }
+    virtual void InflictBonus(GameObject* p_GameObject) { }
 };
 
 #endif

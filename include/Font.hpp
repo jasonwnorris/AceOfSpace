@@ -9,27 +9,8 @@
 #include <string>
 #include <vector>
 // AOS Includes
+#include "Glyph.hpp"
 #include "Vector2f.hpp"
-
-struct Glyph
-{
-  Uint16 Character;
-  int Index;
-  int MinX;
-  int MaxX;
-  int MinY;
-  int MaxY;
-  int Advance;
-  int SpacialWidth;
-  int SpacialHeight;
-  int VisualX;
-  int VisualY;
-  int VisualWidth;
-  int VisualHeight;
-  SDL_Surface* Surface;
-
-  bool operator==(const Glyph& p_Other);
-};
 
 class Font
 {

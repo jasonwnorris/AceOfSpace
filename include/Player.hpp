@@ -1,43 +1,10 @@
 // Player.hpp
 
-#ifndef __PLAYERSHIP_HPP__
-#define __PLAYERSHIP_HPP__
+#ifndef __PLAYER_HPP__
+#define __PLAYER_HPP__
 
 // AOS Includes
-#include "GameObject.hpp"
-
-enum PlayerIndex
-{
-  PLAYER_ONE,
-  PLAYER_TWO,
-};
-
-class PlayerShip : public GameObject
-{
-  public:
-    PlayerShip(const std::string& p_Keyname);
-
-    static std::vector<GameObject*> PlayerShipList;
-
-    void Update(float p_DeltaTime);
-
-    static void RemoveKilled();
-    static void RemoveAll();
-    void Remove();
-
-    void Collide(GameObject* p_Object);
-
-    bool m_IsMovingUp;
-    bool m_IsMovingDown;
-    bool m_IsMovingLeft;
-    bool m_IsMovingRight;
-    bool m_IsShooting;
-
-  private:
-    void FireBullet();
-
-    float m_LastFired;
-};
+#include "PlayerShip.hpp"
 
 class Player
 {
@@ -49,15 +16,15 @@ class Player
     static void AddPlayers();
     static void RemovePlayers();
 
-    static void SpawnPlayer(int index);
-    static void DestroyPlayer(PlayerShip* ship);
+    static void SpawnPlayer(int p_Index);
+    static void DestroyPlayer(PlayerShip* p_PlayerShip);
 
-    static void ProcessInput(SDL_Event& event);
-    void ProcessInput(SDL_Event& event, int index);
+    static void ProcessInput(SDL_Event& p_Event);
+    void ProcessInput(SDL_Event& p_Event, int p_Index);
 
-    static void AwardPoints(int amount);
+    static void AwardPoints(int p_Amount);
 
-    PlayerShip* m_Ship;
+    PlayerShip* m_PlayerShip;
     int m_Lives;
     int m_Score;
 };

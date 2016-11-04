@@ -12,9 +12,9 @@ Item::Item(const std::string& p_Keyname) : GameObject(p_Keyname)
   CollisionList = &PlayerShip::PlayerShipList;
 }
 
-void Item::Collide(GameObject* p_Object)
+void Item::Collide(GameObject* p_GameObject)
 {
-  InflictBonus(p_Object);
+  InflictBonus(p_GameObject);
   Explode();
   Remove();
 }

@@ -8,6 +8,7 @@
 #include "Sound.hpp"
 #include "Level.hpp"
 #include "Player.hpp"
+#include "PlayerIndex.hpp"
 #include "Boss.hpp"
 #include "Graphics.hpp"
 
@@ -342,9 +343,9 @@ void Game::DrawHUD()
   SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
   SDL_RenderFillRect(m_Renderer, &health1);
 
-  if (Player::Players[0].m_Ship != nullptr)
+  if (Player::Players[0].m_PlayerShip != nullptr)
   {
-    health1.w = Player::Players[0].m_Ship->m_Health * 2;
+    health1.w = Player::Players[0].m_PlayerShip->m_Health * 2;
     SDL_SetRenderDrawColor(m_Renderer, 200, 50, 50, 255);
     SDL_RenderFillRect(m_Renderer, &health1);
   }
@@ -363,10 +364,10 @@ void Game::DrawHUD()
     SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(m_Renderer, &health2);
 
-    if (Player::Players[1].m_Ship != nullptr)
+    if (Player::Players[1].m_PlayerShip != nullptr)
     {
-      health2.x = c_ScreenWidth - 220 + (c_PlayerHealth - Player::Players[1].m_Ship->m_Health) * 2;
-      health2.w = Player::Players[1].m_Ship->m_Health * 2;
+      health2.x = c_ScreenWidth - 220 + (c_PlayerHealth - Player::Players[1].m_PlayerShip->m_Health) * 2;
+      health2.w = Player::Players[1].m_PlayerShip->m_Health * 2;
       SDL_SetRenderDrawColor(m_Renderer, 50, 50, 200, 255);
       SDL_RenderFillRect(m_Renderer, &health2);
     }
@@ -393,9 +394,9 @@ void Game::DrawHUD()
     SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(m_Renderer, &boss);
 
-    if (Boss::FinalBoss.m_Boss != nullptr)
+    if (Boss::FinalBoss.m_BossEnemy != nullptr)
     {
-      boss.w = Boss::FinalBoss.m_Boss->m_Health / c_BossHealth * barWidth;
+      boss.w = Boss::FinalBoss.m_BossEnemy->m_Health / c_BossHealth * barWidth;
       SDL_SetRenderDrawColor(m_Renderer, 50, 200, 50, 255);
       SDL_RenderFillRect(m_Renderer, &boss);
     }

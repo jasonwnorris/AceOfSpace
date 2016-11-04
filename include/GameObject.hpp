@@ -14,7 +14,7 @@ class GameObject : public Object
 
     virtual void Update(float p_DeltaTime);
 
-    virtual void Collide(GameObject* p_Object) { }
+    virtual void Collide(GameObject* p_GameObject) { }
     virtual void TakeDamage(int p_Amount);
     virtual void Explode();
 
