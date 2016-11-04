@@ -34,7 +34,6 @@ class Font
     int HeuristicWidth();
     int MakeValidTextureSize(int p_Value, bool p_IsPOT = true);
 
-  private:
     SDL_Texture* m_Texture;
     bool m_IsLoaded;
     int m_Height;

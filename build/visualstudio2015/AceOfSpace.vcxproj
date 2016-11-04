@@ -168,6 +168,7 @@
     <ClCompile Include="..\..\src\Boss.cpp" />
     <ClCompile Include="..\..\src\BossEnemy.cpp" />
     <ClCompile Include="..\..\src\Bullet.cpp" />
+    <ClCompile Include="..\..\src\Color.cpp" />
     <ClCompile Include="..\..\src\Enemy.cpp" />
     <ClCompile Include="..\..\src\Fireball.cpp" />
     <ClCompile Include="..\..\src\Font.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="..\..\include\Boss.hpp" />
     <ClInclude Include="..\..\include\BossEnemy.hpp" />
     <ClInclude Include="..\..\include\Bullet.hpp" />
+    <ClInclude Include="..\..\include\Color.hpp" />
     <ClInclude Include="..\..\include\Config.hpp" />
     <ClInclude Include="..\..\include\Enemy.hpp" />
     <ClInclude Include="..\..\include\Fireball.hpp" />

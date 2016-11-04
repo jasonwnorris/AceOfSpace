@@ -28,8 +28,9 @@ class Game
     Game();
     ~Game();
 
-    bool OnExecute();
+    bool Run();
 
+  private:
     bool OnStart();
     void OnEnd();
 
@@ -37,7 +38,6 @@ class Game
     void OnUpdate();
     void OnRender();
 
-  private:
     void DrawHUD();
     void DrawTitle();
     void DrawControls();
@@ -46,10 +46,6 @@ class Game
     void DrawGameOver();
     void DrawVictory();
     void DrawDebug();
-
-    static const SDL_Color c_White;
-    static const SDL_Color c_Green;
-    static const SDL_Color c_Red;
 
     SDL_Window* m_Window;
     SDL_Renderer* m_Renderer;

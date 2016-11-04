@@ -107,6 +107,9 @@
     <ClCompile Include="..\..\src\PlayerShip.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Color.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Asteroid.hpp">
@@ -206,6 +209,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\PlayerShip.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Color.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

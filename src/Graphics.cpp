@@ -3,7 +3,12 @@
 // AOS Includes
 #include "Graphics.hpp"
 
-void Graphics::DrawText(SDL_Renderer* p_Renderer, const Font& p_Font, const std::string& p_Text, int p_X, int p_Y, SDL_Color p_Color, bool p_IsCentered)
+void Graphics::DrawText(SDL_Renderer* p_Renderer, const Font& p_Font, const std::string& p_Text, int p_X, int p_Y, const SDL_Color& p_Color, bool p_IsCentered)
+{
+  DrawText(p_Renderer, p_Font, p_Text, p_X, p_Y, p_Color.r, p_Color.g, p_Color.b, p_Color.a, p_IsCentered);
+}
+
+void Graphics::DrawText(SDL_Renderer* p_Renderer, const Font& p_Font, const std::string& p_Text, int p_X, int p_Y, Uint8 p_Red, Uint8 p_Green, Uint8 p_Blue, Uint8 p_Alpha, bool p_IsCentered)
 {
   int halfWidth = 0;
   int halfHeight = 0;
@@ -17,8 +22,8 @@ void Graphics::DrawText(SDL_Renderer* p_Renderer, const Font& p_Font, const std:
   }
 
   SDL_Texture* texture = p_Font.GetTexture();
-  SDL_SetTextureColorMod(texture, p_Color.r, p_Color.g, p_Color.b);
-  SDL_SetTextureAlphaMod(texture, p_Color.a);
+  SDL_SetTextureColorMod(texture, p_Red, p_Green, p_Blue);
+  SDL_SetTextureAlphaMod(texture, p_Alpha);
 
   int offsetX = 0;
   int offsetY = 0;
@@ -38,8 +43,13 @@ void Graphics::DrawText(SDL_Renderer* p_Renderer, const Font& p_Font, const std:
   }
 }
 
-void Graphics::FillAlphaRect(SDL_Renderer* p_Renderer, SDL_Rect& p_Rect, Uint8 p_Red, Uint8 p_Green, Uint8 p_Blue, Uint8 p_Alpha)
+void Graphics::FillRectangle(SDL_Renderer* p_Renderer, const SDL_Rect& p_Rectangle, Uint8 p_Red, Uint8 p_Green, Uint8 p_Blue, Uint8 p_Alpha)
 {
   SDL_SetRenderDrawColor(p_Renderer, p_Red, p_Green, p_Blue, p_Alpha);
-  SDL_RenderFillRect(p_Renderer, &p_Rect);
+  SDL_RenderFillRect(p_Renderer, &p_Rectangle);
+}
+
+void Graphics::FillRectangle(SDL_Renderer* p_Renderer, const SDL_Rect& p_Rectangle, const SDL_Color& p_Color)
+{
+  FillRectangle(p_Renderer, p_Rectangle, p_Color.r, p_Color.g, p_Color.b, p_Color.a);
 }
