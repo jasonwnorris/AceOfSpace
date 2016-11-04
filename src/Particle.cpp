@@ -5,7 +5,7 @@
 
 Particle::Particle(const std::string& p_Keyname) : Object(p_Keyname)
 {
-  m_LifeInterval = m_Sprite->m_Texture->m_FrameCount * m_Sprite->m_Texture->m_FrameInterval;
+  m_LifeInterval = m_Sprite->GetTexture()->GetFrameCount() * m_Sprite->GetTexture()->GetFrameInterval();
 }
 
 void Particle::Update(float p_DeltaTime)

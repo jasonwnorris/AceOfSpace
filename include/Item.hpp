@@ -13,7 +13,7 @@ class Item : public GameObject
 
     void Collide(GameObject* p_GameObject);
 
-    virtual void InflictBonus(GameObject* p_GameObject) { }
+    virtual void InflictBonus(GameObject* p_GameObject);
 };
 
 #endif

@@ -17,14 +17,14 @@ TargetShooter::TargetShooter(const std::string& p_Keyname) : Enemy(p_Keyname)
 
 void TargetShooter::Update(float p_DeltaTime)
 {
-  if (m_Target == nullptr || m_Target->m_IsDead)
+  if (m_Target == nullptr || m_Target->IsDead())
   {
     m_Target = PickRandomObject(&PlayerShip::PlayerShipList);
   }
 
   if (m_Target != nullptr)
   {
-    m_TargetDirection = m_Target->m_Position - m_Position;
+    m_TargetDirection = m_Target->GetPosition() - m_Position;
     m_TargetDirection.Normalize();
   }
   else
@@ -44,9 +44,9 @@ void TargetShooter::Update(float p_DeltaTime)
 void TargetShooter::FireBullet()
 {
   Bullet* bullet = new Bullet("Slime");
-  bullet->m_Position = m_Position;
-  bullet->m_Direction = m_TargetDirection;
-  bullet->CollisionList = &PlayerShip::PlayerShipList;
+  bullet->SetPosition(m_Position);
+  bullet->SetDirection(m_TargetDirection);
+  bullet->SetCollisionList(&PlayerShip::PlayerShipList);
 
   m_LastFired = 0.0f;
 }

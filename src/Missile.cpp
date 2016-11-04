@@ -12,14 +12,14 @@ Missile::Missile(const std::string& p_Keyname) : Projectile(p_Keyname)
 
 void Missile::Update(float p_DeltaTime)
 {
-  if (m_Target == nullptr || m_Target->m_IsDead)
+  if (m_Target == nullptr || m_Target->IsDead())
   {
-    m_Target = PickRandomObject(CollisionList);
+    m_Target = PickRandomObject(m_CollisionList);
   }
 
   if (m_Target != nullptr)
   {
-    Vector2f m_TargetDirection = m_Target->m_Position - m_Position;
+    Vector2f m_TargetDirection = m_Target->GetPosition() - m_Position;
     m_TargetDirection.Normalize();
     m_Direction += m_TargetDirection * c_MissileHomingStrength;
   }

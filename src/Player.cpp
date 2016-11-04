@@ -26,6 +26,21 @@ Player::Player()
   m_Score = 0;
 }
 
+const PlayerShip* Player::GetPlayerShip() const
+{
+  return m_PlayerShip;
+}
+
+int Player::GetLives() const
+{
+  return m_Lives;
+}
+
+int Player::GetScore() const
+{
+  return m_Score;
+}
+
 void Player::AddPlayers()
 {
   Players = new Player[PLAYER_COUNT];
@@ -81,23 +96,23 @@ void Player::ProcessInput(Uint32 p_EventType, SDL_Keycode p_Keycode, int p_Index
       {
         if (p_Keycode == c_UpKey[p_Index])
         {
-          m_PlayerShip->m_IsMovingUp = true;
+          m_PlayerShip->SetMovingUp(true);
         }
         if (p_Keycode == c_DownKey[p_Index])
         {
-          m_PlayerShip->m_IsMovingDown = true;
+          m_PlayerShip->SetMovingDown(true);
         }
         if (p_Keycode == c_LeftKey[p_Index])
         {
-          m_PlayerShip->m_IsMovingLeft = true;
+          m_PlayerShip->SetMovingLeft(true);
         }
         if (p_Keycode == c_RightKey[p_Index])
         {
-          m_PlayerShip->m_IsMovingRight = true;
+          m_PlayerShip->SetMovingRight(true);
         }
         if (p_Keycode == c_FireKey[p_Index])
         {
-          m_PlayerShip->m_IsShooting = true;
+          m_PlayerShip->SetShooting(true);
         }
       }
       else
@@ -113,23 +128,23 @@ void Player::ProcessInput(Uint32 p_EventType, SDL_Keycode p_Keycode, int p_Index
       {
         if (p_Keycode == c_UpKey[p_Index])
         {
-          m_PlayerShip->m_IsMovingUp = false;
+          m_PlayerShip->SetMovingUp(false);
         }
         if (p_Keycode == c_DownKey[p_Index])
         {
-          m_PlayerShip->m_IsMovingDown = false;
+          m_PlayerShip->SetMovingDown(false);
         }
         if (p_Keycode == c_LeftKey[p_Index])
         {
-          m_PlayerShip->m_IsMovingLeft = false;
+          m_PlayerShip->SetMovingLeft(false);
         }
         if (p_Keycode == c_RightKey[p_Index])
         {
-          m_PlayerShip->m_IsMovingRight = false;
+          m_PlayerShip->SetMovingRight(false);
         }
         if (p_Keycode == c_FireKey[p_Index])
         {
-          m_PlayerShip->m_IsShooting = false;
+          m_PlayerShip->SetShooting(false);
         }
       }
       break;

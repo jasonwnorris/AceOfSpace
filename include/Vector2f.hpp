@@ -14,6 +14,7 @@ class Vector2f
     static const Vector2f Right;
 
     Vector2f(float p_X = 0.0f, float p_Y = 0.0f);
+    Vector2f(int p_X, int p_Y);
 
     float X;
     float Y;

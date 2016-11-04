@@ -10,7 +10,7 @@ Projectile::Projectile(const std::string& p_Keyname) : GameObject(p_Keyname)
 
 void Projectile::Collide(GameObject* p_GameObject)
 {
-  int objectHealth = p_GameObject->m_Health;
+  int objectHealth = p_GameObject->GetHealth();
   p_GameObject->TakeDamage(m_Health);
-  this->TakeDamage(objectHealth);
+  TakeDamage(objectHealth);
 }

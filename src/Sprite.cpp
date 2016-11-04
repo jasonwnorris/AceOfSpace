@@ -6,10 +6,20 @@
 Sprite::Sprite(const std::string& p_Keyname)
 {
   m_Texture = Texture::TextureList[p_Keyname];
-  m_Origin = Vector2f(m_Texture->m_TileWidth / 2.0f, m_Texture->m_TileHeight / 2.0f);
+  m_Origin = Vector2f(m_Texture->GetTileWidth() / 2.0f, m_Texture->GetTileHeight() / 2.0f);
   m_Frame = 0;
-  m_FrameTimeRemaining = m_Texture->m_FrameInterval;
+  m_FrameTimeRemaining = m_Texture->GetFrameInterval();
   m_TextureIndex = 0;
+}
+
+Texture* Sprite::GetTexture() const
+{
+  return m_Texture;
+}
+
+const Vector2f& Sprite::GetOrigin() const
+{
+  return m_Origin;
 }
 
 void Sprite::Update(float p_DeltaTime)
@@ -18,40 +28,38 @@ void Sprite::Update(float p_DeltaTime)
   if (m_FrameTimeRemaining < 0.0f)
   {
     ++m_Frame;
-    m_Frame %= m_Texture->m_FrameCount;
-    m_FrameTimeRemaining = m_Texture->m_FrameInterval;
+    m_Frame %= m_Texture->GetFrameCount();
+    m_FrameTimeRemaining = m_Texture->GetFrameInterval();
   }
 }
 
-void Sprite::Render(SDL_Renderer* renderer, Vector2f position)
+void Sprite::Render(SDL_Renderer* p_Renderer, Vector2f p_Position)
 {
-  SDL_Texture* texture = m_Texture->m_Textures[m_TextureIndex];
-
   SDL_Rect clip = GetFrameBounds();
 
   SDL_Rect location;
-  location.x = (Sint16)(position.X - m_Origin.X);
-  location.y = (Sint16)(position.Y - m_Origin.Y);
+  location.x = static_cast<int>(p_Position.X - m_Origin.X);
+  location.y = static_cast<int>(p_Position.Y - m_Origin.Y);
   location.w = clip.w;
   location.h = clip.h;
 
-  SDL_RenderCopy(renderer, texture, &clip, &location);
+  SDL_RenderCopy(p_Renderer, m_Texture->GetTexture(m_TextureIndex), &clip, &location);
 }
 
 SDL_Rect Sprite::GetFrameBounds()
 {
   SDL_Rect m_FrameBounds;
-  m_FrameBounds.x = m_Frame % m_Texture->m_TilesX * m_Texture->m_TileWidth;
-  m_FrameBounds.y = m_Frame / m_Texture->m_TilesX * m_Texture->m_TileHeight;
-  m_FrameBounds.w = m_Texture->m_TileWidth;
-  m_FrameBounds.h = m_Texture->m_TileHeight;
+  m_FrameBounds.x = m_Frame % m_Texture->GetTilesX() * m_Texture->GetTileWidth();
+  m_FrameBounds.y = m_Frame / m_Texture->GetTilesX() * m_Texture->GetTileHeight();
+  m_FrameBounds.w = m_Texture->GetTileWidth();
+  m_FrameBounds.h = m_Texture->GetTileHeight();
 
   return m_FrameBounds;
 }
 
 void Sprite::SetTextureIndex(int p_Index)
 {
-  if (m_Texture->m_IsCollidable)
+  if (m_Texture->IsCollidable())
   {
     m_TextureIndex = p_Index;
   }

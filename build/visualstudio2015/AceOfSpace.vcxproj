@@ -215,6 +215,7 @@
     <ClInclude Include="..\..\include\Item.hpp" />
     <ClInclude Include="..\..\include\Kamikaze.hpp" />
     <ClInclude Include="..\..\include\Level.hpp" />
+    <ClInclude Include="..\..\include\LevelObject.hpp" />
     <ClInclude Include="..\..\include\Miniboss.hpp" />
     <ClInclude Include="..\..\include\Missile.hpp" />
     <ClInclude Include="..\..\include\Object.hpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="..\..\include\Texture.hpp" />
     <ClInclude Include="..\..\include\Timer.hpp" />
     <ClInclude Include="..\..\include\Vector2f.hpp" />
+    <ClInclude Include="..\..\include\WeaponType.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

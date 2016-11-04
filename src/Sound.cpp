@@ -10,8 +10,8 @@ Sound::Sound(const std::string& p_Filename, bool p_IsLoop)
 {
   std::string filepath = c_ResourcesPath + p_Filename;
 
-  this->m_MixMusic = Mix_LoadMUS(filepath.c_str());
-  this->m_IsLoop = p_IsLoop;
+  m_MixMusic = Mix_LoadMUS(filepath.c_str());
+  m_IsLoop = p_IsLoop;
 }
 
 Sound::~Sound()

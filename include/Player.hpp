@@ -13,6 +13,10 @@ class Player
 
     static Player* Players;
 
+    const PlayerShip* GetPlayerShip() const;
+    int GetLives() const;
+    int GetScore() const;
+
     static void AddPlayers();
     static void RemovePlayers();
 
@@ -24,6 +28,7 @@ class Player
 
     static void AwardPoints(int p_Amount);
 
+  private:
     PlayerShip* m_PlayerShip;
     int m_Lives;
     int m_Score;

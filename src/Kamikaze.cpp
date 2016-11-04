@@ -23,7 +23,7 @@ void Kamikaze::Update(float p_DeltaTime)
       GameObject* target = PickRandomObject(&PlayerShip::PlayerShipList);
       if (target != nullptr)
       {
-        m_Direction = target->m_Position - m_Position;
+        m_Direction = target->GetPosition() - m_Position;
       }
 
       m_Speed = c_KamikazeAttackSpeed;

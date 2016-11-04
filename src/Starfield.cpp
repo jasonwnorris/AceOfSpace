@@ -21,8 +21,8 @@ void Starfield::Update(float p_DeltaTime)
       ss << "Star" << (i + 1);
 
       Star* star = new Star(ss.str());
-      star->m_Position = Vector2f(static_cast<float>(rand() % c_ScreenWidth), -star->m_Sprite->m_Origin.Y);
-      star->m_Speed = 100.0f + i * 35.0f;
+      star->SetPosition(Vector2f(static_cast<float>(rand() % c_ScreenWidth), -star->GetSprite()->GetOrigin().Y));
+      star->SetSpeed(100.0f + i * 35.0f);
     }
 
     m_LastSpawn = 0.0f;

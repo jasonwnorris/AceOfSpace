@@ -12,13 +12,13 @@ class BossEnemy : public Enemy
     BossEnemy(const std::string& p_Keyname);
 
     void Update(float p_DeltaTime);
-    void UpdateChildren();
 
     void RemoveOffScreen();
     void Remove();
 
   private:
     void FireBullet();
+    void UpdateChildren();
 
     Miniboss* m_LeftHand;
     Miniboss* m_RightHand;

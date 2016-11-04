@@ -13,6 +13,21 @@ Boss::Boss()
   m_IsKilled = false;
 }
 
+const BossEnemy* Boss::GetBossEnemy() const
+{
+  return m_BossEnemy;
+}
+
+bool Boss::IsSpawned() const
+{
+  return m_IsSpawned;
+}
+
+bool Boss::IsKilled() const
+{
+  return m_IsKilled;
+}
+
 void Boss::RemoveBoss()
 {
   FinalBoss.m_BossEnemy = nullptr;

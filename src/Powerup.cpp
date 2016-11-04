@@ -5,6 +5,7 @@
 // AOS Includes
 #include "Powerup.hpp"
 #include "Projectile.hpp"
+#include "WeaponType.hpp"
 
 Powerup::Powerup(const std::string& p_Keyname) : Item(p_Keyname)
 {
@@ -15,26 +16,26 @@ void Powerup::InflictBonus(GameObject* p_GameObject)
 {
   if (m_Type == "ItemHealth")
   {
-    p_GameObject->m_Health = std::min(p_GameObject->m_Health + 50, c_PlayerHealth);
+    p_GameObject->SetHealth(std::min(p_GameObject->GetHealth() + 50, c_PlayerHealth));
   }
   else if (m_Type == "ItemSpeed")
   {
-    p_GameObject->m_Speed += 25.0f;
+    p_GameObject->SetSpeed(p_GameObject->GetSpeed() + 25.0f);
   }
   else if (m_Type == "ItemBullets")
   {
-    p_GameObject->m_WeaponType = WEAPON_BULLET;
+    p_GameObject->SetWeaponType(WEAPON_BULLET);
   }
   else if (m_Type == "ItemMissiles")
   {
-    p_GameObject->m_WeaponType = WEAPON_MISSILE;
+    p_GameObject->SetWeaponType(WEAPON_MISSILE);
   }
   else if (m_Type == "ItemFireball")
   {
-    p_GameObject->m_WeaponType = WEAPON_FIREBALL;
+    p_GameObject->SetWeaponType(WEAPON_FIREBALL);
   }
   else if (m_Type == "ItemPlasma")
   {
-    p_GameObject->m_WeaponType = WEAPON_PLASMA;
+    p_GameObject->SetWeaponType(WEAPON_PLASMA);
   }
 }

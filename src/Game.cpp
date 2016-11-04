@@ -26,7 +26,9 @@ Game::Game()
   m_IsDebugShown = false;
 }
 
-Game::~Game() { }
+Game::~Game()
+{
+}
 
 bool Game::Run()
 {
@@ -268,14 +270,14 @@ void Game::OnUpdate()
       Object::UpdateObjects(deltaTime);
       m_Level.Update(deltaTime);
       m_Starfield.Update(deltaTime);
-      bool isSinglePlayerDead = m_IsSinglePlayer && Player::Players[0].m_Lives <= 0;
-      bool isTwoPlayerDead = !m_IsSinglePlayer && Player::Players[0].m_Lives + Player::Players[1].m_Lives <= 0;
+      bool isSinglePlayerDead = m_IsSinglePlayer && Player::Players[0].GetLives()  <= 0;
+      bool isTwoPlayerDead = !m_IsSinglePlayer && Player::Players[0].GetLives() + Player::Players[1].GetLives() <= 0;
       if (isSinglePlayerDead || isTwoPlayerDead)
       {
         Sound::PlaySound("GameOver");
         m_State = STATE_GAMEOVER;
       }
-      if (Boss::FinalBoss.m_IsSpawned && Boss::FinalBoss.m_IsKilled)
+      if (Boss::FinalBoss.IsSpawned() && Boss::FinalBoss.IsKilled())
       {
         Sound::PlaySound("Victory");
         m_State = STATE_VICTORY;
@@ -345,13 +347,14 @@ void Game::DrawHUD()
   SDL_Rect health1 = { 20, c_ScreenHeight - 25, 200, 10 };
   Graphics::FillRectangle(m_Renderer, health1, Color::DarkGray);
 
-  if (Player::Players[0].m_PlayerShip != nullptr)
+  const PlayerShip* playerShip1 = Player::Players[0].GetPlayerShip();
+  if (playerShip1 != nullptr)
   {
-    health1.w = Player::Players[0].m_PlayerShip->m_Health * 2;
+    health1.w = playerShip1->GetHealth() * 2;
     Graphics::FillRectangle(m_Renderer, health1, Color::DarkRed);
   }
 
-  for (int i = 0; i < Player::Players[0].m_Lives; ++i)
+  for (int i = 0; i < Player::Players[0].GetLives(); ++i)
   {
     SDL_Rect box = { (i + 1) * 20, c_ScreenHeight - 45, 10, 10 };
     Graphics::FillRectangle(m_Renderer, box, Color::White);
@@ -363,14 +366,15 @@ void Game::DrawHUD()
     SDL_Rect health2 = { c_ScreenWidth - 220, c_ScreenHeight - 25, 200, 10 };
     Graphics::FillRectangle(m_Renderer, health2, Color::DarkGray);
 
-    if (Player::Players[1].m_PlayerShip != nullptr)
+    const PlayerShip* playerShip2 = Player::Players[1].GetPlayerShip();
+    if (playerShip2 != nullptr)
     {
-      health2.x = c_ScreenWidth - 220 + (c_PlayerHealth - Player::Players[1].m_PlayerShip->m_Health) * 2;
-      health2.w = Player::Players[1].m_PlayerShip->m_Health * 2;
+      health2.x = c_ScreenWidth - 220 + (c_PlayerHealth - playerShip2->GetHealth()) * 2;
+      health2.w = playerShip2->GetHealth() * 2;
       Graphics::FillRectangle(m_Renderer, health2, Color::DarkBlue);
     }
 
-    for (int i = 0; i < Player::Players[1].m_Lives; ++i)
+    for (int i = 0; i < Player::Players[1].GetLives(); ++i)
     {
       SDL_Rect box = { c_ScreenWidth - 10 - (i + 1) * 20, c_ScreenHeight - 45, 10, 10 };
       Graphics::FillRectangle(m_Renderer, box, Color::White);
@@ -379,20 +383,21 @@ void Game::DrawHUD()
 
   // Display Score
   std::stringstream ss;
-  ss << Player::Players[0].m_Score;
+  ss << Player::Players[0].GetScore();
   Graphics::DrawText(m_Renderer, m_Font10, "SCORE", c_HalfScreenWidth, c_ScreenHeight - 35, Color::White);
   Graphics::DrawText(m_Renderer, m_Font16, ss.str(), c_HalfScreenWidth, c_ScreenHeight - 20, Color::White);
 
   // Boss HUD
-  if (Boss::FinalBoss.m_IsSpawned && !Boss::FinalBoss.m_IsKilled)
+  if (Boss::FinalBoss.IsSpawned() && !Boss::FinalBoss.IsKilled())
   {
     int barWidth = c_ScreenWidth - 40;
     SDL_Rect boss = { 20, 20, barWidth, 10 };
     Graphics::FillRectangle(m_Renderer, boss, Color::DarkGray);
 
-    if (Boss::FinalBoss.m_BossEnemy != nullptr)
+    const BossEnemy* bossEnemy = Boss::FinalBoss.GetBossEnemy();
+    if (bossEnemy != nullptr)
     {
-      boss.w = Boss::FinalBoss.m_BossEnemy->m_Health / c_BossHealth * barWidth;
+      boss.w = bossEnemy->GetHealth() / c_BossHealth * barWidth;
       Graphics::FillRectangle(m_Renderer, boss, Color::DarkGreen);
     }
   }
@@ -401,8 +406,8 @@ void Game::DrawHUD()
 void Game::DrawTitle()
 {
   Texture* titleTexture = Texture::TextureList["Title"];
-  SDL_Rect titleRect = { c_HalfScreenWidth - titleTexture->m_Width / 2, c_HalfScreenHeight - titleTexture->m_Height / 2 - 100, titleTexture->m_Width, titleTexture->m_Height };
-  SDL_RenderCopy(m_Renderer, titleTexture->m_Textures[0], nullptr, &titleRect);
+  SDL_Rect titleRect = { c_HalfScreenWidth - titleTexture->GetWidth() / 2, c_HalfScreenHeight - titleTexture->GetHeight() / 2 - 100, titleTexture->GetWidth(), titleTexture->GetHeight() };
+  SDL_RenderCopy(m_Renderer, titleTexture->GetTexture(0), nullptr, &titleRect);
 
   Graphics::DrawText(m_Renderer, m_Font25, "Press ENTER to Start", c_HalfScreenWidth, c_HalfScreenHeight + 75, Color::White);
   Graphics::DrawText(m_Renderer, m_Font20, (m_IsSinglePlayer ? "1-Player" : "2-Player"), c_HalfScreenWidth, c_HalfScreenHeight + 100, Color::White);
@@ -426,8 +431,8 @@ void Game::DrawTitle()
 void Game::DrawControls()
 {
   Texture* keyTexture = Texture::TextureList["Keyboard"];
-  SDL_Rect keyRect = { c_HalfScreenWidth - keyTexture->m_Width / 2, c_HalfScreenHeight - keyTexture->m_Height / 2, keyTexture->m_Width, keyTexture->m_Height };
-  SDL_RenderCopy(m_Renderer, keyTexture->m_Textures[0], nullptr, &keyRect);
+  SDL_Rect keyRect = { c_HalfScreenWidth - keyTexture->GetWidth() / 2, c_HalfScreenHeight - keyTexture->GetHeight() / 2, keyTexture->GetWidth(), keyTexture->GetHeight() };
+  SDL_RenderCopy(m_Renderer, keyTexture->GetTexture(0), nullptr, &keyRect);
 
   Graphics::DrawText(m_Renderer, m_Font35, "CONTROLS", c_HalfScreenWidth, 40, Color::White);
   Graphics::DrawText(m_Renderer, m_Font16, "Press ENTER to Return to Main Menu", c_HalfScreenWidth, c_ScreenHeight - 40, Color::White);

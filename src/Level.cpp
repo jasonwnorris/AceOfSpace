@@ -1,7 +1,14 @@
 // Level.cpp
 
+// STL Includes
+#include <fstream>
 // AOS Includes
+#include "Asteroid.hpp"
+#include "Boss.hpp"
+#include "Kamikaze.hpp"
 #include "Level.hpp"
+#include "StraightShooter.hpp"
+#include "TargetShooter.hpp"
 
 Level::Level()
 {
@@ -44,9 +51,9 @@ bool Level::BuildLevel()
   return true;
 }
 
-void Level::SpawnObject(LevelObject p_Object)
+void Level::SpawnObject(LevelObject p_LevelObject)
 {
-  if (p_Object.Type == "Boss")
+  if (p_LevelObject.Type == "Boss")
   {
     Boss::SpawnBoss();
   }
@@ -54,24 +61,24 @@ void Level::SpawnObject(LevelObject p_Object)
   {
     Enemy* enemy = nullptr;
 
-    if (p_Object.Type == "Asteroid")
+    if (p_LevelObject.Type == "Asteroid")
     {
       enemy = new Asteroid("Asteroid");
     }
-    else if (p_Object.Type == "StraightShooter")
+    else if (p_LevelObject.Type == "StraightShooter")
     {
       enemy = new StraightShooter("StraightShooter");
     }
-    else if (p_Object.Type == "TargetShooter")
+    else if (p_LevelObject.Type == "TargetShooter")
     {
       enemy = new TargetShooter("TargetShooter");
     }
-    else if (p_Object.Type == "Kamikaze")
+    else if (p_LevelObject.Type == "Kamikaze")
     {
       enemy = new Kamikaze("Kamikaze");
     }
 
-    enemy->m_Position = Vector2f(p_Object.PositionX, -enemy->m_Sprite->m_Origin.Y);
+    enemy->SetPosition(Vector2f(p_LevelObject.PositionX, -enemy->GetSprite()->GetOrigin().Y));
   }
 }
 

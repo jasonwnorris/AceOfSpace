@@ -4,22 +4,9 @@
 #define __LEVEL_HPP__
 
 // STL Includes
-#include <fstream>
-#include <string>
+#include <vector>
 // AOS Includes
-#include "Vector2f.hpp"
-#include "Asteroid.hpp"
-#include "StraightShooter.hpp"
-#include "TargetShooter.hpp"
-#include "Kamikaze.hpp"
-#include "Boss.hpp"
-
-struct LevelObject
-{
-  std::string Type;
-  float PositionX;
-  float Time;
-};
+#include "LevelObject.hpp"
 
 class Level
 {
@@ -27,7 +14,7 @@ class Level
     Level();
 
     bool BuildLevel();
-    void SpawnObject(LevelObject p_Object);
+    void SpawnObject(LevelObject p_LevelObject);
     void Reset();
 
     void Update(float p_DeltaTime);

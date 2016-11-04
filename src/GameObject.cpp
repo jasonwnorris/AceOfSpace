@@ -8,19 +8,38 @@ GameObject::GameObject(const std::string& p_Keyname) : Object(p_Keyname)
 {
   m_Health = 0;
   m_FlickerInterval = 0.0f;
-  CollisionList = nullptr;
+  m_CollisionList = nullptr;
 }
 
 GameObject::~GameObject()
 {
 }
 
-// check objects against those in its collision list
+int GameObject::GetHealth() const
+{
+  return m_Health;
+}
+
+void GameObject::SetHealth(int p_Health)
+{
+  m_Health = p_Health;
+}
+
+void GameObject::SetWeaponType(int p_WeaponType)
+{
+  m_WeaponType = p_WeaponType;
+}
+
+void GameObject::SetCollisionList(std::vector<GameObject*>* p_CollisionList)
+{
+  m_CollisionList = p_CollisionList;
+}
+
 void GameObject::Update(float p_DeltaTime)
 {
-  if (CollisionList != nullptr)
+  if (m_CollisionList != nullptr)
   {
-    for (std::vector<GameObject*>::iterator Iter = CollisionList->begin(); Iter != CollisionList->end(); ++Iter)
+    for (std::vector<GameObject*>::iterator Iter = m_CollisionList->begin(); Iter != m_CollisionList->end(); ++Iter)
     {
       if (CheckCollision(this, (*Iter)))
       {
@@ -43,6 +62,10 @@ void GameObject::Update(float p_DeltaTime)
   RemoveOffScreen();
 }
 
+void GameObject::Collide(GameObject* p_GameObject)
+{
+}
+
 void GameObject::TakeDamage(int p_Amount)
 {
   if (m_Health > 0)
@@ -62,17 +85,15 @@ void GameObject::TakeDamage(int p_Amount)
   }
 }
 
-// spawn a particle object when something dies
 void GameObject::Explode()
 {
-  if (m_ExplosionKeyname != "")
+  if (!m_ExplosionKeyname.empty())
   {
     Particle* explosion = new Particle(m_ExplosionKeyname);
-    explosion->m_Position = m_Position;
+    explosion->SetPosition(m_Position);
   }
 }
 
-// check if the object bounds are intersecting with the viewable screen
 void GameObject::RemoveOffScreen()
 {
   SDL_Rect screenBounds = { 0, 0, c_ScreenWidth, c_ScreenHeight };
@@ -84,7 +105,6 @@ void GameObject::RemoveOffScreen()
   }
 }
 
-// grabs a random object from a std::vector
 GameObject* GameObject::PickRandomObject(std::vector<GameObject*>* p_PickList)
 {
   int listSize = static_cast<int>(p_PickList->size());

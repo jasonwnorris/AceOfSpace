@@ -13,10 +13,15 @@ class Boss
 
     static Boss FinalBoss;
 
+    const BossEnemy* GetBossEnemy() const;
+    bool IsSpawned() const;
+    bool IsKilled() const;
+
     static void RemoveBoss();
     static void SpawnBoss();
     static void DestroyBoss();
 
+  private:
     BossEnemy* m_BossEnemy;
     bool m_IsSpawned;
     bool m_IsKilled;

@@ -38,6 +38,71 @@ Texture::~Texture()
   }
 }
 
+SDL_Texture* Texture::GetTexture(int p_Index) const
+{
+  return m_Textures[p_Index];
+}
+
+int Texture::GetWidth() const
+{
+  return m_Width;
+}
+
+int Texture::GetHeight() const
+{
+  return m_Height;
+}
+
+Uint32 Texture::GetFormat() const
+{
+  return m_Format;
+}
+
+int Texture::GetTilesX() const
+{
+  return m_TilesX;
+}
+
+int Texture::GetTilesY() const
+{
+  return m_TilesY;
+}
+
+int Texture::GetTileWidth() const
+{
+  return m_TileWidth;
+}
+
+int Texture::GetTileHeight() const
+{
+  return m_TileHeight;
+}
+
+int Texture::GetFrameCount() const
+{
+  return m_FrameCount;
+}
+
+float Texture::GetFrameInterval() const
+{
+  return m_FrameInterval;
+}
+
+bool Texture::IsCollidable() const
+{
+  return m_IsCollidable;
+}
+
+bool Texture::IsPixelSolid(int p_X, int p_Y) const
+{
+  if (p_X < 0 || p_X >= m_Width || p_Y < 0 || p_Y >= m_Height)
+  {
+    return false;
+  }
+
+  return m_IsPixelSolid[p_X + p_Y * m_Width];
+}
+
 bool Texture::LoadTextures(SDL_Renderer* p_Renderer)
 {
   std::ifstream file(c_TexturesFilename, std::ios_base::in);

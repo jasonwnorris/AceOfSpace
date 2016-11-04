@@ -40,13 +40,16 @@ void Miniboss::RemoveOffScreen()
 
 void Miniboss::FireBullet()
 {
+  float piOver4 = static_cast<float>(M_PI / 4.0f);
+  float piOver8 = static_cast<float>(M_PI / 8.0f);
+
   for (int i = 0; i < 8; i++)
   {
     Bullet* bullet = new Bullet("NeonCross");
-    bullet->m_Position = m_Position;
-    bullet->m_Direction = Vector2f::CalculateDirection(static_cast<float>(i * (M_PI / 4.0f) + (M_PI / 8.0f)));
-    bullet->m_Speed = 150.0f;
-    bullet->CollisionList = &PlayerShip::PlayerShipList;
+    bullet->SetPosition(m_Position);
+    bullet->SetDirection(Vector2f::CalculateDirection(i * piOver4 + piOver8));
+    bullet->SetSpeed(150.0f);
+    bullet->SetCollisionList(&PlayerShip::PlayerShipList);
   }
 
   m_LastFired = 0.0f;

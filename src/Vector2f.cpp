@@ -19,6 +19,12 @@ Vector2f::Vector2f(float p_X, float p_Y)
   Y = p_Y;
 }
 
+Vector2f::Vector2f(int p_X, int p_Y)
+{
+  X = static_cast<float>(p_X);
+  Y = static_cast<float>(p_Y);
+}
+
 void Vector2f::Normalize()
 {
   float length = Length();

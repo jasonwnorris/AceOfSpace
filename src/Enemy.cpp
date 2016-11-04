@@ -23,7 +23,7 @@ void Enemy::RemoveKilled()
 {
   for (std::vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
   {
-    if ((*Iter)->m_IsDead)
+    if ((*Iter)->IsDead())
     {
       Iter = EnemyList.erase(Iter);
     }
@@ -58,27 +58,25 @@ void Enemy::DropItem()
     int dropType = rand() % 5;
     Item* item = nullptr;
 
-    if (dropType == 0)
+    switch (dropType)
     {
-      item = new Powerup("ItemHealth");
-    }
-    else if (dropType == 1)
-    {
-      item = new Powerup("ItemSpeed");
-    }
-    else if (dropType == 2)
-    {
-      item = new Powerup("ItemMissiles");
-    }
-    else if (dropType == 3)
-    {
-      item = new Powerup("ItemFireball");
-    }
-    else if (dropType == 4)
-    {
-      item = new Powerup("ItemPlasma");
+      case 0:
+        item = new Powerup("ItemHealth");
+        break;
+      case 1:
+        item = new Powerup("ItemSpeed");
+        break;
+      case 2:
+        item = new Powerup("ItemMissiles");
+        break;
+      case 3:
+        item = new Powerup("ItemFireball");
+        break;
+      case 4:
+        item = new Powerup("ItemPlasma");
+        break;
     }
 
-    item->m_Position = m_Position;
+    item->SetPosition(m_Position);
   }
 }
