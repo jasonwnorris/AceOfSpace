@@ -34,9 +34,14 @@ float Font::GetCharacterSpacing(Uint16 p_Character) const
   return 0.0f;
 }
 
-float Font::GetLineSpacing() const
+int Font::GetHeight() const
 {
-  return static_cast<float>(m_LineSkip);
+  return m_Height;
+}
+
+int Font::GetLineSkip() const
+{
+  return m_LineSkip;
 }
 
 SDL_Texture* Font::GetTexture() const
@@ -66,15 +71,26 @@ SDL_Rect Font::GetCharacterBounds(Uint16 p_Character) const
 
 void Font::MeasureString(const std::string& p_Text, int& p_Width, int& p_Height) const
 {
-  p_Width = 0;
-  p_Height = m_Height;
+  int maxWidth = 0;
+  int totalWidth = 0;
+  int totalHeight = m_Height;
 
   for (char character : p_Text)
   {
     SDL_Rect bounds = GetCharacterBounds(character);
 
-    p_Width += bounds.w;
+    totalWidth += bounds.w;
+
+    if (character == '\n' || character == '\r')
+    {
+      maxWidth = std::max(totalWidth, maxWidth);
+      totalWidth = 0;
+      totalHeight += m_Height;
+    }
   }
+
+  p_Width = std::max(totalWidth, maxWidth);
+  p_Height = totalHeight;
 }
 
 bool Font::Load(SDL_Renderer* p_Renderer, const std::string& p_Filename, int p_Size, int p_Style, int p_Hinting, int p_Outline, bool p_UseKerning)

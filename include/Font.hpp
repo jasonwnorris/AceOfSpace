@@ -19,7 +19,8 @@ class Font
     ~Font();
 
     float GetCharacterSpacing(Uint16 p_Character) const;
-    float GetLineSpacing() const;
+    int GetHeight() const;
+    int GetLineSkip() const;
 
     SDL_Texture* GetTexture() const;
     SDL_Rect GetCharacterBounds(Uint16 p_Character) const;

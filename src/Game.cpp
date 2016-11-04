@@ -485,10 +485,7 @@ void Game::DrawVictory()
 
 void Game::DrawDebug()
 {
-  std::stringstream ss1;
-  ss1 << "FPS: " << m_FramesPerSecond;
-  Graphics::DrawText(m_Renderer, m_Font14, ss1.str(), 10, 10, c_White, false);
-  std::stringstream ss2;
-  ss2 << "Objects: " << m_ObjectCount;
-  Graphics::DrawText(m_Renderer, m_Font14, ss2.str(), 10, 30, c_White, false);
+  std::stringstream ss;
+  ss << "FPS: " << m_FramesPerSecond << "\nObjects: " << m_ObjectCount;
+  Graphics::DrawText(m_Renderer, m_Font14, ss.str(), 10, 10, c_White, false);
 }
