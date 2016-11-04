@@ -142,102 +142,121 @@ void Game::OnThink()
 {
   while (SDL_PollEvent(&m_Event))
   {
-    if (m_State == STATE_MENU)
-    {
-      if (m_Event.type == SDL_KEYDOWN)
-      {
-        if (m_Event.key.keysym.sym == SDLK_RETURN)
-        {
-          m_State = STATE_PLAYING;
-          m_Level.BuildLevel();
-          Player::AddPlayers();
-          Player::SpawnPlayer(PLAYER_ONE);
-          if (!m_IsSinglePlayer)
-          {
-            Player::SpawnPlayer(PLAYER_TWO);
-          }
-          Sound::PlaySound("Theme");
-        }
-        else if (m_Event.key.keysym.sym == SDLK_1)
-        {
-          m_IsSinglePlayer = !m_IsSinglePlayer;
-        }
-        else if (m_Event.key.keysym.sym == SDLK_2)
-        {
-          m_State = STATE_CONTROLS;
-        }
-        else if (m_Event.key.keysym.sym == SDLK_3)
-        {
-          m_State = STATE_CREDITS;
-        }
-      }
-    }
-    else if (m_State == STATE_CONTROLS || m_State == STATE_CREDITS)
-    {
-      if (m_Event.type == SDL_KEYDOWN)
-      {
-        if (m_Event.key.keysym.sym == SDLK_RETURN)
-        {
-          m_State = STATE_MENU;
-        }
-      }
-    }
-    else if (m_State == STATE_GAMEOVER || m_State == STATE_VICTORY)
-    {
-      if (m_Event.type == SDL_KEYDOWN)
-      {
-        if (m_Event.key.keysym.sym == SDLK_RETURN)
-        {
-          m_State = STATE_MENU;
-          Player::RemovePlayers();
-          Boss::RemoveBoss();
-          Object::RemoveAll();
-          Sound::PlaySound("Intro");
-        }
-      }
-    }
-    else if (m_State == STATE_PLAYING)
-    {
-      Player::ProcessInput(m_Event);
+    Uint32 type = m_Event.type;
+    SDL_Keycode key = m_Event.key.keysym.sym;
 
-      if (m_Event.type == SDL_KEYDOWN)
-      {
-        if (m_Event.key.keysym.sym == SDLK_RSHIFT)
-        {
-          m_IsSinglePlayer = false;
-        }
-        if (m_Event.key.keysym.sym == SDLK_RETURN)
-        {
-          m_State = STATE_PAUSED;
-        }
-      }
-    }
-    else if (m_State == STATE_PAUSED)
+    switch (type)
     {
-      if (m_Event.type == SDL_KEYDOWN)
-      {
-        if (m_Event.key.keysym.sym == SDLK_RETURN)
-        {
-          m_State = STATE_PLAYING;
-        }
-      }
-    }
-
-    if (m_Event.type == SDL_KEYDOWN)
-    {
-      if (m_Event.key.keysym.sym == SDLK_ESCAPE)
-      {
+      case SDL_QUIT:
         m_IsDone = true;
-      }
-      if (m_Event.key.keysym.sym == SDLK_TAB)
-      {
-        m_IsDebugShown = !m_IsDebugShown;
-      }
+        break;
+      case SDL_KEYDOWN:
+        switch (key)
+        {
+          case SDLK_ESCAPE:
+            m_IsDone = true;
+            break;
+          case SDLK_TAB:
+            m_IsDebugShown = !m_IsDebugShown;
+            break;
+        }
+        break;
     }
 
-    if (m_Event.type == SDL_QUIT)
+    switch (m_State)
     {
-      m_IsDone = true;
+      case STATE_MENU:
+        switch (type)
+        {
+          case SDL_KEYDOWN:
+            switch (key)
+            {
+              case SDLK_RETURN:
+                m_Level.BuildLevel();
+                Player::AddPlayers();
+                Player::SpawnPlayer(PLAYER_ONE);
+                if (!m_IsSinglePlayer)
+                {
+                  Player::SpawnPlayer(PLAYER_TWO);
+                }
+                Sound::PlaySound("Theme");
+                m_State = STATE_PLAYING;
+                break;
+              case SDLK_1:
+                m_IsSinglePlayer = !m_IsSinglePlayer;
+                break;
+              case SDLK_2:
+                m_State = STATE_CONTROLS;
+                break;
+              case SDLK_3:
+                m_State = STATE_CREDITS;
+                break;
+            }
+            break;
+        }
+        break;
+      case STATE_GAMEOVER:
+      case STATE_VICTORY:
+        switch (type)
+        {
+          case SDL_KEYDOWN:
+            switch (key)
+            {
+              case SDLK_RETURN:
+                Player::RemovePlayers();
+                Boss::RemoveBoss();
+                Object::RemoveAll();
+                Sound::PlaySound("Intro");
+                m_State = STATE_MENU;
+                break;
+            }
+            break;
+        }
+        break;
+      case STATE_CONTROLS:
+      case STATE_CREDITS:
+        switch (type)
+        {
+          case SDL_KEYDOWN:
+            switch (key)
+            {
+              case SDLK_RETURN:
+                m_State = STATE_MENU;
+                break;
+            }
+            break;
+        }
+        break;
+      case STATE_PLAYING:
+        Player::ProcessInput(type, key);
+        switch (type)
+        {
+          case SDL_KEYDOWN:
+            switch (key)
+            {
+              case SDLK_RSHIFT:
+                m_IsSinglePlayer = false;
+                break;
+              case SDLK_RETURN:
+                m_State = STATE_PAUSED;
+                break;
+            }
+            break;
+        }
+        break;
+      case STATE_PAUSED:
+        switch (type)
+        {
+          case SDL_KEYDOWN:
+            switch (key)
+            {
+              case SDLK_RETURN:
+                m_State = STATE_PLAYING;
+                break;
+            }
+            break;
+        }
+        break;
     }
   }
 }
@@ -246,42 +265,33 @@ void Game::OnUpdate()
 {
   float deltaTime = m_Timer.GetDeltaTime();
 
-  if (m_State == STATE_PLAYING)
+  switch (m_State)
   {
-    Object::UpdateObjects(deltaTime);
-    m_Level.Update(deltaTime);
-    m_Starfield.Update(deltaTime);
-
-    if (m_IsSinglePlayer)
-    {
-      if (Player::Players[0].m_Lives <= 0)
+    case STATE_PLAYING:
+      Object::UpdateObjects(deltaTime);
+      m_Level.Update(deltaTime);
+      m_Starfield.Update(deltaTime);
+      bool isSinglePlayerDead = m_IsSinglePlayer && Player::Players[0].m_Lives <= 0;
+      bool isTwoPlayerDead = !m_IsSinglePlayer && Player::Players[0].m_Lives + Player::Players[1].m_Lives <= 0;
+      if (isSinglePlayerDead || isTwoPlayerDead)
       {
-        m_State = STATE_GAMEOVER;
         Sound::PlaySound("GameOver");
+        m_State = STATE_GAMEOVER;
       }
-    }
-    else
-    {
-      if (Player::Players[0].m_Lives + Player::Players[1].m_Lives <= 0)
+      if (Boss::FinalBoss.m_IsSpawned && Boss::FinalBoss.m_IsKilled)
       {
-        m_State = STATE_GAMEOVER;
-        Sound::PlaySound("GameOver");
+        Sound::PlaySound("Victory");
+        m_State = STATE_VICTORY;
       }
-    }
-
-    if (Boss::FinalBoss.m_IsSpawned && Boss::FinalBoss.m_IsKilled)
-    {
-      m_State = STATE_VICTORY;
-      Sound::PlaySound("Victory");
-    }
+      break;
   }
 
   ++m_FrameCount;
   m_ElapsedTime += deltaTime;
   if (m_ElapsedTime >= m_Interval)
   {
-    m_FramesPerSecond = (int)(m_FrameCount / m_Interval);
-    m_ObjectCount = (int)Object::ObjectList.size();
+    m_FramesPerSecond = static_cast<int>(m_FrameCount / m_Interval);
+    m_ObjectCount = static_cast<int>(Object::ObjectList.size());
     m_ElapsedTime = 0.0f;
     m_FrameCount = 0;
   }
@@ -292,40 +302,36 @@ void Game::OnRender()
   SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
   SDL_RenderClear(m_Renderer);
 
-  if (m_State == STATE_MENU)
+  switch (m_State)
   {
-    DrawTitle();
-  }
-  else if (m_State == STATE_CONTROLS)
-  {
-    DrawControls();
-  }
-  else if (m_State == STATE_CREDITS)
-  {
-    DrawCredits();
-  }
-  else if (m_State == STATE_PLAYING)
-  {
-    Object::RenderObjects(m_Renderer);
-    DrawHUD();
-  }
-  else if (m_State == STATE_PAUSED)
-  {
-    Object::RenderObjects(m_Renderer);
-    DrawHUD();
-    DrawPaused();
-  }
-  else if (m_State == STATE_GAMEOVER)
-  {
-    Object::RenderObjects(m_Renderer);
-    DrawHUD();
-    DrawGameOver();
-  }
-  else if (m_State == STATE_VICTORY)
-  {
-    Object::RenderObjects(m_Renderer);
-    DrawHUD();
-    DrawVictory();
+    case STATE_MENU:
+      DrawTitle();
+      break;
+    case STATE_CONTROLS:
+      DrawControls();
+      break;  
+    case STATE_CREDITS:
+      DrawCredits();
+      break;
+    case STATE_PLAYING:
+      Object::RenderObjects(m_Renderer);
+      DrawHUD();
+      break;
+    case STATE_PAUSED:
+      Object::RenderObjects(m_Renderer);
+      DrawHUD();
+      DrawPaused();
+      break;
+    case STATE_GAMEOVER:
+      Object::RenderObjects(m_Renderer);
+      DrawHUD();
+      DrawGameOver();
+      break;
+    case STATE_VICTORY:
+      Object::RenderObjects(m_Renderer);
+      DrawHUD();
+      DrawVictory();
+      break;
   }
 
   if (m_IsDebugShown)
@@ -338,7 +344,7 @@ void Game::OnRender()
 
 void Game::DrawHUD()
 {
-  // player 1 HUD
+  // Player 1 HUD
   SDL_Rect health1 = { 20, c_ScreenHeight - 25, 200, 10 };
   SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
   SDL_RenderFillRect(m_Renderer, &health1);
@@ -357,7 +363,7 @@ void Game::DrawHUD()
     SDL_RenderFillRect(m_Renderer, &box);
   }
 
-  // player 2 HUD
+  // Player 2 HUD
   if (!m_IsSinglePlayer)
   {
     SDL_Rect health2 = { c_ScreenWidth - 220, c_ScreenHeight - 25, 200, 10 };
@@ -380,13 +386,13 @@ void Game::DrawHUD()
     }
   }
 
-  // display score
+  // Display Score
   std::stringstream ss;
   ss << Player::Players[0].m_Score;
   Graphics::DrawText(m_Renderer, m_Font10, "SCORE", c_HalfScreenWidth, c_ScreenHeight - 35, c_White);
   Graphics::DrawText(m_Renderer, m_Font16, ss.str(), c_HalfScreenWidth, c_ScreenHeight - 20, c_White);
 
-  // boss HUD
+  // Boss HUD
   if (Boss::FinalBoss.m_IsSpawned && !Boss::FinalBoss.m_IsKilled)
   {
     int barWidth = c_ScreenWidth - 40;

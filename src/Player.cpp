@@ -10,12 +10,12 @@
 
 #define PLAYER_COUNT 2
 
-SDL_Keycode StartKey[PLAYER_COUNT] = { SDLK_SPACE, SDLK_RSHIFT };
-SDL_Keycode UpKey[PLAYER_COUNT] = { SDLK_w, SDLK_UP };
-SDL_Keycode DownKey[PLAYER_COUNT] = { SDLK_s, SDLK_DOWN };
-SDL_Keycode LeftKey[PLAYER_COUNT] = { SDLK_a, SDLK_LEFT };
-SDL_Keycode RightKey[PLAYER_COUNT] = { SDLK_d, SDLK_RIGHT };
-SDL_Keycode FireKey[PLAYER_COUNT] = { SDLK_j, SDLK_RCTRL };
+static const SDL_Keycode c_StartKey[PLAYER_COUNT] = { SDLK_SPACE, SDLK_RSHIFT };
+static const SDL_Keycode c_UpKey[PLAYER_COUNT] = { SDLK_w, SDLK_UP };
+static const SDL_Keycode c_DownKey[PLAYER_COUNT] = { SDLK_s, SDLK_DOWN };
+static const SDL_Keycode c_LeftKey[PLAYER_COUNT] = { SDLK_a, SDLK_LEFT };
+static const SDL_Keycode c_RightKey[PLAYER_COUNT] = { SDLK_d, SDLK_RIGHT };
+static const SDL_Keycode c_FireKey[PLAYER_COUNT] = { SDLK_j, SDLK_RCTRL };
 
 Player* Player::Players = nullptr;
 
@@ -64,74 +64,75 @@ void Player::DestroyPlayer(PlayerShip* p_PlayerShip)
   }
 }
 
-void Player::ProcessInput(SDL_Event& p_Event)
+void Player::ProcessInput(Uint32 p_EventType, SDL_Keycode p_Keycode)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
   {
-    Players[i].ProcessInput(p_Event, i);
+    Players[i].ProcessInput(p_EventType, p_Keycode, i);
   }
 }
 
-void Player::ProcessInput(SDL_Event& p_Event, int p_Index)
+void Player::ProcessInput(Uint32 p_EventType, SDL_Keycode p_Keycode, int p_Index)
 {
-  if (m_PlayerShip == nullptr)
+  switch (p_EventType)
   {
-    if (p_Event.type == SDL_KEYDOWN)
-    {
-      if (p_Event.key.keysym.sym == StartKey[p_Index])
+    case SDL_KEYDOWN:
+      if (m_PlayerShip != nullptr)
       {
-        SpawnPlayer(p_Index);
+        if (p_Keycode == c_UpKey[p_Index])
+        {
+          m_PlayerShip->m_IsMovingUp = true;
+        }
+        if (p_Keycode == c_DownKey[p_Index])
+        {
+          m_PlayerShip->m_IsMovingDown = true;
+        }
+        if (p_Keycode == c_LeftKey[p_Index])
+        {
+          m_PlayerShip->m_IsMovingLeft = true;
+        }
+        if (p_Keycode == c_RightKey[p_Index])
+        {
+          m_PlayerShip->m_IsMovingRight = true;
+        }
+        if (p_Keycode == c_FireKey[p_Index])
+        {
+          m_PlayerShip->m_IsShooting = true;
+        }
       }
-    }
-  }
-  else
-  {
-    if (p_Event.type == SDL_KEYDOWN)
-    {
-      if (p_Event.key.keysym.sym == UpKey[p_Index])
+      else
       {
-        m_PlayerShip->m_IsMovingUp = true;
+        if (p_Keycode == c_StartKey[p_Index])
+        {
+          SpawnPlayer(p_Index);
+        }
       }
-      if (p_Event.key.keysym.sym == DownKey[p_Index])
+      break;
+    case SDL_KEYUP:
+      if (m_PlayerShip != nullptr)
       {
-        m_PlayerShip->m_IsMovingDown = true;
+        if (p_Keycode == c_UpKey[p_Index])
+        {
+          m_PlayerShip->m_IsMovingUp = false;
+        }
+        if (p_Keycode == c_DownKey[p_Index])
+        {
+          m_PlayerShip->m_IsMovingDown = false;
+        }
+        if (p_Keycode == c_LeftKey[p_Index])
+        {
+          m_PlayerShip->m_IsMovingLeft = false;
+        }
+        if (p_Keycode == c_RightKey[p_Index])
+        {
+          m_PlayerShip->m_IsMovingRight = false;
+        }
+        if (p_Keycode == c_FireKey[p_Index])
+        {
+          m_PlayerShip->m_IsShooting = false;
+        }
       }
-      if (p_Event.key.keysym.sym == LeftKey[p_Index])
-      {
-        m_PlayerShip->m_IsMovingLeft = true;
-      }
-      if (p_Event.key.keysym.sym == RightKey[p_Index])
-      {
-        m_PlayerShip->m_IsMovingRight = true;
-      }
-      if (p_Event.key.keysym.sym == FireKey[p_Index])
-      {
-        m_PlayerShip->m_IsShooting = true;
-      }
-    }
-    else if (p_Event.type == SDL_KEYUP)
-    {
-      if (p_Event.key.keysym.sym == UpKey[p_Index])
-      {
-        m_PlayerShip->m_IsMovingUp = false;
-      }
-      if (p_Event.key.keysym.sym == DownKey[p_Index])
-      {
-        m_PlayerShip->m_IsMovingDown = false;
-      }
-      if (p_Event.key.keysym.sym == LeftKey[p_Index])
-      {
-        m_PlayerShip->m_IsMovingLeft = false;
-      }
-      if (p_Event.key.keysym.sym == RightKey[p_Index])
-      {
-        m_PlayerShip->m_IsMovingRight = false;
-      }
-      if (p_Event.key.keysym.sym == FireKey[p_Index])
-      {
-        m_PlayerShip->m_IsShooting = false;
-      }
-    }
+      break;
   }
 }
 

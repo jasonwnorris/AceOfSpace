@@ -19,8 +19,8 @@ class Player
     static void SpawnPlayer(int p_Index);
     static void DestroyPlayer(PlayerShip* p_PlayerShip);
 
-    static void ProcessInput(SDL_Event& p_Event);
-    void ProcessInput(SDL_Event& p_Event, int p_Index);
+    static void ProcessInput(Uint32 p_EventType, SDL_Keycode p_Keycode);
+    void ProcessInput(Uint32 p_EventType, SDL_Keycode p_Keycode, int p_Index);
 
     static void AwardPoints(int p_Amount);
 
