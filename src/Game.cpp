@@ -17,53 +17,6 @@ const SDL_Color Game::c_Red = { 255, 0, 0, 255 };
 
 Game::Game()
 {
-  SDL_Log("Initializing SDL... ");
-  if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
-  {
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize SDL: %s", SDL_GetError());
-    exit(1);
-  }
-  SDL_Log("complete!");
-
-  SDL_Log("Initializing TTF... ");
-  if (TTF_Init() < 0)
-  {
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize TTF: %s", SDL_GetError());
-    exit(1);
-  }
-  SDL_Log("complete!");
-
-  SDL_Log("Initializing audio... ");
-  if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
-  {
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize audio: %s", SDL_GetError());
-    exit(1);
-  }
-  SDL_Log("complete!");
-
-  SDL_Log("Initializing window... ");
-  m_Window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, c_ScreenWidth, c_ScreenHeight, 0);
-
-  if (m_Window == nullptr)
-  {
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to initialize the window.");
-    exit(1);
-  }
-  SDL_Log("complete!");
-
-  SDL_Log("Initializing renderer... ");
-  m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED);
-
-  if (m_Renderer == nullptr)
-  {
-    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to initialize the renderer.");
-    exit(1);
-  }
-  SDL_Log("complete!");
-
-  SDL_ShowCursor(SDL_DISABLE);
-  SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_BLEND);
-
   m_IsDone = false;
   m_Interval = 0.25f;
   m_ElapsedTime = 0.0f;
@@ -75,28 +28,14 @@ Game::Game()
   m_IsDebugShown = false;
 }
 
-Game::~Game()
+Game::~Game() { }
+
+bool Game::OnExecute()
 {
-  SDL_Log("Closing audio... ");
-  Mix_CloseAudio();
-  SDL_Log("complete!");
-
-  SDL_Log("Closing TTF... ");
-  TTF_Quit();
-  SDL_Log("complete!");
-
-  SDL_Log("Closing SDL... ");
-  SDL_DestroyRenderer(m_Renderer);
-  SDL_DestroyWindow(m_Window);
-  SDL_Quit();
-  SDL_Log("complete!");
-
-  SDL_Log("Game ended successfully!");
-}
-
-void Game::OnExecute()
-{
-  OnStart();
+  if (!OnStart())
+  {
+    return false;
+  }
 
   while (!m_IsDone)
   {
@@ -106,21 +45,70 @@ void Game::OnExecute()
   }
 
   OnEnd();
+
+  return true;
 }
 
-void Game::OnStart()
+bool Game::OnStart()
 {
-  const std::string filename = "resources/framd.ttf";
-  m_Font10.Load(m_Renderer, filename, 10, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  m_Font14.Load(m_Renderer, filename, 14, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  m_Font16.Load(m_Renderer, filename, 16, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  m_Font20.Load(m_Renderer, filename, 20, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  m_Font25.Load(m_Renderer, filename, 25, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
-  m_Font35.Load(m_Renderer, filename, 35, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT);
+  if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+  {
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize SDL: %s", SDL_GetError());
+    return false;
+  }
+  SDL_Log("Initializing SDL... complete!");
 
-  Texture::LoadTextures(m_Renderer);
-  Sound::LoadSounds();
+  if (TTF_Init() < 0)
+  {
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize SDL_TTF: %s", SDL_GetError());
+    return false;
+  }
+  SDL_Log("Initializing TTF... complete!");
+
+  if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 1024) < 0)
+  {
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Unable to initialize SDL_Mixer: %s", SDL_GetError());
+    return false;
+  }
+  SDL_Log("Initializing audio... complete!");
+
+  m_Window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, c_ScreenWidth, c_ScreenHeight, 0);
+  if (m_Window == nullptr)
+  {
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to initialize the window.");
+    return false;
+  }
+  SDL_Log("Initializing window... complete!");
+
+  m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED);
+  if (m_Renderer == nullptr)
+  {
+    SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Failed to initialize the renderer.");
+    return false;
+  }
+  SDL_Log("Initializing renderer... complete!");
+
+  SDL_ShowCursor(SDL_DISABLE);
+  SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_BLEND);
+
+  if (!m_Font10.Load(m_Renderer, c_FontFilename, 10, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT) ||
+      !m_Font14.Load(m_Renderer, c_FontFilename, 14, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT) ||
+      !m_Font16.Load(m_Renderer, c_FontFilename, 16, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT) ||
+      !m_Font20.Load(m_Renderer, c_FontFilename, 20, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT) ||
+      !m_Font25.Load(m_Renderer, c_FontFilename, 25, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT) ||
+      !m_Font35.Load(m_Renderer, c_FontFilename, 35, TTF_STYLE_NORMAL, TTF_HINTING_LIGHT))
+  {
+    return false;
+  }
+
+  if (!Texture::LoadTextures(m_Renderer) || !Sound::LoadSounds())
+  {
+    return false;
+  }
+
   Sound::PlaySound("Intro");
+
+  return true;
 }
 
 void Game::OnEnd()
@@ -136,6 +124,17 @@ void Game::OnEnd()
   Sound::UnloadSounds();
   Player::RemovePlayers();
   Object::RemoveAll();
+
+  Mix_CloseAudio();
+  SDL_Log("Closing SDL_Mixer... complete!");
+
+  TTF_Quit();
+  SDL_Log("Closing SDL_TTF... complete!");
+
+  SDL_DestroyRenderer(m_Renderer);
+  SDL_DestroyWindow(m_Window);
+  SDL_Quit();
+  SDL_Log("Closing SDL... complete!");
 }
 
 void Game::OnThink()
@@ -149,7 +148,7 @@ void Game::OnThink()
         if (m_Event.key.keysym.sym == SDLK_RETURN)
         {
           m_State = STATE_PLAYING;
-          Level::LevelOne.BuildLevel();
+          m_Level.BuildLevel();
           Player::AddPlayers();
           Player::SpawnPlayer(PLAYER_ONE);
           if (!m_IsSinglePlayer)
@@ -249,7 +248,7 @@ void Game::OnUpdate()
   if (m_State == STATE_PLAYING)
   {
     Object::UpdateObjects(deltaTime);
-    Level::LevelOne.Update(deltaTime);
+    m_Level.Update(deltaTime);
     m_Starfield.Update(deltaTime);
 
     if (m_IsSinglePlayer)

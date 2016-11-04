@@ -38,11 +38,14 @@ Texture::~Texture()
   }
 }
 
-void Texture::LoadTextures(SDL_Renderer* p_Renderer)
+bool Texture::LoadTextures(SDL_Renderer* p_Renderer)
 {
-  std::ifstream file;
-
-  file.open("resources/textures.txt");
+  std::ifstream file(c_TexturesFilename, std::ios_base::in);
+  if (!file.is_open())
+  {
+    SDL_Log("Failed to open file: %s", c_TexturesFilename.c_str());
+    return false;
+  }
 
   std::string keyname = "";
   std::string filename = "";
@@ -56,27 +59,32 @@ void Texture::LoadTextures(SDL_Renderer* p_Renderer)
 
   while (!file.eof())
   {
-    file >> keyname;
-    file >> filename;
-    file >> tilesX;
-    file >> tilesY;
-    file >> frameCount;
-    file >> frameRate;
-    file >> collidable;
+    file >> keyname >> filename >> tilesX >> tilesY >> frameCount >> frameRate >> collidable;
 
-    Texture* m_Texture = new Texture(p_Renderer, filename, tilesX, tilesY, frameCount, frameRate, (collidable == "yes"));
-    TextureList[keyname] = m_Texture;
-    SDL_Log("Loaded texture: %s", keyname.c_str());
+    Texture* texture = new Texture(p_Renderer, filename, tilesX, tilesY, frameCount, frameRate, (collidable == "yes"));
+    if (texture != nullptr)
+    {
+      SDL_Log("Loaded texture: %s", keyname.c_str());
+      TextureList[keyname] = texture;
+    }
+    else
+    {
+      SDL_Log("Failed to load texture: %s", keyname.c_str());
+      return false;
+    }
+
   }
 
   file.close();
+
+  return true;
 }
 
 void Texture::UnloadTextures()
 {
   for (std::map<std::string, Texture*>::iterator Iter = TextureList.begin(); Iter != TextureList.end(); ++Iter)
   {
-    SDL_Log("Deleting texture: %s", (*Iter).first.c_str());
+    SDL_Log("Unloading texture: %s", (*Iter).first.c_str());
     delete (*Iter).second;
   }
 
@@ -85,7 +93,7 @@ void Texture::UnloadTextures()
 
 SDL_Texture* Texture::LoadImage(SDL_Renderer* p_Renderer, const std::string& p_Filename)
 {
-  std::string filepath = "resources/" + p_Filename;
+  std::string filepath = c_ResourcesPath + p_Filename;
   SDL_Surface* surface = IMG_Load(filepath.c_str());
   SDL_Texture* m_Texture = SDL_CreateTextureFromSurface(p_Renderer, surface);
   SDL_FreeSurface(surface);
@@ -95,7 +103,7 @@ SDL_Texture* Texture::LoadImage(SDL_Renderer* p_Renderer, const std::string& p_F
 
 void Texture::MakeDamageTexture(SDL_Renderer* p_Renderer, const std::string& p_Filename)
 {
-  std::string filepath = "resources/" + p_Filename;
+  std::string filepath = c_ResourcesPath + p_Filename;
   SDL_Surface* surface = IMG_Load(filepath.c_str());
 
   if (SDL_MUSTLOCK(surface))

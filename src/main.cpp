@@ -7,7 +7,10 @@
 int main(int p_ArgCount, char** p_ArgVars)
 {
   Game game;
-  game.OnExecute();
+  if (!game.OnExecute())
+  {
+    return -1;
+  }
 
   return 0;
 }

@@ -96,7 +96,7 @@ bool Font::Load(SDL_Renderer* p_Renderer, const std::string& p_Filename, int p_S
   TTF_SetFontStyle(font, p_Style);
   TTF_SetFontHinting(font, p_Hinting);
   TTF_SetFontOutline(font, p_Outline);
-  TTF_SetFontKerning(font, p_UseKerning ? 1 : 0);
+  TTF_SetFontKerning(font, p_UseKerning ? SDL_ENABLE : SDL_DISABLE);
 
   // Collect metrics.
   m_Height = TTF_FontHeight(font);
@@ -227,7 +227,6 @@ bool Font::Unload()
 int Font::HeuristicWidth()
 {
   int totalSize = 0;
-
   for (const auto& glyph : m_Glyphs)
   {
     totalSize += glyph.VisualWidth * glyph.VisualHeight;

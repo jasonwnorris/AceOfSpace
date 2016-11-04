@@ -6,6 +6,7 @@
 // SDL Includes
 #include <SDL.h>
 // AOS Includes
+#include "Level.hpp"
 #include "Timer.hpp"
 #include "Font.hpp"
 #include "Starfield.hpp"
@@ -27,9 +28,9 @@ class Game
     Game();
     ~Game();
 
-    void OnExecute();
+    bool OnExecute();
 
-    void OnStart();
+    bool OnStart();
     void OnEnd();
 
     void OnThink();
@@ -63,6 +64,7 @@ class Game
     bool m_IsSinglePlayer;
     bool m_IsDebugShown;
     Timer m_Timer;
+    Level m_Level;
     Font m_Font10;
     Font m_Font14;
     Font m_Font16;

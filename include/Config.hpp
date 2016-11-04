@@ -3,8 +3,17 @@
 #ifndef __CONFIG_HPP__
 #define __CONFIG_HPP__
 
+// STL Includes
+#include <string>
+
 static const int c_ScreenWidth = 800;
 static const int c_ScreenHeight = 600;
+
+static const std::string c_ResourcesPath = "resources/";
+static const std::string c_FontFilename = c_ResourcesPath + "framd.ttf";
+static const std::string c_LevelFilename = c_ResourcesPath + "level.txt";
+static const std::string c_TexturesFilename = c_ResourcesPath + "textures.txt";
+static const std::string c_SoundsFilename = c_ResourcesPath + "sounds.txt";
 
 static const float c_DamageEffectTime = 0.09f;
 

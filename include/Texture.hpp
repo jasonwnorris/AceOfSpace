@@ -22,7 +22,7 @@ class Texture
 
     static std::map<std::string, Texture*> TextureList;
 
-    static void LoadTextures(SDL_Renderer* p_Renderer);
+    static bool LoadTextures(SDL_Renderer* p_Renderer);
     static void UnloadTextures();
     static SDL_Texture* LoadImage(SDL_Renderer* p_Renderer, const std::string& p_Filename);
 

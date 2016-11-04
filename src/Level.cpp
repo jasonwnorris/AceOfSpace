@@ -3,44 +3,34 @@
 // AOS Includes
 #include "Level.hpp"
 
-Level Level::LevelOne;
-
 Level::Level()
 {
   m_TimeElapsed = 0.0f;
   m_ObjectIndex = 0;
 }
 
-void Level::BuildLevel()
+bool Level::BuildLevel()
 {
   Reset();
 
-  std::ifstream file;
+  std::ifstream file(c_LevelFilename, std::ios_base::in);
+  if (!file.is_open())
+  {
+    SDL_Log("Failed to open file: %s", c_LevelFilename.c_str());
+    return false;
+  }
 
-  file.open("resources/level.txt");
-
-  std::string type = "";
-  float positionX = 0.0f;
-  float time = 0.0f;
+  std::string dummy;
+  getline(file, dummy);
 
   float finalTime = 0.0f;
-
-  getline(file, type);
-
   while (!file.eof())
   {
-    file >> type;
-    file >> positionX;
-    file >> time;
-
     LevelObject object;
-    object.Type = type;
-    object.PositionX = positionX;
-    object.Time = time;
+    file >> object.Type >> object.PositionX >> object.Time;
+    m_LevelObjects.push_back(object);
 
-    LevelObjects.push_back(object);
-
-    finalTime = time;
+    finalTime = object.Time;
   }
 
   file.close();
@@ -49,8 +39,9 @@ void Level::BuildLevel()
   boss.Type = "Boss";
   boss.PositionX = c_ScreenWidth / 2;
   boss.Time = finalTime + 5.0f;
+  m_LevelObjects.push_back(boss);
 
-  LevelObjects.push_back(boss);
+  return true;
 }
 
 void Level::SpawnObject(LevelObject p_Object)
@@ -89,21 +80,21 @@ void Level::Reset()
   m_TimeElapsed = 0.0f;
   m_ObjectIndex = 0;
 
-  LevelObjects.clear();
+  m_LevelObjects.clear();
 }
 
 void Level::Update(float p_DeltaTime)
 {
   m_TimeElapsed += p_DeltaTime;
 
-  for (int i = m_ObjectIndex; i < LevelObjects.size(); ++i)
+  for (int i = m_ObjectIndex; i < m_LevelObjects.size(); ++i)
   {
-    if (LevelObjects[i].Time > m_TimeElapsed)
+    if (m_LevelObjects[i].Time > m_TimeElapsed)
     {
       break;
     }
 
-    SpawnObject(LevelObjects[i]);
-    m_ObjectIndex++;
+    SpawnObject(m_LevelObjects[i]);
+    ++m_ObjectIndex;
   }
 }

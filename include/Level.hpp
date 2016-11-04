@@ -26,11 +26,7 @@ class Level
   public:
     Level();
 
-    static Level LevelOne;
-
-    std::vector<LevelObject> LevelObjects;
-
-    void BuildLevel();
+    bool BuildLevel();
     void SpawnObject(LevelObject p_Object);
     void Reset();
 
@@ -38,6 +34,7 @@ class Level
 
     float m_TimeElapsed;
     int m_ObjectIndex;
+    std::vector<LevelObject> m_LevelObjects;
 };
 
 #endif

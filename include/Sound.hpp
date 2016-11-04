@@ -19,7 +19,7 @@ class Sound
 
     static std::map<std::string, Sound*> SoundList;
 
-    static void LoadSounds();
+    static bool LoadSounds();
     static void UnloadSounds();
 
     static void PlaySound(const std::string& p_Keyname);
