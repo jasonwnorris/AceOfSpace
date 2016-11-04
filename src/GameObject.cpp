@@ -39,16 +39,16 @@ void GameObject::Update(float p_DeltaTime)
 {
   if (m_CollisionList != nullptr)
   {
-    for (std::vector<GameObject*>::iterator Iter = m_CollisionList->begin(); Iter != m_CollisionList->end(); ++Iter)
+    for (GameObject* gameObject : *m_CollisionList)
     {
-      if (CheckCollision(this, (*Iter)))
+      if (CheckCollision(this, gameObject))
       {
-        Collide((*Iter));
+        Collide(gameObject);
       }
     }
   }
 
-  if (m_FlickerInterval > 0)
+  if (m_FlickerInterval > 0.0f)
   {
     m_FlickerInterval -= p_DeltaTime;
   }

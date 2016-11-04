@@ -1,5 +1,7 @@
 // Object.cpp
 
+// STL Includes
+#include <algorithm>
 // AOS Includes
 #include "Object.hpp"
 #include "Player.hpp"
@@ -66,9 +68,9 @@ void Object::SetSpeed(float p_Speed)
 
 void Object::UpdateObjects(float p_DeltaTime)
 {
-  for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
+  for (Object* object : ObjectList)
   {
-    (*Iter)->Update(p_DeltaTime);
+    object->Update(p_DeltaTime);
   }
 
   AddNew();
@@ -85,9 +87,9 @@ void Object::Update(float p_DeltaTime)
 
 void Object::RenderObjects(SDL_Renderer* p_Renderer)
 {
-  for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
+  for (Object* object : ObjectList)
   {
-    (*Iter)->Render(p_Renderer);
+    object->Render(p_Renderer);
   }
 }
 
@@ -98,11 +100,7 @@ void Object::Render(SDL_Renderer* p_Renderer)
 
 void Object::AddNew()
 {
-  for (std::vector<Object*>::iterator Iter = ObjectAddList.begin(); Iter != ObjectAddList.end(); ++Iter)
-  {
-    ObjectList.push_back((*Iter));
-  }
-
+  ObjectList.insert(ObjectList.end(), ObjectAddList.begin(), ObjectAddList.end());
   ObjectAddList.clear();
 }
 
@@ -111,19 +109,13 @@ void Object::RemoveDead()
   PlayerShip::RemoveKilled();
   Enemy::RemoveKilled();
 
-  for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
-  {
-    if ((*Iter)->m_IsDead)
+  ObjectList.erase(std::remove_if(ObjectList.begin(), ObjectList.end(), [](Object* p_Object) {
+    if (p_Object->IsDead())
     {
-      Object* temp = (*Iter);
-      Iter = ObjectList.erase(Iter);
-      delete temp;
+      delete p_Object;
     }
-    else
-    {
-      ++Iter;
-    }
-  }
+    return p_Object->IsDead();
+  }), ObjectList.end());
 }
 
 void Object::RemoveAll()
@@ -131,13 +123,7 @@ void Object::RemoveAll()
   PlayerShip::RemoveAll();
   Enemy::RemoveAll();
 
-  for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); Iter += 0)
-  {
-    Object* temp = (*Iter);
-    Iter = ObjectList.erase(Iter);
-    delete temp;
-  }
-
+  std::for_each(ObjectList.begin(), ObjectList.end(), [](Object* p_Object) { delete p_Object; });
   ObjectList.clear();
 }
 

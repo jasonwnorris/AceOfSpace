@@ -1,5 +1,7 @@
 // Enemy.cpp
 
+// STL Includes
+#include <algorithm>
 // AOS Includes
 #include "Enemy.hpp"
 #include "Player.hpp"
@@ -21,25 +23,12 @@ Enemy::~Enemy()
 
 void Enemy::RemoveKilled()
 {
-  for (std::vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
-  {
-    if ((*Iter)->IsDead())
-    {
-      Iter = EnemyList.erase(Iter);
-    }
-    else
-    {
-      Iter++;
-    }
-  }
+  EnemyList.erase(std::remove_if(EnemyList.begin(), EnemyList.end(), [](GameObject* p_GameObject) { return p_GameObject->IsDead(); }), EnemyList.end());
 }
 
 void Enemy::RemoveAll()
 {
-  for (std::vector<GameObject*>::iterator Iter = EnemyList.begin(); Iter != EnemyList.end(); Iter += 0)
-  {
-    Iter = EnemyList.erase(Iter);
-  }
+  EnemyList.clear();
 }
 
 void Enemy::Explode()
@@ -47,6 +36,7 @@ void Enemy::Explode()
   GameObject::Explode();
 
   Player::AwardPoints(m_PointValue);
+
   DropItem();
 }
 

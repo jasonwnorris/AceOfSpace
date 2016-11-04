@@ -58,10 +58,10 @@ bool Sound::LoadSounds()
 
 void Sound::UnloadSounds()
 {
-  for (std::map<std::string, Sound*>::iterator Iter = SoundList.begin(); Iter != SoundList.end(); ++Iter)
+  for (auto& pair : SoundList)
   {
-    SDL_Log("Unloading sound: %s", (*Iter).first.c_str());
-    delete (*Iter).second;
+    SDL_Log("Unloading sound: %s", pair.first.c_str());
+    delete pair.second;
   }
 
   SoundList.clear();

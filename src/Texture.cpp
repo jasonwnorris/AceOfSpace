@@ -144,10 +144,10 @@ bool Texture::LoadTextures(SDL_Renderer* p_Renderer)
 
 void Texture::UnloadTextures()
 {
-  for (std::map<std::string, Texture*>::iterator Iter = TextureList.begin(); Iter != TextureList.end(); ++Iter)
+  for (auto& pair : TextureList)
   {
-    SDL_Log("Unloading texture: %s", (*Iter).first.c_str());
-    delete (*Iter).second;
+    SDL_Log("Unloading texture: %s", pair.first.c_str());
+    delete pair.second;
   }
 
   TextureList.clear();

@@ -1,6 +1,7 @@
 // PlayerShip.cpp
 
 // STL Includes
+#include <algorithm>
 #include <sstream>
 // AOS Includes
 #include "Player.hpp"
@@ -107,25 +108,12 @@ void PlayerShip::Update(float p_DeltaTime)
 
 void PlayerShip::RemoveKilled()
 {
-  for (std::vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
-  {
-    if ((*Iter)->IsDead())
-    {
-      Iter = PlayerShipList.erase(Iter);
-    }
-    else
-    {
-      ++Iter;
-    }
-  }
+  PlayerShipList.erase(std::remove_if(PlayerShipList.begin(), PlayerShipList.end(), [](GameObject* p_GameObject) { return p_GameObject->IsDead(); }), PlayerShipList.end());
 }
 
 void PlayerShip::RemoveAll()
 {
-  for (std::vector<GameObject*>::iterator Iter = PlayerShipList.begin(); Iter != PlayerShipList.end(); Iter += 0)
-  {
-    Iter = PlayerShipList.erase(Iter);
-  }
+  PlayerShipList.clear();
 }
 
 void PlayerShip::Remove()
