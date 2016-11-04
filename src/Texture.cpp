@@ -66,7 +66,7 @@ void Texture::LoadTextures(SDL_Renderer* p_Renderer)
 
     Texture* m_Texture = new Texture(p_Renderer, filename, tilesX, tilesY, frameCount, frameRate, (collidable == "yes"));
     TextureList[keyname] = m_Texture;
-    SDL_Log("Loaded texture: %s", keyname.c_str());
+    SDL_Log("Loaded texture: %s", keyname);
   }
 
   file.close();
@@ -76,7 +76,7 @@ void Texture::UnloadTextures()
 {
   for (std::map<std::string, Texture*>::iterator Iter = TextureList.begin(); Iter != TextureList.end(); ++Iter)
   {
-    SDL_Log("Deleting texture: %s", (*Iter).first.c_str());
+    SDL_Log("Deleting texture: %s", (*Iter).first);
     delete (*Iter).second;
   }
 
