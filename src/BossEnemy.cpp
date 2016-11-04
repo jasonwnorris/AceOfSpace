@@ -9,7 +9,7 @@ BossEnemy::BossEnemy(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
   m_PointValue = c_BossPointValue;
 
-  m_Position = Vector2f(c_ScreenWidth / 2, -m_Sprite->m_Origin.Y);
+  m_Position = Vector2f(static_cast<float>(c_HalfScreenWidth), -m_Sprite->m_Origin.Y);
   m_Direction = Vector2f::Down;
   m_Speed = c_BossSpeed;
   m_Health = c_BossHealth;

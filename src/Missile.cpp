@@ -29,7 +29,7 @@ void Missile::Update(float p_DeltaTime)
 
 void Missile::RemoveOffScreen()
 {
-  SDL_Rect screenBounds = { -c_ScreenWidth / 2, -c_ScreenHeight / 2, c_ScreenWidth * 2, c_ScreenHeight * 2 };
+  SDL_Rect screenBounds = { -c_HalfScreenWidth, -c_HalfScreenHeight, c_ScreenWidth * 2, c_ScreenHeight * 2 };
   SDL_Rect objectBounds = GetBounds();
 
   if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)

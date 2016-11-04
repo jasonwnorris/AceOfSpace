@@ -37,7 +37,7 @@ bool Level::BuildLevel()
 
   LevelObject boss;
   boss.Type = "Boss";
-  boss.PositionX = c_ScreenWidth / 2;
+  boss.PositionX = c_HalfScreenWidth;
   boss.Time = finalTime + 5.0f;
   m_LevelObjects.push_back(boss);
 

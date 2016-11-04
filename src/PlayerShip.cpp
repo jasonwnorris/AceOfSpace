@@ -14,7 +14,7 @@ std::vector<GameObject*> PlayerShip::PlayerShipList;
 
 PlayerShip::PlayerShip(const std::string& p_Keyname) : GameObject(p_Keyname)
 {
-  m_Position = Vector2f(c_ScreenWidth / 2.0f, static_cast<float>(c_ScreenHeight - m_Sprite->m_Texture->m_TileHeight - c_PlayerSpawnOffset));
+  m_Position = Vector2f(static_cast<float>(c_HalfScreenWidth), static_cast<float>(c_ScreenHeight - m_Sprite->m_Texture->m_TileHeight - c_PlayerSpawnOffset));
   m_Speed = c_PlayerSpeed;
   m_Health = c_PlayerHealth;
   m_ExplosionKeyname = "Explosion";
