@@ -31,6 +31,5 @@ void Graphics::DrawText(SDL_Renderer* p_Renderer, const Font& p_Font, const std:
 void Graphics::FillAlphaRect(SDL_Renderer* p_Renderer, SDL_Rect& p_Rect, Uint8 p_Red, Uint8 p_Green, Uint8 p_Blue, Uint8 p_Alpha)
 {
   SDL_SetRenderDrawColor(p_Renderer, p_Red, p_Green, p_Blue, p_Alpha);
-  SDL_SetRenderDrawBlendMode(p_Renderer, SDL_BLENDMODE_BLEND);
   SDL_RenderFillRect(p_Renderer, &p_Rect);
 }

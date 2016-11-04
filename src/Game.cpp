@@ -25,8 +25,6 @@ Game::Game()
   }
   SDL_Log("complete!");
 
-  SDL_ShowCursor(SDL_DISABLE);
-
   SDL_Log("Initializing TTF... ");
   if (TTF_Init() < 0)
   {
@@ -62,6 +60,9 @@ Game::Game()
     exit(1);
   }
   SDL_Log("complete!");
+
+  SDL_ShowCursor(SDL_DISABLE);
+  SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_BLEND);
 
   m_IsDone = false;
   m_Interval = 0.25f;
