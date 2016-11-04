@@ -9,9 +9,9 @@
 class TargetShooter : public Enemy
 {
   public:
-    TargetShooter(const std::string& keyname);
+    TargetShooter(const std::string& p_Keyname);
 
-    virtual void Update(float deltaTime);
+    virtual void Update(float p_DeltaTime);
 
   private:
     void FireBullet();

@@ -4,7 +4,7 @@
 #include "Kamikaze.hpp"
 #include "Player.hpp"
 
-Kamikaze::Kamikaze(const std::string& keyname) : Enemy(keyname)
+Kamikaze::Kamikaze(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
   m_PointValue = KamikazePointValue;
   m_Health = KamikazeHealth;
@@ -13,12 +13,11 @@ Kamikaze::Kamikaze(const std::string& keyname) : Enemy(keyname)
   m_HasFoundTarget = false;
 }
 
-void Kamikaze::Update(float deltaTime)
+void Kamikaze::Update(float p_DeltaTime)
 {
   if (!m_HasFoundTarget)
   {
-    m_IdleDelay -= deltaTime;
-
+    m_IdleDelay -= p_DeltaTime;
     if (m_IdleDelay <= 0.0f)
     {
       GameObject* target = PickRandomObject(&PlayerShip::PlayerShipList);
@@ -32,5 +31,5 @@ void Kamikaze::Update(float deltaTime)
     }
   }
 
-  Enemy::Update(deltaTime);
+  Enemy::Update(p_DeltaTime);
 }

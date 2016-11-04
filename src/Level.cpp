@@ -11,7 +11,6 @@ Level::Level()
   m_ObjectIndex = 0;
 }
 
-// open the text file and read in monster spawn information
 void Level::BuildLevel()
 {
   Reset();
@@ -34,34 +33,29 @@ void Level::BuildLevel()
     file >> positionX;
     file >> time;
 
-    AddObject(type, static_cast<float>(positionX), time);
+    LevelObject object;
+    object.Type = type;
+    object.PositionX = positionX;
+    object.Time = time;
+
+    LevelObjects.push_back(object);
 
     finalTime = time;
   }
 
   file.close();
 
-  finalTime += 5.0f;
+  LevelObject boss;
+  boss.Type = "Boss";
+  boss.PositionX = ScreenWidth / 2;
+  boss.Time = finalTime + 5.0f;
 
-  AddObject("Boss", ScreenWidth / 2, finalTime);
+  LevelObjects.push_back(boss);
 }
 
-// push the information onto the list
-void Level::AddObject(const std::string& type, float positionX, float spawnTime)
+void Level::SpawnObject(LevelObject p_Object)
 {
-  LevelObject object;
-  object.Type = type;
-  object.PositionX = positionX;
-  object.Time = spawnTime;
-
-  LevelObjects.push_back(object);
-}
-
-// create a new enemy object according to the information in
-// each LevelObject object
-void Level::SpawnObject(LevelObject object)
-{
-  if (object.Type == "Boss")
+  if (p_Object.Type == "Boss")
   {
     Boss::SpawnBoss();
   }
@@ -69,24 +63,24 @@ void Level::SpawnObject(LevelObject object)
   {
     Enemy* enemy = nullptr;
 
-    if (object.Type == "Asteroid")
+    if (p_Object.Type == "Asteroid")
     {
       enemy = new Asteroid("Asteroid");
     }
-    else if (object.Type == "StraightShooter")
+    else if (p_Object.Type == "StraightShooter")
     {
       enemy = new StraightShooter("StraightShooter");
     }
-    else if (object.Type == "TargetShooter")
+    else if (p_Object.Type == "TargetShooter")
     {
       enemy = new TargetShooter("TargetShooter");
     }
-    else if (object.Type == "Kamikaze")
+    else if (p_Object.Type == "Kamikaze")
     {
       enemy = new Kamikaze("Kamikaze");
     }
 
-    enemy->m_Position = Vector2f(object.PositionX, -enemy->m_Sprite->m_Origin.Y);
+    enemy->m_Position = Vector2f(p_Object.PositionX, -enemy->m_Sprite->m_Origin.Y);
   }
 }
 
@@ -98,12 +92,9 @@ void Level::Reset()
   LevelObjects.clear();
 }
 
-// scan through the LevelObjects to see if its spawn time has passed
-// then spawn the object and increment the index so an item doesn't
-// spawn again
-void Level::Update(float deltaTime)
+void Level::Update(float p_DeltaTime)
 {
-  m_TimeElapsed += deltaTime;
+  m_TimeElapsed += p_DeltaTime;
 
   for (int i = m_ObjectIndex; i < LevelObjects.size(); ++i)
   {

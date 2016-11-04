@@ -9,11 +9,11 @@
 class Item : public GameObject
 {
   public:
-    Item(const std::string& keyname);
+    Item(const std::string& p_Keyname);
 
-    void Collide(GameObject* object);
+    void Collide(GameObject* p_Object);
 
-    virtual void InflictBonus(GameObject* object) { }
+    virtual void InflictBonus(GameObject* p_Object) { }
 };
 
 #endif

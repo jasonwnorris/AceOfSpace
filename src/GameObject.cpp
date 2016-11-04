@@ -4,7 +4,7 @@
 #include "GameObject.hpp"
 #include "Particle.hpp"
 
-GameObject::GameObject(const std::string& keyname) : Object(keyname)
+GameObject::GameObject(const std::string& p_Keyname) : Object(p_Keyname)
 {
   m_Health = 0;
   m_FlickerInterval = 0.0f;
@@ -16,7 +16,7 @@ GameObject::~GameObject()
 }
 
 // check objects against those in its collision list
-void GameObject::Update(float deltaTime)
+void GameObject::Update(float p_DeltaTime)
 {
   if (CollisionList != nullptr)
   {
@@ -31,23 +31,23 @@ void GameObject::Update(float deltaTime)
 
   if (m_FlickerInterval > 0)
   {
-    m_FlickerInterval -= deltaTime;
+    m_FlickerInterval -= p_DeltaTime;
   }
   else
   {
     m_Sprite->SetTextureIndex(0);
   }
 
-  Object::Update(deltaTime);
+  Object::Update(p_DeltaTime);
 
   RemoveOffScreen();
 }
 
-void GameObject::TakeDamage(int amount)
+void GameObject::TakeDamage(int p_Amount)
 {
   if (m_Health > 0)
   {
-    m_Health -= amount;
+    m_Health -= p_Amount;
 
     if (m_Health <= 0)
     {
@@ -75,7 +75,7 @@ void GameObject::Explode()
 // check if the object bounds are intersecting with the viewable screen
 void GameObject::RemoveOffScreen()
 {
-  SDL_Rect screenBounds = {0, 0, ScreenWidth, ScreenHeight};
+  SDL_Rect screenBounds = { 0, 0, ScreenWidth, ScreenHeight };
   SDL_Rect objectBounds = GetBounds();
 
   if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)
@@ -85,12 +85,12 @@ void GameObject::RemoveOffScreen()
 }
 
 // grabs a random object from a std::vector
-GameObject* GameObject::PickRandomObject(std::vector<GameObject*>* PickList)
+GameObject* GameObject::PickRandomObject(std::vector<GameObject*>* p_PickList)
 {
-  int listSize = static_cast<int>(PickList->size());
+  int listSize = static_cast<int>(p_PickList->size());
   if (listSize > 0)
   {
-    return (*PickList)[rand() % listSize];
+    return (*p_PickList)[rand() % listSize];
   }
   else
   {

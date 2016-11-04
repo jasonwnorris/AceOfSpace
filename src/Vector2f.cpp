@@ -13,10 +13,10 @@ const Vector2f Vector2f::Down = Vector2f(0.0f, 1.0f);
 const Vector2f Vector2f::Left = Vector2f(-1.0f, 0.0f);
 const Vector2f Vector2f::Right = Vector2f(1.0f, 0.0f);
 
-Vector2f::Vector2f(float x, float y)
+Vector2f::Vector2f(float p_X, float p_Y)
 {
-  X = x;
-  Y = y;
+  X = p_X;
+  Y = p_Y;
 }
 
 void Vector2f::Normalize()
@@ -69,120 +69,120 @@ float Vector2f::Length() const
   return sqrtf(X * X + Y * Y);
 }
 
-Vector2f Vector2f::CalculateDirection(float angle)
+Vector2f Vector2f::CalculateDirection(float p_Angle)
 {
   Vector2f vector;
-  vector.X = sinf(angle);
-  vector.Y = cosf(angle);
+  vector.X = sinf(p_Angle);
+  vector.Y = cosf(p_Angle);
 
   return vector;
 }
 
-Vector2f Vector2f::LinearInterp(const Vector2f& v1, const Vector2f& v2, const float& weight)
+Vector2f Vector2f::LinearInterp(const Vector2f& p_Vector1, const Vector2f& p_Vector2, const float& p_Weight)
 {
-  if (weight <= 0.0f)
+  if (p_Weight <= 0.0f)
   {
-    return v1;
+    return p_Vector1;
   }
 
-  if (weight >= 1.0f)
+  if (p_Weight >= 1.0f)
   {
-    return v2;
+    return p_Vector2;
   }
 
   Vector2f vector;
-  vector.X = v1.X * (1.0f - weight) + v2.X * weight;
-  vector.Y = v1.Y * (1.0f - weight) + v2.Y * weight;
+  vector.X = p_Vector1.X * (1.0f - p_Weight) + p_Vector2.X * p_Weight;
+  vector.Y = p_Vector1.Y * (1.0f - p_Weight) + p_Vector2.Y * p_Weight;
 
   return vector;
 }
 
-Vector2f Vector2f::operator+(const Vector2f& v) const
+Vector2f Vector2f::operator+(const Vector2f& p_Vector) const
 {
   Vector2f vector;
-  vector.X = X + v.X;
-  vector.Y = Y + v.Y;
+  vector.X = X + p_Vector.X;
+  vector.Y = Y + p_Vector.Y;
 
   return vector;
 }
 
-Vector2f Vector2f::operator-(const Vector2f& v) const
+Vector2f Vector2f::operator-(const Vector2f& p_Vector) const
 {
   Vector2f vector;
-  vector.X = X - v.X;
-  vector.Y = Y - v.Y;
+  vector.X = X - p_Vector.X;
+  vector.Y = Y - p_Vector.Y;
 
   return vector;
 }
 
-Vector2f Vector2f::operator*(int mag) const
+Vector2f Vector2f::operator*(int p_Scalar) const
 {
   Vector2f vector;
-  vector.X = X * static_cast<float>(mag);
-  vector.Y = Y * static_cast<float>(mag);
+  vector.X = X * static_cast<float>(p_Scalar);
+  vector.Y = Y * static_cast<float>(p_Scalar);
 
   return vector;
 }
 
-Vector2f Vector2f::operator*(float mag) const
+Vector2f Vector2f::operator*(float p_Scalar) const
 {
   Vector2f vector;
-  vector.X = X * mag;
-  vector.Y = Y * mag;
+  vector.X = X * p_Scalar;
+  vector.Y = Y * p_Scalar;
 
   return vector;
 }
 
-Vector2f Vector2f::operator/(int mag) const
+Vector2f Vector2f::operator/(int p_Scalar) const
 {
   Vector2f vector;
-  vector.X = X / static_cast<float>(mag);
-  vector.Y = Y / static_cast<float>(mag);
+  vector.X = X / static_cast<float>(p_Scalar);
+  vector.Y = Y / static_cast<float>(p_Scalar);
 
   return vector;
 }
 
-Vector2f Vector2f::operator/(float mag) const
+Vector2f Vector2f::operator/(float p_Scalar) const
 {
   Vector2f vector;
-  vector.X = X / mag;
-  vector.Y = Y / mag;
+  vector.X = X / p_Scalar;
+  vector.Y = Y / p_Scalar;
 
   return vector;
 }
 
-void Vector2f::operator=(const Vector2f& v)
+void Vector2f::operator=(const Vector2f& p_Vector)
 {
-  X = v.X;
-  Y = v.Y;
+  X = p_Vector.X;
+  Y = p_Vector.Y;
 }
 
-void Vector2f::operator+=(const Vector2f& v)
+void Vector2f::operator+=(const Vector2f& p_Vector)
 {
-  X += v.X;
-  Y += v.Y;
+  X += p_Vector.X;
+  Y += p_Vector.Y;
 }
 
-void Vector2f::operator-=(const Vector2f& v)
+void Vector2f::operator-=(const Vector2f& p_Vector)
 {
-  X -= v.X;
-  Y -= v.Y;
+  X -= p_Vector.X;
+  Y -= p_Vector.Y;
 }
 
-Vector2f operator*(int mag, const Vector2f& v)
+Vector2f operator*(int p_Scalar, const Vector2f& p_Vector)
 {
   Vector2f vector;
-  vector.X = v.X * static_cast<float>(mag);
-  vector.Y = v.Y * static_cast<float>(mag);
+  vector.X = p_Vector.X * static_cast<float>(p_Scalar);
+  vector.Y = p_Vector.Y * static_cast<float>(p_Scalar);
 
   return vector;
 }
 
-Vector2f operator*(float mag, const Vector2f& v)
+Vector2f operator*(float p_Scalar, const Vector2f& p_Vector)
 {
   Vector2f vector;
-  vector.X = v.X * mag;
-  vector.Y = v.Y * mag;
+  vector.X = p_Vector.X * p_Scalar;
+  vector.Y = p_Vector.Y * p_Scalar;
 
   return vector;
 }

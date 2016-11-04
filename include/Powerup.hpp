@@ -9,9 +9,9 @@
 class Powerup : public Item
 {
   public:
-    Powerup(const std::string& keyname);
+    Powerup(const std::string& p_Keyname);
 
-    void InflictBonus(GameObject* object);
+    void InflictBonus(GameObject* p_Object);
 
   private:
     std::string m_Type;

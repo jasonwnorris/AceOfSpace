@@ -9,9 +9,9 @@
 class Star : public Object
 {
   public:
-    Star(const std::string& keyname);
+    Star(const std::string& p_Keyname);
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
 };
 
 #endif

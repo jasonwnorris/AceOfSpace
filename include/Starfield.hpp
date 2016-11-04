@@ -11,7 +11,7 @@ class Starfield
   public:
     Starfield();
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
 
   private:
     float m_LastSpawn;

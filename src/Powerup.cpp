@@ -6,35 +6,35 @@
 #include "Powerup.hpp"
 #include "Projectile.hpp"
 
-Powerup::Powerup(const std::string& keyname) : Item(keyname)
+Powerup::Powerup(const std::string& p_Keyname) : Item(p_Keyname)
 {
-  m_Type = keyname;
+  m_Type = p_Keyname;
 }
 
-void Powerup::InflictBonus(GameObject* object)
+void Powerup::InflictBonus(GameObject* p_Object)
 {
   if (m_Type == "ItemHealth")
   {
-    object->m_Health = std::min(object->m_Health + 50, PlayerHealth);
+    p_Object->m_Health = std::min(p_Object->m_Health + 50, PlayerHealth);
   }
   else if (m_Type == "ItemSpeed")
   {
-    object->m_Speed += 25.0f;
+    p_Object->m_Speed += 25.0f;
   }
   else if (m_Type == "ItemBullets")
   {
-    object->m_WeaponType = WEAPON_BULLET;
+    p_Object->m_WeaponType = WEAPON_BULLET;
   }
   else if (m_Type == "ItemMissiles")
   {
-    object->m_WeaponType = WEAPON_MISSILE;
+    p_Object->m_WeaponType = WEAPON_MISSILE;
   }
   else if (m_Type == "ItemFireball")
   {
-    object->m_WeaponType = WEAPON_FIREBALL;
+    p_Object->m_WeaponType = WEAPON_FIREBALL;
   }
   else if (m_Type == "ItemPlasma")
   {
-    object->m_WeaponType = WEAPON_PLASMA;
+    p_Object->m_WeaponType = WEAPON_PLASMA;
   }
 }

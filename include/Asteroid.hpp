@@ -9,7 +9,7 @@
 class Asteroid : public Enemy
 {
   public:
-    Asteroid(const std::string& keyname);
+    Asteroid(const std::string& p_Keyname);
 
     void Explode();
 };

@@ -15,17 +15,17 @@ enum PlayerIndex
 class PlayerShip : public GameObject
 {
   public:
-    PlayerShip(const std::string& keyname);
+    PlayerShip(const std::string& p_Keyname);
 
     static std::vector<GameObject*> PlayerShipList;
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
 
     static void RemoveKilled();
     static void RemoveAll();
     void Remove();
 
-    void Collide(GameObject* object);
+    void Collide(GameObject* p_Object);
 
     bool m_IsMovingUp;
     bool m_IsMovingDown;

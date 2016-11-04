@@ -10,14 +10,14 @@
 class Sprite
 {
   public:
-    Sprite(const std::string& keyname);
+    Sprite(const std::string& p_Keyname);
 
-    void Update(float deltaTime);
-    void Render(SDL_Renderer* renderer, Vector2f position);
+    void Update(float p_DeltaTime);
+    void Render(SDL_Renderer* p_Renderer, Vector2f p_Position);
 
     SDL_Rect GetFrameBounds();
 
-    void SetTextureIndex(int index);
+    void SetTextureIndex(int p_Index);
 
     Texture* m_Texture;
     Vector2f m_Origin;

@@ -3,21 +3,21 @@
 // AOS Includes
 #include "Sprite.hpp"
 
-Sprite::Sprite(const std::string& keyname)
+Sprite::Sprite(const std::string& p_Keyname)
 {
-  m_Texture = Texture::TextureList[keyname];
+  m_Texture = Texture::TextureList[p_Keyname];
   m_Origin = Vector2f(m_Texture->m_TileWidth / 2.0f, m_Texture->m_TileHeight / 2.0f);
   m_Frame = 0;
   m_FrameTimeRemaining = m_Texture->m_FrameInterval;
   m_TextureIndex = 0;
 }
 
-void Sprite::Update(float deltaTime)
+void Sprite::Update(float p_DeltaTime)
 {
-  m_FrameTimeRemaining -= deltaTime;
-  if (m_FrameTimeRemaining < 0)
+  m_FrameTimeRemaining -= p_DeltaTime;
+  if (m_FrameTimeRemaining < 0.0f)
   {
-    m_Frame++;
+    ++m_Frame;
     m_Frame %= m_Texture->m_FrameCount;
     m_FrameTimeRemaining = m_Texture->m_FrameInterval;
   }
@@ -25,7 +25,7 @@ void Sprite::Update(float deltaTime)
 
 void Sprite::Render(SDL_Renderer* renderer, Vector2f position)
 {
-  SDL_Texture* t = m_Texture->m_Textures[m_TextureIndex];
+  SDL_Texture* texture = m_Texture->m_Textures[m_TextureIndex];
 
   SDL_Rect clip = GetFrameBounds();
 
@@ -35,7 +35,7 @@ void Sprite::Render(SDL_Renderer* renderer, Vector2f position)
   location.w = clip.w;
   location.h = clip.h;
 
-  SDL_RenderCopy(renderer, t, &clip, &location);
+  SDL_RenderCopy(renderer, texture, &clip, &location);
 }
 
 SDL_Rect Sprite::GetFrameBounds()
@@ -49,10 +49,10 @@ SDL_Rect Sprite::GetFrameBounds()
   return m_FrameBounds;
 }
 
-void Sprite::SetTextureIndex(int index)
+void Sprite::SetTextureIndex(int p_Index)
 {
   if (m_Texture->m_IsCollidable)
   {
-    m_TextureIndex = index;
+    m_TextureIndex = p_Index;
   }
 }

@@ -33,12 +33,13 @@ void Boss::DestroyBoss()
   FinalBoss.m_IsKilled = true;
 }
 
-// BossEnemy.cpp //
+// BossEnemy.cpp
 
+// AOS Includes
 #include "Bullet.hpp"
 #include "Player.hpp"
 
-BossEnemy::BossEnemy(const std::string& keyname) : Enemy(keyname)
+BossEnemy::BossEnemy(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
   m_PointValue = BossPointValue;
 
@@ -55,10 +56,9 @@ BossEnemy::BossEnemy(const std::string& keyname) : Enemy(keyname)
   m_RightHand = new Miniboss("RightHand");
 }
 
-// basic movement behavior, comes part way down screen then patrols left-right
-void BossEnemy::Update(float deltaTime)
+void BossEnemy::Update(float p_DeltaTime)
 {
-  Enemy::Update(deltaTime);
+  Enemy::Update(p_DeltaTime);
 
   UpdateChildren();
 
@@ -93,17 +93,9 @@ void BossEnemy::Update(float deltaTime)
 
   m_ChildrenAngle += BossChildrenRotation;
 
-  // increase challenge when half dead (or half alive?)
-  if (m_Health > BossHealth / 2)
-  {
-    m_FireAngle += BossFireRotation;
-    m_LastFired += deltaTime;
-  }
-  else
-  {
-    m_FireAngle += BossFireRotation * 2;
-    m_LastFired += deltaTime * 2;
-  }
+  float difficulty = (m_Health < BossHealth / 2) ? 2.0f : 1.0f;
+  m_FireAngle += BossFireRotation * difficulty;
+  m_LastFired += p_DeltaTime * difficulty;
 
   if (m_LastFired > BossFireDelay)
   {
@@ -111,7 +103,6 @@ void BossEnemy::Update(float deltaTime)
   }
 }
 
-// helper function to update objects that this parent controls
 void BossEnemy::UpdateChildren()
 {
   if (m_LeftHand != nullptr)
@@ -141,7 +132,7 @@ void BossEnemy::UpdateChildren()
 
 void BossEnemy::RemoveOffScreen()
 {
-  SDL_Rect screenBounds = {-ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3};
+  SDL_Rect screenBounds = { -ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3 };
   SDL_Rect objectBounds = GetBounds();
 
   if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)
@@ -157,8 +148,6 @@ void BossEnemy::Remove()
   Enemy::Remove();
 }
 
-// fire bullets in a rotating spiral
-// it looks neat!
 void BossEnemy::FireBullet()
 {
   Bullet* bullet = new Bullet("NeonOrb");

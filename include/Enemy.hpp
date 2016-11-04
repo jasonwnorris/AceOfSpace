@@ -9,7 +9,7 @@
 class Enemy : public GameObject
 {
   public:
-    Enemy(const std::string& keyname);
+    Enemy(const std::string& p_Keyname);
     virtual ~Enemy();
 
     static std::vector<GameObject*> EnemyList;

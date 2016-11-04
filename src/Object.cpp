@@ -8,9 +8,9 @@
 std::vector<Object*> Object::ObjectList;
 std::vector<Object*> Object::ObjectAddList;
 
-Object::Object(const std::string& keyname)
+Object::Object(const std::string& p_Keyname)
 {
-  m_Sprite = new Sprite(keyname);
+  m_Sprite = new Sprite(p_Keyname);
   m_Position = Vector2f::Zero;
   m_Direction = Vector2f::Zero;
   m_Speed = 0.0f;
@@ -24,35 +24,35 @@ Object::~Object()
   delete m_Sprite;
 }
 
-void Object::UpdateObjects(float deltaTime)
+void Object::UpdateObjects(float p_DeltaTime)
 {
   for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
   {
-    (*Iter)->Update(deltaTime);
+    (*Iter)->Update(p_DeltaTime);
   }
 
   AddNew();
   RemoveDead();
 }
 
-void Object::Update(float deltaTime)
+void Object::Update(float p_DeltaTime)
 {
-  m_Sprite->Update(deltaTime);
+  m_Sprite->Update(p_DeltaTime);
   m_Direction.Normalize();
-  Move(m_Direction * m_Speed * deltaTime);
+  Move(m_Direction * m_Speed * p_DeltaTime);
 }
 
-void Object::RenderObjects(SDL_Renderer* renderer)
+void Object::RenderObjects(SDL_Renderer* p_Renderer)
 {
   for (std::vector<Object*>::iterator Iter = ObjectList.begin(); Iter != ObjectList.end(); ++Iter)
   {
-    (*Iter)->Render(renderer);
+    (*Iter)->Render(p_Renderer);
   }
 }
 
-void Object::Render(SDL_Renderer* renderer)
+void Object::Render(SDL_Renderer* p_Renderer)
 {
-  m_Sprite->Render(renderer, m_Position);
+  m_Sprite->Render(p_Renderer, m_Position);
 }
 
 void Object::AddNew()
@@ -105,9 +105,9 @@ void Object::Remove()
   m_IsDead = true;
 }
 
-void Object::Move(Vector2f amount)
+void Object::Move(Vector2f p_Amount)
 {
-  m_Position += amount;
+  m_Position += p_Amount;
 }
 
 SDL_Rect Object::GetBounds()
@@ -121,21 +121,21 @@ SDL_Rect Object::GetBounds()
   return bounds;
 }
 
-SDL_Rect Object::NormalizeBounds(const SDL_Rect& rect)
+SDL_Rect Object::NormalizeBounds(const SDL_Rect& p_Rect)
 {
-  SDL_Rect normalizeRect;
-  normalizeRect.x = (Sint16)(rect.x + m_Sprite->GetFrameBounds().x + m_Sprite->m_Origin.X - m_Position.X);
-  normalizeRect.y = (Sint16)(rect.y + m_Sprite->GetFrameBounds().y + m_Sprite->m_Origin.Y - m_Position.Y);
-  normalizeRect.w = rect.w;
-  normalizeRect.h = rect.h;
+  SDL_Rect rect;
+  rect.x = (Sint16)(p_Rect.x + m_Sprite->GetFrameBounds().x + m_Sprite->m_Origin.X - m_Position.X);
+  rect.y = (Sint16)(p_Rect.y + m_Sprite->GetFrameBounds().y + m_Sprite->m_Origin.Y - m_Position.Y);
+  rect.w = p_Rect.w;
+  rect.h = p_Rect.h;
 
-  return normalizeRect;
+  return rect;
 }
 
-bool Object::CheckCollision(Object* objectA, Object* objectB)
+bool Object::CheckCollision(Object* p_ObjectA, Object* p_ObjectB)
 {
-  SDL_Rect boundsA = objectA->GetBounds();
-  SDL_Rect boundsB = objectB->GetBounds();
+  SDL_Rect boundsA = p_ObjectA->GetBounds();
+  SDL_Rect boundsB = p_ObjectB->GetBounds();
 
   SDL_Rect collisionRect;
   if (SDL_IntersectRect(&boundsA, &boundsB, &collisionRect) == SDL_FALSE)
@@ -143,11 +143,11 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
     return false;
   }
 
-  SDL_Rect normalA = objectA->NormalizeBounds(collisionRect);
-  SDL_Rect normalB = objectB->NormalizeBounds(collisionRect);
+  SDL_Rect normalA = p_ObjectB->NormalizeBounds(collisionRect);
+  SDL_Rect normalB = p_ObjectB->NormalizeBounds(collisionRect);
 
-  Texture* textureA = objectA->m_Sprite->m_Texture;
-  Texture* textureB = objectB->m_Sprite->m_Texture;
+  Texture* textureA = p_ObjectB->m_Sprite->m_Texture;
+  Texture* textureB = p_ObjectB->m_Sprite->m_Texture;
 
   for (int y = 0; y <= collisionRect.h; ++y)
   {
@@ -163,7 +163,7 @@ bool Object::CheckCollision(Object* objectA, Object* objectB)
   return false;
 }
 
-bool Object::GetAlphaXY(Texture* texture, int x, int y)
+bool Object::GetAlphaXY(Texture* p_Texture, int p_X, int p_Y)
 {
-  return texture->m_IsPixelSolid[x + y * texture->m_Width];
+  return p_Texture->m_IsPixelSolid[p_X + p_Y * p_Texture->m_Width];
 }

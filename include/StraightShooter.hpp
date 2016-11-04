@@ -9,9 +9,9 @@
 class StraightShooter : public Enemy
 {
   public:
-    StraightShooter(const std::string& keyname);
+    StraightShooter(const std::string& p_Keyname);
 
-    virtual void Update(float deltaTime);
+    virtual void Update(float p_DeltaTime);
 
   private:
     void FireBullet();

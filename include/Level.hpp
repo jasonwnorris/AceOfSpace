@@ -31,11 +31,10 @@ class Level
     std::vector<LevelObject> LevelObjects;
 
     void BuildLevel();
-    void AddObject(const std::string& type, float positionX, float spawnTime);
-    void SpawnObject(LevelObject object);
+    void SpawnObject(LevelObject p_Object);
     void Reset();
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
 
     float m_TimeElapsed;
     int m_ObjectIndex;

@@ -5,12 +5,12 @@
 
 std::map<std::string, Sound*> Sound::SoundList;
 
-Sound::Sound(const std::string& filename, bool loop)
+Sound::Sound(const std::string& p_Filename, bool p_IsLoop)
 {
-  std::string filepath = "resources/" + filename;
+  std::string filepath = "resources/" + p_Filename;
 
   this->m_MixMusic = Mix_LoadMUS(filepath.c_str());
-  this->m_IsLoop = loop;
+  this->m_IsLoop = p_IsLoop;
 }
 
 Sound::~Sound()
@@ -18,7 +18,6 @@ Sound::~Sound()
   Mix_FreeMusic(m_MixMusic);
 }
 
-// load in sound files from text document
 void Sound::LoadSounds()
 {
   std::ifstream file;
@@ -37,18 +36,8 @@ void Sound::LoadSounds()
     file >> filename;
     file >> loops;
 
-    Sound* sound;
+    SoundList[keyname] = new Sound(filename, (loops == "yes"));
 
-    if (loops == "yes")
-    {
-      sound = new Sound(filename, true);
-    }
-    else
-    {
-      sound = new Sound(filename, false);
-    }
-
-    SoundList[keyname] = sound;
     SDL_Log("Loaded sound: %s", keyname.c_str());
   }
 
@@ -66,16 +55,9 @@ void Sound::UnloadSounds()
   SoundList.clear();
 }
 
-void Sound::PlaySound(const std::string& keyname)
+void Sound::PlaySound(const std::string& p_Keyname)
 {
-  Sound* sound = SoundList[keyname];
+  Sound* sound = SoundList[p_Keyname];
 
-  if (sound->m_IsLoop)
-  {
-    Mix_PlayMusic(sound->m_MixMusic, -1);
-  }
-  else
-  {
-    Mix_PlayMusic(sound->m_MixMusic, 0);
-  }
+  Mix_PlayMusic(sound->m_MixMusic, sound->m_IsLoop ? -1 : 0);
 }

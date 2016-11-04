@@ -7,6 +7,11 @@
 // AOS Includes
 #include "Font.hpp"
 
+bool Glyph::operator==(const Glyph& p_Other)
+{
+  return this->Character == p_Other.Character && this->Index == p_Other.Index;
+}
+
 Font::Font()
 {
   m_Texture = nullptr;

@@ -7,7 +7,7 @@
 
 std::vector<GameObject*> Enemy::EnemyList;
 
-Enemy::Enemy(const std::string& keyname) : GameObject(keyname)
+Enemy::Enemy(const std::string& p_Keyname) : GameObject(p_Keyname)
 {
   m_Direction = Vector2f::Down;
   m_ExplosionKeyname = "Explosion";

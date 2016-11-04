@@ -3,18 +3,18 @@
 // AOS Includes
 #include "Fireball.hpp"
 
-Fireball::Fireball(const std::string& keyname) : Projectile(keyname)
+Fireball::Fireball(const std::string& p_Keyname) : Projectile(p_Keyname)
 {
   m_Speed = FireballSpeed;
   m_Health = FireballHealth;
   m_LifeTimeRemaining = FireballFadeoutTime;
 }
 
-void Fireball::Update(float deltaTime)
+void Fireball::Update(float p_DeltaTime)
 {
-  Projectile::Update(deltaTime);
+  Projectile::Update(p_DeltaTime);
 
-  m_LifeTimeRemaining -= deltaTime;
+  m_LifeTimeRemaining -= p_DeltaTime;
 
   if (m_LifeTimeRemaining < 0)
   {

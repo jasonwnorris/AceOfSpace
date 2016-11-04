@@ -28,10 +28,7 @@ struct Glyph
   int VisualHeight;
   SDL_Surface* Surface;
 
-  bool operator==(const Glyph& other)
-  {
-    return this->Character == other.Character && this->Index == other.Index;
-  }
+  bool operator==(const Glyph& p_Other);
 };
 
 class Font

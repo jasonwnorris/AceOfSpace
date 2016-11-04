@@ -8,7 +8,7 @@
 #include "Bullet.hpp"
 #include "Player.hpp"
 
-Miniboss::Miniboss(const std::string& keyname) : Enemy(keyname)
+Miniboss::Miniboss(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
   m_PointValue = MinibossPointValue;
   m_Health = MinibossHealth;
@@ -16,11 +16,11 @@ Miniboss::Miniboss(const std::string& keyname) : Enemy(keyname)
   m_LastFired = 0.0f;
 }
 
-void Miniboss::Update(float deltaTime)
+void Miniboss::Update(float p_DeltaTime)
 {
-  Enemy::Update(deltaTime);
+  Enemy::Update(p_DeltaTime);
 
-  m_LastFired += deltaTime;
+  m_LastFired += p_DeltaTime;
   if (m_LastFired > MinibossFireDelay)
   {
     FireBullet();
@@ -29,7 +29,7 @@ void Miniboss::Update(float deltaTime)
 
 void Miniboss::RemoveOffScreen()
 {
-  SDL_Rect screenBounds = {-ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3};
+  SDL_Rect screenBounds = { -ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3 };
   SDL_Rect objectBounds = GetBounds();
 
   if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)
@@ -38,7 +38,6 @@ void Miniboss::RemoveOffScreen()
   }
 }
 
-// fire bullets in an octagon shape pattern
 void Miniboss::FireBullet()
 {
   for (int i = 0; i < 8; i++)

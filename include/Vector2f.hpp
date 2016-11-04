@@ -13,7 +13,7 @@ class Vector2f
     static const Vector2f Left;
     static const Vector2f Right;
 
-    Vector2f(float x = 0.0f, float y = 0.0f);
+    Vector2f(float p_X = 0.0f, float p_Y = 0.0f);
 
     float X;
     float Y;
@@ -21,23 +21,23 @@ class Vector2f
     void Normalize();
     float Angle() const;
     float Length() const;
-    static Vector2f CalculateDirection(float angle);
-    static Vector2f LinearInterp(const Vector2f& v1, const Vector2f& v2, const float& weight);
+    static Vector2f CalculateDirection(float p_Angle);
+    static Vector2f LinearInterp(const Vector2f& p_Vector1, const Vector2f& p_Vector2, const float& p_Weight);
 
-    Vector2f operator+(const Vector2f& v) const;
-    Vector2f operator-(const Vector2f& v) const;
-    Vector2f operator*(int mag) const;
-    Vector2f operator*(float mag) const;
-    Vector2f operator/(int mag) const;
-    Vector2f operator/(float mag) const;
+    Vector2f operator+(const Vector2f& p_Vector) const;
+    Vector2f operator-(const Vector2f& p_Vector) const;
+    Vector2f operator*(int p_Scalar) const;
+    Vector2f operator*(float p_Scalar) const;
+    Vector2f operator/(int p_Scalar) const;
+    Vector2f operator/(float p_Scalar) const;
 
-    void operator=(const Vector2f& v);
-    void operator+=(const Vector2f& v);
-    void operator-=(const Vector2f& v);
+    void operator=(const Vector2f& p_Vector);
+    void operator+=(const Vector2f& p_Vector);
+    void operator-=(const Vector2f& p_Vector);
 
 };
 
-Vector2f operator*(int mag, const Vector2f& v);
-Vector2f operator*(float mag, const Vector2f& v);
+Vector2f operator*(int p_Scalar, const Vector2f& p_Vector);
+Vector2f operator*(float p_Scalar, const Vector2f& p_Vector);
 
 #endif

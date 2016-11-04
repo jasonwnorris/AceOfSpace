@@ -9,9 +9,9 @@
 class Particle : public Object
 {
   public:
-    Particle(const std::string& keyname);
+    Particle(const std::string& p_Keyname);
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
 
   private:
     float m_LifeInterval;

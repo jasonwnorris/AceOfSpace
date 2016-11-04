@@ -1,5 +1,7 @@
 // Player.cpp
 
+// STL Includes
+#include <sstream>
 // AOS Includes
 #include "Player.hpp"
 #include "Sound.hpp"
@@ -10,12 +12,12 @@
 
 #define PLAYER_COUNT 2
 
-SDL_Keycode StartKey[2] = {SDLK_SPACE, SDLK_RSHIFT};
-SDL_Keycode UpKey[2]    = {SDLK_w,     SDLK_UP};
-SDL_Keycode DownKey[2]  = {SDLK_s,     SDLK_DOWN};
-SDL_Keycode LeftKey[2]  = {SDLK_a,     SDLK_LEFT};
-SDL_Keycode RightKey[2] = {SDLK_d,     SDLK_RIGHT};
-SDL_Keycode FireKey[2]  = {SDLK_j,     SDLK_RCTRL};
+SDL_Keycode StartKey[2] = { SDLK_SPACE, SDLK_RSHIFT };
+SDL_Keycode UpKey[2]    = { SDLK_w, SDLK_UP };
+SDL_Keycode DownKey[2]  = { SDLK_s, SDLK_DOWN };
+SDL_Keycode LeftKey[2]  = { SDLK_a, SDLK_LEFT };
+SDL_Keycode RightKey[2] = { SDLK_d, SDLK_RIGHT };
+SDL_Keycode FireKey[2]  = { SDLK_j, SDLK_RCTRL };
 
 Player* Player::Players = nullptr;
 
@@ -38,96 +40,96 @@ void Player::AddPlayers()
 
 void Player::RemovePlayers()
 {
-  delete [] Players;
+  delete[] Players;
   Players = nullptr;
 }
 
-void Player::SpawnPlayer(int index)
+void Player::SpawnPlayer(int p_Index)
 {
-  if (Players[index].m_Ship == nullptr && Players[index].m_Lives > 0)
+  if (Players[p_Index].m_Ship == nullptr && Players[p_Index].m_Lives > 0)
   {
-    char player[8];
-    snprintf(player, 8, "Player%d", index + 1);
-    Players[index].m_Ship = new PlayerShip(player);
+    std::stringstream ss;
+    ss << "Player" << (p_Index + 1);
+    Players[p_Index].m_Ship = new PlayerShip(ss.str());
   }
 }
 
-void Player::DestroyPlayer(PlayerShip* m_Ship)
+void Player::DestroyPlayer(PlayerShip* p_Ship)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
   {
-    if (Players[i].m_Ship == m_Ship)
+    if (Players[i].m_Ship == p_Ship)
     {
       Players[i].m_Ship = nullptr;
-      Players[i].m_Lives--;
+      --Players[i].m_Lives;
     }
   }
 }
 
-void Player::ProcessInput(SDL_Event& event)
+void Player::ProcessInput(SDL_Event& p_Event)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
   {
-    Players[i].ProcessInput(event, i);
+    Players[i].ProcessInput(p_Event, i);
   }
 }
 
-void Player::ProcessInput(SDL_Event& event, int index)
+void Player::ProcessInput(SDL_Event& p_Event, int p_Index)
 {
   if (m_Ship == nullptr)
   {
-    if (event.type == SDL_KEYDOWN)
+    if (p_Event.type == SDL_KEYDOWN)
     {
-      if (event.key.keysym.sym == StartKey[index])
+      if (p_Event.key.keysym.sym == StartKey[p_Index])
       {
-        SpawnPlayer(index);
+        SpawnPlayer(p_Index);
       }
     }
   }
   else
   {
-    if (event.type == SDL_KEYDOWN)
+    if (p_Event.type == SDL_KEYDOWN)
     {
-      if (event.key.keysym.sym == UpKey[index])
+      if (p_Event.key.keysym.sym == UpKey[p_Index])
       {
         m_Ship->m_IsMovingUp = true;
       }
-      if (event.key.keysym.sym == DownKey[index])
+      if (p_Event.key.keysym.sym == DownKey[p_Index])
       {
         m_Ship->m_IsMovingDown = true;
       }
-      if (event.key.keysym.sym == LeftKey[index])
+      if (p_Event.key.keysym.sym == LeftKey[p_Index])
       {
         m_Ship->m_IsMovingLeft = true;
       }
-      if (event.key.keysym.sym == RightKey[index])
+      if (p_Event.key.keysym.sym == RightKey[p_Index])
       {
         m_Ship->m_IsMovingRight = true;
       }
-      if (event.key.keysym.sym == FireKey[index])
+      if (p_Event.key.keysym.sym == FireKey[p_Index])
       {
         m_Ship->m_IsShooting = true;
       }
     }
-    else if (event.type == SDL_KEYUP)
+    else if (p_Event.type == SDL_KEYUP)
     {
-      if (event.key.keysym.sym == UpKey[index])
+      if (p_Event.key.keysym.sym == UpKey[p_Index])
       {
         m_Ship->m_IsMovingUp = false;
       }
-      if (event.key.keysym.sym == DownKey[index])
+      if (p_Event.key.keysym.sym == DownKey[p_Index])
       {
         m_Ship->m_IsMovingDown = false;
       }
-      if (event.key.keysym.sym == LeftKey[index])
+      if (p_Event.key.keysym.sym == LeftKey[p_Index])
       {
         m_Ship->m_IsMovingLeft = false;
       }
-      if (event.key.keysym.sym == RightKey[index])
+      if (p_Event.key.keysym.sym == RightKey[p_Index])
       {
         m_Ship->m_IsMovingRight = false;
       }
-      if (event.key.keysym.sym == FireKey[index])
+      if (p_Event.key.keysym.sym == FireKey[p_Index])
       {
         m_Ship->m_IsShooting = false;
       }
@@ -135,11 +137,11 @@ void Player::ProcessInput(SDL_Event& event, int index)
   }
 }
 
-void Player::AwardPoints(int amount)
+void Player::AwardPoints(int p_Amount)
 {
   for (int i = 0; i < PLAYER_COUNT; ++i)
   {
-    Players[i].m_Score += amount;
+    Players[i].m_Score += p_Amount;
   }
 }
 
@@ -147,7 +149,7 @@ void Player::AwardPoints(int amount)
 
 std::vector<GameObject*> PlayerShip::PlayerShipList;
 
-PlayerShip::PlayerShip(const std::string& keyname) : GameObject(keyname)
+PlayerShip::PlayerShip(const std::string& p_Keyname) : GameObject(p_Keyname)
 {
   m_Position = Vector2f(ScreenWidth / 2.0f, static_cast<float>(ScreenHeight - m_Sprite->m_Texture->m_TileHeight - PlayerSpawnOffset));
   m_Speed = PlayerSpeed;
@@ -166,7 +168,7 @@ PlayerShip::PlayerShip(const std::string& keyname) : GameObject(keyname)
   PlayerShipList.push_back(this);
 }
 
-void PlayerShip::Update(float deltaTime)
+void PlayerShip::Update(float p_DeltaTime)
 {
   m_Direction = Vector2f::Zero;
 
@@ -187,11 +189,12 @@ void PlayerShip::Update(float deltaTime)
     m_Direction.X += 1;
   }
 
-  m_LastFired += deltaTime;
+  m_LastFired += p_DeltaTime;
   FireBullet();
 
-  GameObject::Update(deltaTime);
+  GameObject::Update(p_DeltaTime);
 
+  // Horizontally constraint sprite to screen.
   if (m_Position.X < m_Sprite->m_Origin.X)
   {
     m_Position.X = m_Sprite->m_Origin.X;
@@ -201,6 +204,7 @@ void PlayerShip::Update(float deltaTime)
     m_Position.X = ScreenWidth - m_Sprite->m_Origin.X;
   }
 
+  // Vertically constraint sprite to screen.
   if (m_Position.Y < m_Sprite->m_Origin.Y)
   {
     m_Position.Y = m_Sprite->m_Origin.Y;
@@ -241,10 +245,10 @@ void PlayerShip::Remove()
   GameObject::Remove();
 }
 
-void PlayerShip::Collide(GameObject* object)
+void PlayerShip::Collide(GameObject* p_Object)
 {
-  int objectHealth = object->m_Health;
-  object->TakeDamage(this->m_Health);
+  int objectHealth = p_Object->m_Health;
+  p_Object->TakeDamage(m_Health);
   this->TakeDamage(objectHealth);
 }
 
@@ -256,8 +260,7 @@ void PlayerShip::FireBullet()
     {
       if (m_LastFired > PlayerFireDelay)
       {
-        int total = 3;
-        for (int i = 0; i < total; ++i)
+        for (int i = 0; i < 3; ++i)
         {
           Projectile* projectile = new Bullet("Bullet");
           projectile->m_Position = m_Position + Vector2f::Left * (1 - i) * 5.0f + Vector2f::Up * 20.0f;

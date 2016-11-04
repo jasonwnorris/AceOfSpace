@@ -10,9 +10,9 @@
 class BossEnemy : public Enemy
 {
   public:
-    BossEnemy(const std::string& keyname);
+    BossEnemy(const std::string& p_Keyname);
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
     void UpdateChildren();
 
     void RemoveOffScreen();

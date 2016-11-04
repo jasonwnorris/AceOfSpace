@@ -3,14 +3,14 @@
 // AOS Includes
 #include "Missile.hpp"
 
-Missile::Missile(const std::string& keyname) : Projectile(keyname)
+Missile::Missile(const std::string& p_Keyname) : Projectile(p_Keyname)
 {
   m_Speed = MissileSpeed;
   m_Health = MissileHealth;
   m_Target = nullptr;
 }
 
-void Missile::Update(float deltaTime)
+void Missile::Update(float p_DeltaTime)
 {
   if (m_Target == nullptr || m_Target->m_IsDead)
   {
@@ -24,12 +24,12 @@ void Missile::Update(float deltaTime)
     m_Direction += m_TargetDirection * MissileHomingStrength;
   }
 
-  Projectile::Update(deltaTime);
+  Projectile::Update(p_DeltaTime);
 }
 
 void Missile::RemoveOffScreen()
 {
-  SDL_Rect screenBounds = {-ScreenWidth / 2, -ScreenHeight / 2, ScreenWidth * 2, ScreenHeight * 2};
+  SDL_Rect screenBounds = { -ScreenWidth / 2, -ScreenHeight / 2, ScreenWidth * 2, ScreenHeight * 2 };
   SDL_Rect objectBounds = GetBounds();
 
   if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)

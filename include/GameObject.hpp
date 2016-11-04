@@ -9,18 +9,18 @@
 class GameObject : public Object
 {
   public:
-    GameObject(const std::string& keyname);
+    GameObject(const std::string& p_Keyname);
     virtual ~GameObject();
 
-    virtual void Update(float deltaTime);
+    virtual void Update(float p_DeltaTime);
 
-    virtual void Collide(GameObject* object) { }
-    virtual void TakeDamage(int amount);
+    virtual void Collide(GameObject* p_Object) { }
+    virtual void TakeDamage(int p_Amount);
     virtual void Explode();
 
     virtual void RemoveOffScreen();
 
-    GameObject* PickRandomObject(std::vector<GameObject*>* PickList);
+    GameObject* PickRandomObject(std::vector<GameObject*>* p_PickList);
 
     int m_Health;
     float m_FlickerInterval;

@@ -9,9 +9,9 @@
 class Miniboss : public Enemy
 {
     public:
-    Miniboss(const std::string& keyname);
+    Miniboss(const std::string& p_Keyname);
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
 
     void RemoveOffScreen();
 

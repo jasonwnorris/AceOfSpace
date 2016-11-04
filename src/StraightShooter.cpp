@@ -5,7 +5,7 @@
 #include "Player.hpp"
 #include "Bullet.hpp"
 
-StraightShooter::StraightShooter(const std::string& keyname) : Enemy(keyname)
+StraightShooter::StraightShooter(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
   m_PointValue = StraightShooterPointValue;
   m_Health = StraightShooterHealth;
@@ -13,11 +13,11 @@ StraightShooter::StraightShooter(const std::string& keyname) : Enemy(keyname)
   m_LastFired = 0.0f;
 }
 
-void StraightShooter::Update(float deltaTime)
+void StraightShooter::Update(float p_DeltaTime)
 {
-  Enemy::Update(deltaTime);
+  Enemy::Update(p_DeltaTime);
 
-  m_LastFired += deltaTime;
+  m_LastFired += p_DeltaTime;
   if (m_LastFired > StraightShooterFireDelay)
   {
     FireBullet();

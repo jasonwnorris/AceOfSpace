@@ -9,9 +9,9 @@
 class Fireball : public Projectile
 {
   public:
-    Fireball(const std::string& keyname);
+    Fireball(const std::string& p_Keyname);
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
 
   private:
     float m_LifeTimeRemaining;

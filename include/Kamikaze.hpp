@@ -9,9 +9,9 @@
 class Kamikaze : public Enemy
 {
   public:
-    Kamikaze(const std::string& keyname);
+    Kamikaze(const std::string& p_Keyname);
 
-    void Update(float deltaTime);
+    void Update(float p_DeltaTime);
 
   private:
     float m_IdleDelay;

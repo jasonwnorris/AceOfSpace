@@ -9,7 +9,7 @@
 class Bullet : public Projectile
 {
   public:
-    Bullet(const std::string& keyname);
+    Bullet(const std::string& p_Keyname);
 };
 
 #endif
