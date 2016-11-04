@@ -7,9 +7,9 @@
 
 TargetShooter::TargetShooter(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
-  m_PointValue = TargetShooterPointValue;
-  m_Health = TargetShooterHealth;
-  m_Speed = TargetShooterSpeed;
+  m_PointValue = c_TargetShooterPointValue;
+  m_Health = c_TargetShooterHealth;
+  m_Speed = c_TargetShooterSpeed;
   m_Target = nullptr;
   m_TargetDirection = Vector2f::Zero;
   m_LastFired = 0.0f;
@@ -35,7 +35,7 @@ void TargetShooter::Update(float p_DeltaTime)
   Enemy::Update(p_DeltaTime);
 
   m_LastFired += p_DeltaTime;
-  if (m_LastFired > TargetShooterFireDelay)
+  if (m_LastFired > c_TargetShooterFireDelay)
   {
     FireBullet();
   }

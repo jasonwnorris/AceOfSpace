@@ -5,9 +5,9 @@
 
 Asteroid::Asteroid(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
-  m_PointValue = AsteroidPointValue;
-  m_Health = AsteroidHealth;
-  m_Speed = AsteroidSpeed;
+  m_PointValue = c_AsteroidPointValue;
+  m_Health = c_AsteroidHealth;
+  m_Speed = c_AsteroidSpeed;
 }
 
 void Asteroid::Explode()

@@ -6,10 +6,10 @@
 
 Kamikaze::Kamikaze(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
-  m_PointValue = KamikazePointValue;
-  m_Health = KamikazeHealth;
-  m_Speed = KamikazeIdleSpeed;
-  m_IdleDelay = KamikazeIdleDelay;
+  m_PointValue = c_KamikazePointValue;
+  m_Health = c_KamikazeHealth;
+  m_Speed = c_KamikazeIdleSpeed;
+  m_IdleDelay = c_KamikazeIdleDelay;
   m_HasFoundTarget = false;
 }
 
@@ -26,7 +26,7 @@ void Kamikaze::Update(float p_DeltaTime)
         m_Direction = target->m_Position - m_Position;
       }
 
-      m_Speed = KamikazeAttackSpeed;
+      m_Speed = c_KamikazeAttackSpeed;
       m_HasFoundTarget = true;
     }
   }

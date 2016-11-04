@@ -3,63 +3,62 @@
 #ifndef __CONFIG_HPP__
 #define __CONFIG_HPP__
 
-const int ScreenWidth = 800;
-const int ScreenHeight = 600;
-const int ScreenBPP = 32;
+static const int c_ScreenWidth = 800;
+static const int c_ScreenHeight = 600;
 
-const float DamageEffectTime = 0.09f;
+static const float c_DamageEffectTime = 0.09f;
 
-const float StarfieldSpawnTime = 0.05f;
+static const float c_StarfieldSpawnTime = 0.05f;
 
-const int PlayerHealth = 100;
-const float PlayerSpeed = 300.0f;
-const int PlayerSpawnOffset = 20;
-const float PlayerFireDelay = 0.2f;
-const int PlayerLives = 5;
+static const int c_PlayerHealth = 100;
+static const float c_PlayerSpeed = 300.0f;
+static const int c_PlayerSpawnOffset = 20;
+static const float c_PlayerFireDelay = 0.2f;
+static const int c_PlayerLives = 5;
 
-const int BossPointValue = 5000;
-const int BossHealth = 7500;
-const float BossSpeed = 50.0f;
-const float BossFireDelay = 0.05f;
-const float BossFireRotation = 0.05f;
-const float BossChildrenRotation = 0.01f;
+static const int c_BossPointValue = 5000;
+static const int c_BossHealth = 7500;
+static const float c_BossSpeed = 50.0f;
+static const float c_BossFireDelay = 0.05f;
+static const float c_BossFireRotation = 0.05f;
+static const float c_BossChildrenRotation = 0.01f;
 
-const int MinibossPointValue = 1000;
-const int MinibossHealth = 2000;
-const float MinibossFireDelay = 1.0f;
+static const int c_MinibossPointValue = 1000;
+static const int c_MinibossHealth = 2000;
+static const float c_MinibossFireDelay = 1.0f;
 
-const int AsteroidPointValue = 10;
-const int AsteroidHealth = 50;
-const float AsteroidSpeed = 100.0f;
+static const int c_AsteroidPointValue = 10;
+static const int c_AsteroidHealth = 50;
+static const float c_AsteroidSpeed = 100.0f;
 
-const int StraightShooterPointValue = 20;
-const int StraightShooterHealth = 100;
-const float StraightShooterSpeed = 100.0f;
-const float StraightShooterFireDelay = 1.0f;
+static const int c_StraightShooterPointValue = 20;
+static const int c_StraightShooterHealth = 100;
+static const float c_StraightShooterSpeed = 100.0f;
+static const float c_StraightShooterFireDelay = 1.0f;
 
-const int TargetShooterPointValue = 25;
-const int TargetShooterHealth = 100;
-const float TargetShooterSpeed = 100.0f;
-const float TargetShooterFireDelay = 1.0f;
+static const int c_TargetShooterPointValue = 25;
+static const int c_TargetShooterHealth = 100;
+static const float c_TargetShooterSpeed = 100.0f;
+static const float c_TargetShooterFireDelay = 1.0f;
 
-const int KamikazePointValue = 15;
-const int KamikazeHealth = 75;
-const float KamikazeIdleDelay = 1.5f;
-const float KamikazeIdleSpeed = 100.0f;
-const float KamikazeAttackSpeed = 500.0f;
+static const int c_KamikazePointValue = 15;
+static const int c_KamikazeHealth = 75;
+static const float c_KamikazeIdleDelay = 1.5f;
+static const float c_KamikazeIdleSpeed = 100.0f;
+static const float c_KamikazeAttackSpeed = 500.0f;
 
-const int BulletHealth = 8;
-const float BulletSpeed = 600.0f;
+static const int c_BulletHealth = 8;
+static const float c_BulletSpeed = 600.0f;
 
-const int MissileHealth = 5;
-const float MissileSpeed = 500.0f;
-const float MissileHomingStrength = 0.019f;
+static const int c_MissileHealth = 5;
+static const float c_MissileSpeed = 500.0f;
+static const float c_MissileHomingStrength = 0.019f;
 
-const int FireballHealth = 2;
-const float FireballSpeed = 200.0f;
-const float FireballFadeoutTime = 0.8f;
-const float FireballFireDelay = 0.004f;
+static const int c_FireballHealth = 2;
+static const float c_FireballSpeed = 200.0f;
+static const float c_FireballFadeoutTime = 0.8f;
+static const float c_FireballFireDelay = 0.004f;
 
-const float ItemSpeed = 100.0f;
+static const float c_ItemSpeed = 100.0f;
 
 #endif

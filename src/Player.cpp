@@ -24,7 +24,7 @@ Player* Player::Players = nullptr;
 Player::Player()
 {
   m_Ship = nullptr;
-  m_Lives = PlayerLives;
+  m_Lives = c_PlayerLives;
   m_Score = 0;
 }
 
@@ -151,9 +151,9 @@ std::vector<GameObject*> PlayerShip::PlayerShipList;
 
 PlayerShip::PlayerShip(const std::string& p_Keyname) : GameObject(p_Keyname)
 {
-  m_Position = Vector2f(ScreenWidth / 2.0f, static_cast<float>(ScreenHeight - m_Sprite->m_Texture->m_TileHeight - PlayerSpawnOffset));
-  m_Speed = PlayerSpeed;
-  m_Health = PlayerHealth;
+  m_Position = Vector2f(c_ScreenWidth / 2.0f, static_cast<float>(c_ScreenHeight - m_Sprite->m_Texture->m_TileHeight - c_PlayerSpawnOffset));
+  m_Speed = c_PlayerSpeed;
+  m_Health = c_PlayerHealth;
   m_ExplosionKeyname = "Explosion";
   m_WeaponType = WEAPON_BULLET;
   CollisionList = &Enemy::EnemyList;
@@ -199,9 +199,9 @@ void PlayerShip::Update(float p_DeltaTime)
   {
     m_Position.X = m_Sprite->m_Origin.X;
   }
-  else if (m_Position.X > ScreenWidth - m_Sprite->m_Origin.X)
+  else if (m_Position.X > c_ScreenWidth - m_Sprite->m_Origin.X)
   {
-    m_Position.X = ScreenWidth - m_Sprite->m_Origin.X;
+    m_Position.X = c_ScreenWidth - m_Sprite->m_Origin.X;
   }
 
   // Vertically constraint sprite to screen.
@@ -209,9 +209,9 @@ void PlayerShip::Update(float p_DeltaTime)
   {
     m_Position.Y = m_Sprite->m_Origin.Y;
   }
-  else if (m_Position.Y > ScreenHeight - m_Sprite->m_Origin.Y)
+  else if (m_Position.Y > c_ScreenHeight - m_Sprite->m_Origin.Y)
   {
-    m_Position.Y = ScreenHeight - m_Sprite->m_Origin.Y;
+    m_Position.Y = c_ScreenHeight - m_Sprite->m_Origin.Y;
   }
 }
 
@@ -258,7 +258,7 @@ void PlayerShip::FireBullet()
   {
     if (m_WeaponType == WEAPON_BULLET)
     {
-      if (m_LastFired > PlayerFireDelay)
+      if (m_LastFired > c_PlayerFireDelay)
       {
         for (int i = 0; i < 3; ++i)
         {
@@ -273,7 +273,7 @@ void PlayerShip::FireBullet()
     }
     else if (m_WeaponType == WEAPON_MISSILE || m_WeaponType == WEAPON_PLASMA)
     {
-      if (m_LastFired > PlayerFireDelay)
+      if (m_LastFired > c_PlayerFireDelay)
       {
         int total = 5;
         for (int i = 0; i < total; ++i)
@@ -299,7 +299,7 @@ void PlayerShip::FireBullet()
     }
     else if (m_WeaponType == WEAPON_FIREBALL)
     {
-      if (m_LastFired > FireballFireDelay)
+      if (m_LastFired > c_FireballFireDelay)
       {
         Projectile* projectile = new Fireball("Flames");
         projectile->m_Position = m_Position + Vector2f::Up * 28.0f;

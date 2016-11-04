@@ -20,7 +20,7 @@ void Level::BuildLevel()
   file.open("resources/level.txt");
 
   std::string type = "";
-  int positionX = 0;
+  float positionX = 0.0f;
   float time = 0.0f;
 
   float finalTime = 0.0f;
@@ -47,7 +47,7 @@ void Level::BuildLevel()
 
   LevelObject boss;
   boss.Type = "Boss";
-  boss.PositionX = ScreenWidth / 2;
+  boss.PositionX = c_ScreenWidth / 2;
   boss.Time = finalTime + 5.0f;
 
   LevelObjects.push_back(boss);

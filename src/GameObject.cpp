@@ -57,7 +57,7 @@ void GameObject::TakeDamage(int p_Amount)
     else
     {
       m_Sprite->SetTextureIndex(1);
-      m_FlickerInterval = DamageEffectTime;
+      m_FlickerInterval = c_DamageEffectTime;
     }
   }
 }
@@ -75,7 +75,7 @@ void GameObject::Explode()
 // check if the object bounds are intersecting with the viewable screen
 void GameObject::RemoveOffScreen()
 {
-  SDL_Rect screenBounds = { 0, 0, ScreenWidth, ScreenHeight };
+  SDL_Rect screenBounds = { 0, 0, c_ScreenWidth, c_ScreenHeight };
   SDL_Rect objectBounds = GetBounds();
 
   if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)

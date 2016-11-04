@@ -15,7 +15,7 @@ void Powerup::InflictBonus(GameObject* p_Object)
 {
   if (m_Type == "ItemHealth")
   {
-    p_Object->m_Health = std::min(p_Object->m_Health + 50, PlayerHealth);
+    p_Object->m_Health = std::min(p_Object->m_Health + 50, c_PlayerHealth);
   }
   else if (m_Type == "ItemSpeed")
   {

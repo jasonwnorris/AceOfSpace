@@ -44,7 +44,7 @@ Game::Game()
   SDL_Log("complete!");
 
   SDL_Log("Initializing window... ");
-  m_Window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ScreenWidth, ScreenHeight, 0);
+  m_Window = SDL_CreateWindow("Ace of Space", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, c_ScreenWidth, c_ScreenHeight, 0);
 
   if (m_Window == nullptr)
   {
@@ -338,7 +338,7 @@ void Game::OnRender()
 void Game::DrawHUD()
 {
   // player 1 HUD
-  SDL_Rect health1 = {20, ScreenHeight - 25, 200, 10};
+  SDL_Rect health1 = { 20, c_ScreenHeight - 25, 200, 10 };
   SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
   SDL_RenderFillRect(m_Renderer, &health1);
 
@@ -351,7 +351,7 @@ void Game::DrawHUD()
 
   for (int i = 0; i < Player::Players[0].m_Lives; ++i)
   {
-    SDL_Rect box = {(i + 1) * 20, ScreenHeight - 45, 10, 10};
+    SDL_Rect box = { (i + 1) * 20, c_ScreenHeight - 45, 10, 10 };
     SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
     SDL_RenderFillRect(m_Renderer, &box);
   }
@@ -359,13 +359,13 @@ void Game::DrawHUD()
   // player 2 HUD
   if (!m_IsSinglePlayer)
   {
-    SDL_Rect health2 = {ScreenWidth - 220, ScreenHeight - 25, 200, 10};
+    SDL_Rect health2 = { c_ScreenWidth - 220, c_ScreenHeight - 25, 200, 10 };
     SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(m_Renderer, &health2);
 
     if (Player::Players[1].m_Ship != nullptr)
     {
-      health2.x = ScreenWidth - 220 + (PlayerHealth - Player::Players[1].m_Ship->m_Health) * 2;
+      health2.x = c_ScreenWidth - 220 + (c_PlayerHealth - Player::Players[1].m_Ship->m_Health) * 2;
       health2.w = Player::Players[1].m_Ship->m_Health * 2;
       SDL_SetRenderDrawColor(m_Renderer, 50, 50, 200, 255);
       SDL_RenderFillRect(m_Renderer, &health2);
@@ -373,7 +373,7 @@ void Game::DrawHUD()
 
     for (int i = 0; i < Player::Players[1].m_Lives; ++i)
     {
-      SDL_Rect box = {ScreenWidth - 10 - (i + 1) * 20, ScreenHeight - 45, 10, 10};
+      SDL_Rect box = { c_ScreenWidth - 10 - (i + 1) * 20, c_ScreenHeight - 45, 10, 10 };
       SDL_SetRenderDrawColor(m_Renderer, 255, 255, 255, 255);
       SDL_RenderFillRect(m_Renderer, &box);
     }
@@ -382,20 +382,20 @@ void Game::DrawHUD()
   // display score
   std::stringstream ss;
   ss << Player::Players[0].m_Score;
-  Graphics::DrawText(m_Renderer, m_Font10, "SCORE", ScreenWidth / 2, ScreenHeight - 35, c_White);
-  Graphics::DrawText(m_Renderer, m_Font16, ss.str(), ScreenWidth / 2, ScreenHeight - 20, c_White);
+  Graphics::DrawText(m_Renderer, m_Font10, "SCORE", c_ScreenWidth / 2, c_ScreenHeight - 35, c_White);
+  Graphics::DrawText(m_Renderer, m_Font16, ss.str(), c_ScreenWidth / 2, c_ScreenHeight - 20, c_White);
 
   // boss HUD
   if (Boss::FinalBoss.m_IsSpawned && !Boss::FinalBoss.m_IsKilled)
   {
-    int barWidth = ScreenWidth - 40;
-    SDL_Rect boss = {20, 20, barWidth, 10};
+    int barWidth = c_ScreenWidth - 40;
+    SDL_Rect boss = { 20, 20, barWidth, 10 };
     SDL_SetRenderDrawColor(m_Renderer, 50, 50, 50, 255);
     SDL_RenderFillRect(m_Renderer, &boss);
 
     if (Boss::FinalBoss.m_Boss != nullptr)
     {
-      boss.w = (Sint16)(1.0f * Boss::FinalBoss.m_Boss->m_Health / BossHealth * barWidth);
+      boss.w = Boss::FinalBoss.m_Boss->m_Health / c_BossHealth * barWidth;
       SDL_SetRenderDrawColor(m_Renderer, 50, 200, 50, 255);
       SDL_RenderFillRect(m_Renderer, &boss);
     }
@@ -405,75 +405,75 @@ void Game::DrawHUD()
 void Game::DrawTitle()
 {
   Texture* titleTexture = Texture::TextureList["Title"];
-  SDL_Rect titleRect = { ScreenWidth / 2 - titleTexture->m_Width / 2, ScreenHeight / 2 - titleTexture->m_Height / 2 - 100, titleTexture->m_Width, titleTexture->m_Height };
+  SDL_Rect titleRect = { c_ScreenWidth / 2 - titleTexture->m_Width / 2, c_ScreenHeight / 2 - titleTexture->m_Height / 2 - 100, titleTexture->m_Width, titleTexture->m_Height };
   SDL_RenderCopy(m_Renderer, titleTexture->m_Textures[0], nullptr, &titleRect);
 
-  Graphics::DrawText(m_Renderer, m_Font25, "Press ENTER to Start", ScreenWidth / 2, ScreenHeight / 2 + 75, c_White);
-  Graphics::DrawText(m_Renderer, m_Font20, (m_IsSinglePlayer ? "1-Player" : "2-Player"), ScreenWidth / 2, ScreenHeight / 2 + 100, c_White);
+  Graphics::DrawText(m_Renderer, m_Font25, "Press ENTER to Start", c_ScreenWidth / 2, c_ScreenHeight / 2 + 75, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, (m_IsSinglePlayer ? "1-Player" : "2-Player"), c_ScreenWidth / 2, c_ScreenHeight / 2 + 100, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font20, "Players", ScreenWidth / 2 - 100, ScreenHeight / 2 + 150, c_White);
-  Graphics::DrawText(m_Renderer, m_Font20, "(1)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 150, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Players", c_ScreenWidth / 2 - 100, c_ScreenHeight / 2 + 150, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(1)", c_ScreenWidth / 2 + 100, c_ScreenHeight / 2 + 150, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font20, "Controls", ScreenWidth / 2 - 100, ScreenHeight / 2 + 175, c_White);
-  Graphics::DrawText(m_Renderer, m_Font20, "(2)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 175, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Controls", c_ScreenWidth / 2 - 100, c_ScreenHeight / 2 + 175, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(2)", c_ScreenWidth / 2 + 100, c_ScreenHeight / 2 + 175, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font20, "Credits", ScreenWidth / 2 - 100, ScreenHeight / 2 + 200, c_White);
-  Graphics::DrawText(m_Renderer, m_Font20, "(3)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 200, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Credits", c_ScreenWidth / 2 - 100, c_ScreenHeight / 2 + 200, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(3)", c_ScreenWidth / 2 + 100, c_ScreenHeight / 2 + 200, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font20, "Debug", ScreenWidth / 2 - 100, ScreenHeight / 2 + 225, c_White);
-  Graphics::DrawText(m_Renderer, m_Font20, "(Tab)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 225, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Debug", c_ScreenWidth / 2 - 100, c_ScreenHeight / 2 + 225, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(Tab)", c_ScreenWidth / 2 + 100, c_ScreenHeight / 2 + 225, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font20, "Exit", ScreenWidth / 2 - 100, ScreenHeight / 2 + 250, c_White);
-  Graphics::DrawText(m_Renderer, m_Font20, "(Esc)", ScreenWidth / 2 + 100, ScreenHeight / 2 + 250, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "Exit", c_ScreenWidth / 2 - 100, c_ScreenHeight / 2 + 250, c_White);
+  Graphics::DrawText(m_Renderer, m_Font20, "(Esc)", c_ScreenWidth / 2 + 100, c_ScreenHeight / 2 + 250, c_White);
 }
 
 void Game::DrawControls()
 {
   Texture* keyTexture = Texture::TextureList["Keyboard"];
-  SDL_Rect keyRect = { ScreenWidth / 2 - keyTexture->m_Width / 2, ScreenHeight / 2 - keyTexture->m_Height / 2, keyTexture->m_Width, keyTexture->m_Height };
+  SDL_Rect keyRect = { c_ScreenWidth / 2 - keyTexture->m_Width / 2, c_ScreenHeight / 2 - keyTexture->m_Height / 2, keyTexture->m_Width, keyTexture->m_Height };
   SDL_RenderCopy(m_Renderer, keyTexture->m_Textures[0], nullptr, &keyRect);
 
-  Graphics::DrawText(m_Renderer, m_Font35, "CONTROLS", ScreenWidth / 2, 40, c_White);
-  Graphics::DrawText(m_Renderer, m_Font16, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight - 40, c_White);
+  Graphics::DrawText(m_Renderer, m_Font35, "CONTROLS", c_ScreenWidth / 2, 40, c_White);
+  Graphics::DrawText(m_Renderer, m_Font16, "Press ENTER to Return to Main Menu", c_ScreenWidth / 2, c_ScreenHeight - 40, c_White);
 }
 
 void Game::DrawCredits()
 {
-  Graphics::DrawText(m_Renderer, m_Font35, "CREDITS", ScreenWidth / 2, 40, c_White);
+  Graphics::DrawText(m_Renderer, m_Font35, "CREDITS", c_ScreenWidth / 2, 40, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font14, "Programming", ScreenWidth / 2, 150, c_White);
-  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", ScreenWidth / 2, 170, c_White);
+  Graphics::DrawText(m_Renderer, m_Font14, "Programming", c_ScreenWidth / 2, 150, c_White);
+  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", c_ScreenWidth / 2, 170, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font14, "Programming", ScreenWidth / 2, 250, c_White);
-  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", ScreenWidth / 2, 270, c_White);
+  Graphics::DrawText(m_Renderer, m_Font14, "Programming", c_ScreenWidth / 2, 250, c_White);
+  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", c_ScreenWidth / 2, 270, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font14, "Programming", ScreenWidth / 2, 350, c_White);
-  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", ScreenWidth / 2, 370, c_White);
+  Graphics::DrawText(m_Renderer, m_Font14, "Programming", c_ScreenWidth / 2, 350, c_White);
+  Graphics::DrawText(m_Renderer, m_Font25, "Jason Norris", c_ScreenWidth / 2, 370, c_White);
 
-  Graphics::DrawText(m_Renderer, m_Font16, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight - 40, c_White);
+  Graphics::DrawText(m_Renderer, m_Font16, "Press ENTER to Return to Main Menu", c_ScreenWidth / 2, c_ScreenHeight - 40, c_White);
 }
 
 void Game::DrawPaused()
 {
-  SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
+  SDL_Rect rect = { 0, 0, c_ScreenWidth, c_ScreenHeight };
   Graphics::FillAlphaRect(m_Renderer, rect, 0, 0, 0, 128);
-  Graphics::DrawText(m_Renderer, m_Font35, "PAUSED", ScreenWidth / 2, ScreenHeight / 2, c_White);
+  Graphics::DrawText(m_Renderer, m_Font35, "PAUSED", c_ScreenWidth / 2, c_ScreenHeight / 2, c_White);
 }
 
 void Game::DrawGameOver()
 {
-  SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
+  SDL_Rect rect = { 0, 0, c_ScreenWidth, c_ScreenHeight };
   Graphics::FillAlphaRect(m_Renderer, rect, 255, 0, 0, 128);
-  Graphics::DrawText(m_Renderer, m_Font35, "FAILURE", ScreenWidth / 2, ScreenHeight / 2, c_Red);
-  Graphics::DrawText(m_Renderer, m_Font14, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight / 2 + 50, c_Red);
+  Graphics::DrawText(m_Renderer, m_Font35, "FAILURE", c_ScreenWidth / 2, c_ScreenHeight / 2, c_Red);
+  Graphics::DrawText(m_Renderer, m_Font14, "Press ENTER to Return to Main Menu", c_ScreenWidth / 2, c_ScreenHeight / 2 + 50, c_Red);
 }
 
 void Game::DrawVictory()
 {
-  SDL_Rect rect = {0, 0, ScreenWidth, ScreenHeight};
+  SDL_Rect rect = { 0, 0, c_ScreenWidth, c_ScreenHeight };
   Graphics::FillAlphaRect(m_Renderer, rect, 0, 255, 0, 128);
-  Graphics::DrawText(m_Renderer, m_Font35, "SUCCESS", ScreenWidth / 2, ScreenHeight / 2, c_Green);
-  Graphics::DrawText(m_Renderer, m_Font14, "Press ENTER to Return to Main Menu", ScreenWidth / 2, ScreenHeight / 2 + 50, c_Green);
+  Graphics::DrawText(m_Renderer, m_Font35, "SUCCESS", c_ScreenWidth / 2, c_ScreenHeight / 2, c_Green);
+  Graphics::DrawText(m_Renderer, m_Font14, "Press ENTER to Return to Main Menu", c_ScreenWidth / 2, c_ScreenHeight / 2 + 50, c_Green);
 }
 
 void Game::DrawDebug()

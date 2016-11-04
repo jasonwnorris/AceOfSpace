@@ -12,7 +12,7 @@ void Star::Update(float p_DeltaTime)
 {
   Object::Update(p_DeltaTime);
 
-  if (m_Position.Y > ScreenHeight)
+  if (m_Position.Y > c_ScreenHeight)
   {
     Remove();
   }

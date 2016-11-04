@@ -10,9 +10,9 @@
 
 Miniboss::Miniboss(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
-  m_PointValue = MinibossPointValue;
-  m_Health = MinibossHealth;
-  m_Position = Vector2f::Up * ScreenHeight / 2.0f;
+  m_PointValue = c_MinibossPointValue;
+  m_Health = c_MinibossHealth;
+  m_Position = Vector2f::Up * c_ScreenHeight / 2.0f;
   m_LastFired = 0.0f;
 }
 
@@ -21,7 +21,7 @@ void Miniboss::Update(float p_DeltaTime)
   Enemy::Update(p_DeltaTime);
 
   m_LastFired += p_DeltaTime;
-  if (m_LastFired > MinibossFireDelay)
+  if (m_LastFired > c_MinibossFireDelay)
   {
     FireBullet();
   }
@@ -29,7 +29,7 @@ void Miniboss::Update(float p_DeltaTime)
 
 void Miniboss::RemoveOffScreen()
 {
-  SDL_Rect screenBounds = { -ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3 };
+  SDL_Rect screenBounds = { -c_ScreenWidth, -c_ScreenHeight, c_ScreenWidth * 3, c_ScreenHeight * 3 };
   SDL_Rect objectBounds = GetBounds();
 
   if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)

@@ -41,12 +41,12 @@ void Boss::DestroyBoss()
 
 BossEnemy::BossEnemy(const std::string& p_Keyname) : Enemy(p_Keyname)
 {
-  m_PointValue = BossPointValue;
+  m_PointValue = c_BossPointValue;
 
-  m_Position = Vector2f(ScreenWidth / 2, -m_Sprite->m_Origin.Y);
+  m_Position = Vector2f(c_ScreenWidth / 2, -m_Sprite->m_Origin.Y);
   m_Direction = Vector2f::Down;
-  m_Speed = BossSpeed;
-  m_Health = BossHealth;
+  m_Speed = c_BossSpeed;
+  m_Health = c_BossHealth;
 
   m_ChildrenAngle = 0.0f;
   m_FireAngle = 0.0f;
@@ -71,14 +71,14 @@ void BossEnemy::Update(float p_DeltaTime)
   }
   else if (m_Direction.X > 0)
   {
-    if (m_Position.X > ScreenWidth - 300)
+    if (m_Position.X > c_ScreenWidth - 300)
     {
       m_Direction = Vector2f::Left;
     }
   }
   else
   {
-    if (m_Position.Y > ScreenHeight / 3)
+    if (m_Position.Y > c_ScreenHeight / 3)
     {
       if (rand() % 2 == 0)
       {
@@ -91,13 +91,13 @@ void BossEnemy::Update(float p_DeltaTime)
     }
   }
 
-  m_ChildrenAngle += BossChildrenRotation;
+  m_ChildrenAngle += c_BossChildrenRotation;
 
-  float difficulty = (m_Health < BossHealth / 2) ? 2.0f : 1.0f;
-  m_FireAngle += BossFireRotation * difficulty;
+  float difficulty = (m_Health < c_BossHealth / 2) ? 2.0f : 1.0f;
+  m_FireAngle += c_BossFireRotation * difficulty;
   m_LastFired += p_DeltaTime * difficulty;
 
-  if (m_LastFired > BossFireDelay)
+  if (m_LastFired > c_BossFireDelay)
   {
     FireBullet();
   }
@@ -132,7 +132,7 @@ void BossEnemy::UpdateChildren()
 
 void BossEnemy::RemoveOffScreen()
 {
-  SDL_Rect screenBounds = { -ScreenWidth, -ScreenHeight, ScreenWidth * 3, ScreenHeight * 3 };
+  SDL_Rect screenBounds = { -c_ScreenWidth, -c_ScreenHeight, c_ScreenWidth * 3, c_ScreenHeight * 3 };
   SDL_Rect objectBounds = GetBounds();
 
   if (SDL_HasIntersection(&screenBounds, &objectBounds) == SDL_FALSE)
